@@ -1,0 +1,32 @@
+{
+  "pages": [
+    "pages/home/main",
+    "pages/main/main",
+    "pages/index/main",
+    "pages/logs/main",
+    "pages/counter/main",
+    "pages/page2/main",
+    "pages/testExtend/main",
+    "pages/ble/main",
+    "pages/meeting/meet/main",
+    "pages/meeting/addmeet/main",
+    "pages/meeting/detailmeet/main",
+    "pages/meeting/selectperson/main",
+    "pages/meeting/selecttime/main"
+
+  ],
+  "subPackages": [
+    {
+      "root": "packageA",
+      "pages": [
+        "pages/index/main"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  }
+}
