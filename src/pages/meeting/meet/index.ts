@@ -15,7 +15,7 @@ export default class Meet extends Vue {
   @meetModule.Mutation('setmeetingData') setmeetingData!: (data: any) => void;
   @meetModule.Mutation('setshowData') setshowData!: (data: any) => void;
   @meetModule.Getter('showData') showData!: (data: any) => void;
-  headerOption = {
+  private headerOption = {
     lefttext: '返回首页',
     lefticon: '',
     righttext: '新增',

@@ -1,0 +1,194 @@
+import { Component, Prop, Vue, Emit, Watch } from "vue-property-decorator";
+import { State, Getter, Action, Mutation, namespace } from "vuex-class";
+import CellItem from "@/components/cellitem/CellItem.vue";
+import { bookStation } from "@/api/";
+import Calendar from "@/components/calendar/Calendar.vue";
+import Time, {
+  currentIsBefore,
+  currentIsAfter,
+  isSameDay
+} from "@/utils/time.ts";
+const workModule = namespace("workarea");
+const meetModule = namespace("meeting");
+@Component({
+  components: {
+    CellItem,
+    Calendar
+  }
+})
+export default class AddDesk extends Vue {
+  @workModule.Mutation("setdeskBookDateCertain") setdeskBookDateCertain!: any;
+  @workModule.Mutation("setdeskBookDate") setdeskBookDate!: any;
+  @workModule.Mutation("restoreDeskBookSeatData") restoreDeskBookSeatData!: any;
+  @workModule.State("deskBookDate") deskBookDate!: any;
+  @workModule.State("deskBookSeatData") deskBookSeatData!: Array<any>;
+  @workModule.State("eskBookDateCertain") deskBookDateCertain!: any;
+  @workModule.State("deskSeatCertain") deskSeatCertain!: any;
+  @meetModule.State("user") user!: any;
+  private title:string="新增工位预约";
+  private headerOption = {
+    lefttext: '返回',
+    lefticon: '',
+    righttext: '完成',
+    righticon: '',
+  };
+  private deskBookCalendar: Array<DayObj> = [];
+  private cellTime: CellData = {
+    title: "使用日期",
+    content: "请选择"
+  };
+  private cellDesk: CellData = {
+    title: "工位选择",
+    content: "请选择",
+    link: "/selectDesk"
+  };
+  private showCalendar: boolean = false;
+  private insertContent() {
+    this.showCalendar = true;
+  }
+  private setdeskBookCalendar(value: Array<DayObj>) {
+    console.log(value);
+    this.deskBookCalendar = value;
+    this.setdeskBookDate(value);
+  }
+  handleSelectDesk() {
+    wx.navigateTo({url:`../selectdesk/main`});
+  }
+  handleSelectTime() {
+    this.showCalendar = true;
+    this.setdeskBookDateCertain(false);
+    // 清除日历选中状态
+    this.setdeskBookDate([]);
+  }
+  getStationValue() {
+    if (!this.deskSeatCertain) {
+      // 没有确认座位的时候不执行并清空数据
+      this.restoreDeskBookSeatData();
+      return "";
+    }
+    let selectOne = this.deskBookSeatData.find(
+      character => character.isActive === true
+    );
+    if (selectOne === undefined || Object.keys(selectOne).length === 0) {
+      return "";
+    }
+    let index = this.deskBookSeatData.indexOf(selectOne) + 1;
+    return index.toString();
+  }
+  private certainTime() {
+    // 这里需要校验一下选择时间是否合法
+    let start = Time.getFormatDateString(this.deskBookDate[0].day, "-");
+    if (currentIsBefore(new Date(start)) || isSameDay(new Date(start))) {
+      this.showCalendar = false;
+      this.setdeskBookDateCertain(true);
+    } else {
+      (this as any).$msgBox
+        .showMsgBox({
+          title: "提示",
+          content: "选择时间不合法，请重新选择"
+        })
+        .then(
+          (val: string) => {
+            this.cancelTime();
+          },
+          (val: string) => {
+            this.cancelTime();
+          }
+        );
+    }
+  }
+  cancelTime() {
+    this.showCalendar = false;
+    this.setdeskBookDate([]);
+  }
+  async handleComplate() {
+    let responseValue: any;
+    try {
+      if (this.deskBookDate.length === 0) {
+        (this as any).$msgBox.showMsgBox({
+          title: "提示",
+          content: "请先选择预约时间！！"
+        });
+        return;
+      }
+      let start = Time.getFormatDateString(this.deskBookDate[0].day, "/");
+      let end = Time.getFormatDateString(this.deskBookDate[1].day, "/");
+      let station = this.getStationValue();
+      if (start === "" || end === "") {
+        (this as any).$msgBox.showMsgBox({
+          title: "提示",
+          content: "请先选择预约时间！！"
+        });
+        return;
+      }
+      if (station === "") {
+        (this as any).$msgBox.showMsgBox({
+          title: "提示",
+          content: "请前往选择工位！！"
+        });
+        return;
+      }
+      const params = new URLSearchParams();
+      params.append("userCard", this.user.usercard);
+      params.append("station", station);
+      params.append("startTime", start);
+      params.append("endTime", end);
+
+      responseValue = await bookStation(params);
+      console.log(responseValue);
+    } catch (err) {
+      (this as any).$msgBox.showMsgBox({
+        title: "提示",
+        content: "error"
+      });
+    }
+    const { status, data } = responseValue;
+    if (status !== 200) {
+      alert("服务器异常");
+    } else {
+      if (data.status === "success") {
+        (this as any).$msgBox
+          .showMsgBox({
+            title: "提示",
+            content: "预定工位成功"
+          })
+          .then(
+            (val: string) => {
+              // 清空预定时间
+              this.setdeskBookDate([]);
+              this.restoreDeskBookSeatData();
+              wx.navigateTo({url:`../deskBook/main`});
+            },
+            (val: string) => {
+              // 清空预定时间
+              this.setdeskBookDate([]);
+              this.restoreDeskBookSeatData();
+              wx.navigateTo({url:`../deskBook/main`});
+            }
+          );
+      } else {
+        (this as any).$msgBox.showMsgBox({
+          title: "提示",
+          content: data.msg
+        });
+      }
+    }
+  }
+  backToDesk() {
+    wx.navigateTo({url:`../deskBook/main`});
+    // 清除预定的记录
+  }
+  get deskValue() {
+    return this.getStationValue();
+  }
+  get timeValue() {
+    //if (this.deskBookDateCertain) {
+      if (this.deskBookDate.length === 2) {
+        let start = Time.getFormatDateString(this.deskBookDate[0].day, ".");
+        let end = Time.getFormatDateString(this.deskBookDate[1].day, ".");
+        return `${start}-${end}`;
+      }
+    //}
+    return "";
+  }
+}
