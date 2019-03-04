@@ -30,7 +30,7 @@ export default class XMain extends Vue {
     {
       name: "办公管理",
       path: require("./../../assets/images/icon-2.png"),
-      link: "/pages/meeting/deskBook/main"
+      link: "/pages/workarea/deskbook/main"
     },
     {
       name: "报销管理",

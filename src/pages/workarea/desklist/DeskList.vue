@@ -56,11 +56,11 @@
   height: 100%;
   overflow: auto;
   .deskBook-card {
-    width: 686px;
-    height: 306px;
-    border-radius: 12px;
+    width: 686rpx;
+    height: 306rpx;
+    border-radius: 12rpx;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 20rpx 0;
     .deskBook-body {
       &.occupy {
         background-image: linear-gradient(-45deg, #fe7d46 1%, #fe994e 100%),
@@ -70,8 +70,8 @@
           color: #fc6822;
         }
       }
-      width: 686px;
-      height: 226px;
+      width: 686rpx;
+      height: 226rpx;
       background-image: linear-gradient(-45deg, #5060fe 1%, #409cfc 100%),
         linear-gradient(#ffffff, #ffffff);
       display: flex;
@@ -80,59 +80,59 @@
       .deskBook-body-left {
         text-align: left;
         .iconfont {
-          font-size: 30px;
-          margin-right: 10px;
+          font-size: 30rpx;
+          margin-right: 10rpx;
         }
         .deskBook-body-desk {
           font-family: PingFangSC-Medium;
-          font-size: 36px;
+          font-size: 36rpx;
           font-weight: normal;
           color: #ffffff;
         }
         .deskBook-body-time {
           font-family: PingFangSC-Regular;
-          font-size: 30px;
+          font-size: 30rpx;
           font-weight: normal;
           color: #ffffff;
         }
         .deskBook-body-state {
           font-family: PingFangSC-Regular;
-          font-size: 30px;
+          font-size: 30rpx;
           font-weight: normal;
           color: #ffffff;
         }
       }
       .icon-chair {
-        font-size: 184px;
+        font-size: 184rpx;
         color: #2942f1;
       }
     }
     .deskBook-footer {
-      width: 686px;
-      height: 80px;
+      width: 686rpx;
+      height: 80rpx;
       background-color: #ffffff;
       display: flex;
       justify-content: space-around;
       align-items: center;
       font-family: PingFangSC-Regular;
-      font-size: 32px;
+      font-size: 32rpx;
       font-weight: normal;
       color: #366bfd;
       .deskBook-footernavigation {
         .icon-navigation {
-          margin-left: 6px;
-          font-size: 28px;
+          margin-left: 6rpx;
+          font-size: 28rpx;
         }
       }
     }
   }
   .deskBook-card-add {
-    width: 686px;
-    height: 306px;
-    margin: 32px 32px 60px 32px;
+    width: 686rpx;
+    height: 306rpx;
+    margin: 32rpx 32rpx 60rpx 32rpx;
     background-color: #ffffff;
-    border-radius: 12px;
-    border: solid 2px #cccccc;
+    border-radius: 12rpx;
+    border: solid 2rpx #cccccc;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -142,11 +142,11 @@
       }
       .deskBook-card-text {
         font-family: PingFangSC-Medium;
-        font-size: 36px;
+        font-size: 36rpx;
         font-weight: normal;
         font-stretch: normal;
-        line-height: 39px;
-        letter-spacing: 0px;
+        line-height: 39rpx;
+        letter-spacing: 0rpx;
         color: #a6a6a6;
       }
     }

@@ -13,6 +13,7 @@
     <check-list :linkData="personData"
                @change="handleSelect"></check-list>
     <i-button type="primary" @click="ssss">这是一个按钮</i-button>
+    <canvas style="width: 200px; height: 200px;" canvas-id="myQrcode"></canvas>
   </div>
 </template>
 <script lang="ts" src="./index.ts">

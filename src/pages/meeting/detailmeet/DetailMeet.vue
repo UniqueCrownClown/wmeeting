@@ -5,6 +5,7 @@
       <div class="detail-meet-content">
         <div class="detail-meet-up">
           <img src="" alt="" :value="detail.token">
+          <canvas style="width: 200px; height: 200px;" canvas-id="detailMeet"></canvas>
         </div>
         <div class="detail-meet-down">
           <div class="detail-meet-down-inner">

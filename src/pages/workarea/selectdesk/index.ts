@@ -2,8 +2,13 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { State, Getter, Action, Mutation, namespace } from "vuex-class";
 import { getDeskState } from "@/api/";
 import Time from "@/utils/time.ts";
+import XHeader from '@/components/xheader/XHeader.vue';
 const workModule = namespace("workarea");
-@Component
+@Component({
+  components:{
+    XHeader
+  }
+})
 export default class SelectDesk extends Vue {
   @workModule.State("deskSeatCertain") deskSeatCertain!: any;
   @workModule.State("deskBookSeatData") deskBookSeatData!: any;
@@ -28,10 +33,10 @@ export default class SelectDesk extends Vue {
         })
         .then(
           (val: string) => {
-            wx.redirectTo({url:"../addDesk/main"})
+            wx.redirectTo({url:"../adddesk/main"})
           },
           (val: string) => {
-            wx.redirectTo({url:"../addDesk/main"})
+            wx.redirectTo({url:"../adddesk/main"})
           }
         );
       return;
@@ -61,9 +66,9 @@ export default class SelectDesk extends Vue {
   }
   private handleComplate() {
     this.setdeskSeatCertain(true);
-    wx.redirectTo({url:"../addDesk/main"})
+    wx.redirectTo({url:"../adddesk/main"})
   }
   private returnAddDesk(){
-    wx.redirectTo({url:"../addDesk/main"})
+    wx.redirectTo({url:"../adddesk/main"})
   }
 }

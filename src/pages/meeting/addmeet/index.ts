@@ -49,17 +49,25 @@ export default class AddMeet extends Vue {
   private roomMenu: string[] = ['会议室1', '会议室2', '会议室3'];
   private isShow: boolean = false;
   private returnMeet() {
-    wx.navigateTo({ url: `../meet/main` });
+    wx.redirectTo({ url: `../meet/main` });
   }
-  async handleComplate() {
-    let params = new URLSearchParams();
+  private async handleComplate() {
+    console.log("apple");
     // 提交之前校验一下
     if (this.subject.trim() === '') {
-      alert('请先输入会议主题');
+      wx.showModal({
+        title: '提示',
+        content: '请先输入标题~~~',
+        showCancel: false,
+      });
       return;
     }
     if (this.bookLocation === 0) {
-      alert('请先选择会议室');
+      wx.showModal({
+        title: '提示',
+        content: '请先选择会议室~~~',
+        showCancel: false,
+      });
       return;
     }
     // 请求时间的月和日需不需要补0？？？
@@ -82,21 +90,46 @@ export default class AddMeet extends Vue {
     let current = new Date();
     var compareData = new Date(Date.parse(myTime));
     if (compareData < current) {
-      alert('该时间段不合法,选择正确时间段');
+      wx.showModal({
+        title: '提示',
+        content: '该时间段不合法,选择正确时间段~~~',
+        showCancel: false,
+      });
       return;
     }
 
     let comitPersonList = this.exchangPersonList();
     if (comitPersonList === '请选择') {
-      alert('参会人员不能为空,请选择');
+      wx.showModal({
+        title: '提示',
+        content: '参会人员不能为空,请选择~~~',
+        showCancel: false,
+      });
       return;
     }
-    params.append('subject', this.subject);
-    params.append('room', this.bookLocation);
-    params.append('bookDate', comitDay);
-    params.append('startTime', this.bookTime.startTime);
-    params.append('endTime', this.bookTime.endTime);
-    params.append('participants', comitPersonList);
+    interface ADDMEET {
+      subject: string,
+      room:string,
+      bookDate:string,
+      startTime:string,
+      endTime:string,
+      participants:string
+    }
+    let params = {
+      subject: this.subject,
+      room: this.bookLocation.toString(),
+      bookDate:comitDay,
+      startTime:this.bookTime.startTime,
+      endTime:this.bookTime.endTime,
+      participants:comitPersonList
+    }
+    const params = new URLSearchParams();
+    // params.append('subject', this.subject);
+    // params.append('room', this.bookLocation);
+    // params.append('bookDate', comitDay);
+    // params.append('startTime', this.bookTime.startTime);
+    // params.append('endTime', this.bookTime.endTime);
+    // params.append('participants', comitPersonList);
     console.log(comitDay + comitPersonList);
     let responseValue = await bookMeeting(params);
     let { data, status } = responseValue;
@@ -106,18 +139,21 @@ export default class AddMeet extends Vue {
       console.log(data.status + data.msg);
       // 成功提交
       if (data.status === 'success') {
-        (this as any).$msgBox
-          .showMsgBox({
-            title: '提示',
-            content: '恭喜你，预约成功org~~~',
-          })
-          .then((val: string) => {
-            this.setbookTitle('');
-            this.setbookLocation(0);
-            this.clearbookTime();
-            this.setbookPersonList([]);
-            wx.redirectTo({ url: `/meeting` });
-          });
+        let _this = this;
+        wx.showModal({
+          title: '提示',
+          content: '恭喜你，预约成功org~~~',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              _this.setbookTitle('');
+              _this.setbookLocation(0);
+              _this.clearbookTime();
+              _this.setbookPersonList([]);
+              wx.redirectTo({ url: `../meet/main` });
+            }
+          },
+        });
       } else {
         alert(data.msg);
       }
@@ -160,7 +196,6 @@ export default class AddMeet extends Vue {
     };
     this.isShow = false;
   }
-  @Emit()
   private handleShow(value: boolean) {
     this.isShow = value;
   }

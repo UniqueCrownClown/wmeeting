@@ -65,7 +65,7 @@ export default class SelectPerson extends Vue {
   }
   private returnAddMeet() {
     //清空选择数据
-    wx.navigateTo({url:`../addmeet/main`});
+    wx.redirectTo({url:`../addmeet/main`});
   }
   private handleSelect(data: Array<string>) {
     console.log(data);
@@ -100,7 +100,7 @@ export default class SelectPerson extends Vue {
   // }
 
   private certainBookPersonList() {
-    wx.navigateTo({url:`../addmeet/main`});
+    wx.redirectTo({url:`../addmeet/main`});
   }
   private removePerson(value: string) {
     let index = this.bookPersonList.indexOf(value);

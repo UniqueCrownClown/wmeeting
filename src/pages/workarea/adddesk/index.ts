@@ -3,6 +3,7 @@ import { State, Getter, Action, Mutation, namespace } from "vuex-class";
 import CellItem from "@/components/cellitem/CellItem.vue";
 import { bookStation } from "@/api/";
 import Calendar from "@/components/calendar/Calendar.vue";
+import XHeader from '@/components/xheader/XHeader.vue';
 import Time, {
   currentIsBefore,
   currentIsAfter,
@@ -13,7 +14,8 @@ const meetModule = namespace("meeting");
 @Component({
   components: {
     CellItem,
-    Calendar
+    Calendar,
+    XHeader
   }
 })
 export default class AddDesk extends Vue {
@@ -22,7 +24,7 @@ export default class AddDesk extends Vue {
   @workModule.Mutation("restoreDeskBookSeatData") restoreDeskBookSeatData!: any;
   @workModule.State("deskBookDate") deskBookDate!: any;
   @workModule.State("deskBookSeatData") deskBookSeatData!: Array<any>;
-  @workModule.State("eskBookDateCertain") deskBookDateCertain!: any;
+  @workModule.State("deskBookDateCertain") deskBookDateCertain!: any;
   @workModule.State("deskSeatCertain") deskSeatCertain!: any;
   @meetModule.State("user") user!: any;
   private title:string="新增工位预约";
@@ -40,7 +42,7 @@ export default class AddDesk extends Vue {
   private cellDesk: CellData = {
     title: "工位选择",
     content: "请选择",
-    link: "/selectDesk"
+    link: "../selectdesk/main"
   };
   private showCalendar: boolean = false;
   private insertContent() {
@@ -52,7 +54,7 @@ export default class AddDesk extends Vue {
     this.setdeskBookDate(value);
   }
   handleSelectDesk() {
-    wx.navigateTo({url:`../selectdesk/main`});
+    wx.redirectTo({url:`../selectdesk/main`});
   }
   handleSelectTime() {
     this.showCalendar = true;
@@ -157,13 +159,13 @@ export default class AddDesk extends Vue {
               // 清空预定时间
               this.setdeskBookDate([]);
               this.restoreDeskBookSeatData();
-              wx.navigateTo({url:`../deskBook/main`});
+              wx.redirectTo({url:`../deskbook/main`});
             },
             (val: string) => {
               // 清空预定时间
               this.setdeskBookDate([]);
               this.restoreDeskBookSeatData();
-              wx.navigateTo({url:`../deskBook/main`});
+              wx.redirectTo({url:`../deskbook/main`});
             }
           );
       } else {
@@ -175,7 +177,7 @@ export default class AddDesk extends Vue {
     }
   }
   backToDesk() {
-    wx.navigateTo({url:`../deskBook/main`});
+    wx.redirectTo({url:`../deskbook/main`});
     // 清除预定的记录
   }
   get deskValue() {

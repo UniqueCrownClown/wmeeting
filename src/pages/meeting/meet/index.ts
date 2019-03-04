@@ -64,7 +64,7 @@ export default class Meet extends Vue {
     // });
   }
   toMeetDetail(fIndex: any, cIndex: any) {
-    // wx.navigateTo({
+    // wx.redirectTo({
     //   path: "/detailMeet",
     //   query: {
     //     tabIndex: this.tabIndex.toString(),
@@ -72,7 +72,7 @@ export default class Meet extends Vue {
     //     cIndex
     //   }
     // });
-    wx.navigateTo({
+    wx.redirectTo({
       url:
         '/pages/meeting/detailMeet/main?tabIndex= this.tabIndex&fIndex=fIndex&cIndex=cIndex',
     });
@@ -87,20 +87,20 @@ export default class Meet extends Vue {
       this.setmeetingData(data);
     }
   }
-  created() {
+  mounted() {
     this.queryMeetingData();
   }
-  activated() {
-    this.queryMeetingData();
-  }
+  // activated() {
+  //   this.queryMeetingData();
+  // }
 
   get meetingData() {
     return this.showData(this.tabIndex);
   }
   private addMeet() {
-    wx.navigateTo({ url: `../addmeet/main` });
+    wx.redirectTo({ url: `../addmeet/main` });
   }
   private returnMain() {
-    wx.navigateTo({ url: `/pages/main/main` });
+    wx.redirectTo({ url: `/pages/main/main` });
   }
 }

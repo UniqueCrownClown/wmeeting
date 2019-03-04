@@ -15,7 +15,7 @@
         @click="handleSelectDesk"
       />
     </div>
-    <div class="adddesk-show-calendar" v-if="showCalendar" @click="cancelTime">
+    <div class="adddesk-show-calendar" v-if="showCalendar" @click.stop="cancelTime">
       <div class="adddesk-show-bottom">
         <div class="adddesk-show-title">
           <div class="adddesk-show-certain" @click.stop="cancelTime">取消</div>
@@ -40,12 +40,12 @@
     background-color: rgba(0, 0, 0, 0.3);
     .adddesk-show-bottom {
       .adddesk-show-title {
-        width: 750px;
-        height: 100px;
-        line-height: 100px;
+        width: 750rpx;
+        height: 100rpx;
+        line-height: 100rpx;
         background-color: #ffffff;
         font-family: PingFangSC-Medium;
-        font-size: 32px;
+        font-size: 32rpx;
         font-weight: normal;
         color: #333333;
         display: flex;
@@ -55,7 +55,7 @@
         .adddesk-show-certain {
           float: right;
           color: #fa6017;
-          font-size: 28px;
+          font-size: 28rpx;
           margin-right: 1%;
         }
       }

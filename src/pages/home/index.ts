@@ -3,6 +3,7 @@ import Calendar from '@/components/calendar/Calendar.vue';
 import ActionSheet from '@/components/actionsheet/ActionSheet.vue';
 import CheckList from '@/components/checklist/CheckList.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
+import drawQrcode from '@/utils/weapp.qrcode.js' ;
 @Component({
   components: {
     Calendar,
@@ -74,13 +75,11 @@ export default class Home extends Vue {
     console.log(value);
     this.deskBookDate = value;
   }
-  @Emit()
   handleOptions(value: string) {
     // alert(value);
     console.log(value);
     this.isShow = false;
   }
-  @Emit()
   handleShow(value: boolean) {
     this.isShow = value;
   }
@@ -89,7 +88,7 @@ export default class Home extends Vue {
     this.isShow = !this.isShow;
   }
   link() {
-    wx.navigateTo({ url: '/pages/main/main' });
+    wx.redirectTo({ url: '/pages/main/main' });
   }
   handleSelect(data: Array<string>) {
     console.log(data);
@@ -114,5 +113,13 @@ export default class Home extends Vue {
     //   (character) => character.name === data[0],
     // );
     console.log(this.personData);
+  }
+  mounted (){
+    drawQrcode({
+      width: 200,
+      height: 200,
+      canvasId: 'myQrcode',
+      text: 'zxt'
+    });
   }
 }

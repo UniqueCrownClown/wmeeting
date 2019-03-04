@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/home/main",
-    "pages/main/main",
     "pages/index/main",
+    "pages/main/main",
+    "pages/home/main",
     "pages/logs/main",
     "pages/counter/main",
     "pages/page2/main",
@@ -12,8 +12,12 @@
     "pages/meeting/addmeet/main",
     "pages/meeting/detailmeet/main",
     "pages/meeting/selectperson/main",
-    "pages/meeting/selecttime/main"
-
+    "pages/meeting/selecttime/main",
+    "pages/workarea/adddesk/main",
+    "pages/workarea/deskbook/main",
+    "pages/workarea/selectdesk/main",
+    "pages/logon/login/main",
+    "pages/logon/register/main"
   ],
   "subPackages": [
     {

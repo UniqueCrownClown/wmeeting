@@ -46,7 +46,7 @@ export default class SelectTime extends Vue {
     { startTime: "11:00", endTime: "12:30" }
   ];
   private returnAddMeet() {
-    wx.navigateTo({url:`../addmeet/main`});
+    wx.redirectTo({url:`../addmeet/main`});
   }
   private handleComplate() {}
   async mounted() {
@@ -81,13 +81,11 @@ export default class SelectTime extends Vue {
   private handleSelectRoom() {
     this.isShow = true;
   }
-  @Emit()
   private handleOptions(value: string) {
     const a = this.roomMenu.indexOf(value) + 1;
     this.setbookLocation(a);
     this.isShow = false;
   }
-  @Emit()
   private handleShow(value: boolean) {
     this.isShow = value;
   }

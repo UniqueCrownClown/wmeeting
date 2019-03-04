@@ -1,45 +1,54 @@
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { State, Getter, Action, Mutation, namespace } from "vuex-class";
-import Clock from "@/components/clock/Clock.vue";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import Clock from '@/components/clock/Clock.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
-import { lightControl, tvControl } from "@/api/";
-import { currentIsBefore, currentIsAfter } from "@/utils/time.ts";
-const meetModule = namespace("meeting");
+import { lightControl, tvControl } from '@/api/';
+import { currentIsBefore, currentIsAfter } from '@/utils/time.ts';
+import drawQrcode from '@/utils/weapp.qrcode.js';
+const meetModule = namespace('meeting');
 @Component({
   components: {
-    Clock,XHeader
-  }
+    Clock,
+    XHeader,
+  },
 })
 export default class DetailMeet extends Vue {
-  @meetModule.Getter("showData") meetingData!: any;
-  private title: string="会议详情";
-  headerOption={
-    lefttext:"返回",
-    lefticon:"",
-    righttext:"",
-    righticon:""
-  }
-  private clockSize: string = "96rpx";
-  private roomMenu: string[] = ["会议室1", "会议室2", "会议室3"];
+  @meetModule.Getter('showData') meetingData!: any;
+  private title: string = '会议详情';
+  headerOption = {
+    lefttext: '返回',
+    lefticon: '',
+    righttext: '',
+    righticon: '',
+  };
+  private clockSize: string = '96rpx';
+  private roomMenu: string[] = ['会议室1', '会议室2', '会议室3'];
   private lightState: boolean = true;
   private tvState: boolean = false;
-  private query:any;
-
+  private query: any;
+  mounted() {
+    drawQrcode({
+      width: 200,
+      height: 200,
+      canvasId: 'detailMeet',
+      text: this.detail.token,
+    });
+  }
   private toRoomMap(value: string) {
-    wx.navigateTo({
-      url: "/deskBook?currentPosition=5"
+    wx.redirectTo({
+      url: '/deskBook?currentPosition=5',
     });
   }
   private returnMeeting() {
-    wx.navigateTo({url:"../meet/main"});
+    wx.redirectTo({ url: '../meet/main' });
   }
   private async handleLight() {
     let params = new URLSearchParams();
     params.append(
-      "room",
-      this.showData[this.timeIndex].data[this.dataIndex].room
+      'room',
+      this.showData[this.timeIndex].data[this.dataIndex].room,
     );
-    params.append("method", this.lightState ? "Open" : "Close");
+    params.append('method', this.lightState ? 'Open' : 'Close');
     let responseValue = await lightControl(params);
     console.log(responseValue);
   }
@@ -47,8 +56,8 @@ export default class DetailMeet extends Vue {
     // alert(isUseful)
     if (!isUseful) {
       let params = new URLSearchParams();
-      params.append("tvNum", "5");
-      params.append("method", value);
+      params.append('tvNum', '5');
+      params.append('method', value);
       let responseValue = await tvControl(params);
       console.log(responseValue);
     }
@@ -81,38 +90,38 @@ export default class DetailMeet extends Vue {
     detailData.day = this.showData[this.timeIndex].day;
     Object.assign(
       detailData,
-      this.showData[this.timeIndex].data[this.dataIndex]
+      this.showData[this.timeIndex].data[this.dataIndex],
     );
     return detailData;
   }
 
   get timeIndex() {
     let index: any = this.query.fIndex;
-    if (typeof index === "string") {
+    if (typeof index === 'string') {
       index = Number(index);
     }
     return index;
   }
   get dataIndex() {
     let index: any = this.query.cIndex;
-    if (typeof index === "string") {
+    if (typeof index === 'string') {
       index = Number(index);
     }
     return index;
   }
   get tabIndex() {
     let index: any = this.query.tabIndex;
-    if (typeof index === "string") {
+    if (typeof index === 'string') {
       index = Number(index);
     }
     return index;
   }
   onLoad(option) {
-    console.log(option.query)
-    this.query={
-      fIndex :option.query.fIndex,
-      cIndex:option.query.cIndex,
-      tabIndex:option.query.tabIndex
-    }
+    console.log(option.query);
+    this.query = {
+      fIndex: option.query.fIndex,
+      cIndex: option.query.cIndex,
+      tabIndex: option.query.tabIndex,
+    };
   }
 }
