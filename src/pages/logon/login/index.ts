@@ -1,18 +1,16 @@
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { State, Getter, Action, Mutation, namespace } from "vuex-class";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 //import Joi from "joi";
 // import loginSchema from "./login.schema";
-const meetModule = namespace("meeting");
+const meetModule = namespace('meeting');
 @Component
 export default class Login extends Vue {
-  private username: string = "";
-  private password: string = "";
-  private iconEye: string = "icon-close-eyes";
-  private loginPasswordType: string = "password";
+  private username: string = 'A4407';
+  private password: string = '123456';
+  private iconEye: string = 'icon-close-eyes';
+  private loginPasswordType: string = 'password';
   private isRemember: boolean = false;
-  @meetModule.Mutation("asyncsetUser") asyncsetUser!: (
-    params: URLSearchParams
-  ) => void;
+  @meetModule.Action('asyncsetUser') asyncsetUser!: (params: any) => void;
 
   async handleLogin() {
     // const { error } = Joi.validate(
@@ -29,19 +27,22 @@ export default class Login extends Vue {
     //   return;
     // }
     try {
-      const params = new URLSearchParams();
-      params.append("usercard", this.username);
-      params.append("password", this.password);
+      // let params = new URLSearchParams();
+      // let params = new FormData();
+      // params.append("usercard", this.username);
+      // params.append("password", this.password);
+      const params =`usercard=${this.username}&password=${this.password}`;
+
       const responseValue: any = await this.asyncsetUser(params);
       const { status, data } = responseValue;
       if (status !== 200) {
-        alert("服务器异常");
+        alert('服务器异常');
       } else {
-        if (data.status === "success") {
-          if (this.username === "A0000") {
+        if (data.status === 'success') {
+          if (this.username === 'A0000') {
             // this.$router.push(`/supermain`);
           } else {
-            wx.redirectTo({url:"../../main/main"});
+            wx.redirectTo({ url: '../../main/main' });
           }
         } else {
           alert(data.msg);
@@ -52,15 +53,15 @@ export default class Login extends Vue {
     }
   }
   toRegister() {
-    wx.redirectTo({url:"../register/main"})
+    wx.redirectTo({ url: '../register/main' });
   }
   eyeOpen() {
-    if (this.loginPasswordType === "password") {
-      this.loginPasswordType = "text";
-      this.iconEye = "icon-eyes";
+    if (this.loginPasswordType === 'password') {
+      this.loginPasswordType = 'text';
+      this.iconEye = 'icon-eyes';
     } else {
-      this.loginPasswordType = "password";
-      this.iconEye = "icon-close-eyes";
+      this.loginPasswordType = 'password';
+      this.iconEye = 'icon-close-eyes';
     }
   }
 }

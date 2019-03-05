@@ -1,7 +1,7 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
-import RoomMap from '@/pages/workarea/roommap/RoomMap.vue';
-import DeskList from '@/pages/workarea/desklist/DeskList.vue';
+import RoomMap from '@/packageA/pages/workarea/roommap/RoomMap.vue';
+import DeskList from '@/packageA/pages/workarea/desklist/DeskList.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
 const workModule = namespace('workarea');
 @Component({

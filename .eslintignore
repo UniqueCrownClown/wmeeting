@@ -1,3 +1,4 @@
 build/*.js
 config/*.js
-weapp.qrcode.js
+weapp-qrcode.js
+rpx2px.js

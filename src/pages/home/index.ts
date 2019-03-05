@@ -3,7 +3,6 @@ import Calendar from '@/components/calendar/Calendar.vue';
 import ActionSheet from '@/components/actionsheet/ActionSheet.vue';
 import CheckList from '@/components/checklist/CheckList.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
-import drawQrcode from '@/utils/weapp.qrcode.js' ;
 @Component({
   components: {
     Calendar,
@@ -115,11 +114,5 @@ export default class Home extends Vue {
     console.log(this.personData);
   }
   mounted (){
-    drawQrcode({
-      width: 200,
-      height: 200,
-      canvasId: 'myQrcode',
-      text: 'zxt'
-    });
   }
 }

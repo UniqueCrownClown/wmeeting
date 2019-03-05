@@ -25,11 +25,15 @@ export default class Meet extends Vue {
     { text: '已完成', isSelect: true },
     { text: '未完成', isSelect: false },
   ];
-  private clockSize: string = '96rpx';
+  private clockSize: string = '80rpx';
   private roomMenu: string[] = ['会议室1', '会议室2', '会议室3'];
   private tabIndex: number = 0;
   private handleTab(index){
     this.tabIndex = index;
+    this.headerTab = [
+      { text: '已完成', isSelect: index === 0 ? true : false },
+      { text: '未完成', isSelect: index === 1 ? true : false },
+    ];
   }
   private switchstate(e: any) {
     if (e.target.nodeName.toLowerCase() === 'span') {
@@ -64,17 +68,10 @@ export default class Meet extends Vue {
     // });
   }
   toMeetDetail(fIndex: any, cIndex: any) {
-    // wx.redirectTo({
-    //   path: "/detailMeet",
-    //   query: {
-    //     tabIndex: this.tabIndex.toString(),
-    //     fIndex,
-    //     cIndex
-    //   }
-    // });
+    //fIndex(时间序号) cIndex(时间里的数据序号)
     wx.redirectTo({
       url:
-        '/pages/meeting/detailMeet/main?tabIndex= this.tabIndex&fIndex=fIndex&cIndex=cIndex',
+        `../detailmeet/main?tabIndex=${this.tabIndex}&fIndex=${fIndex}&cIndex=${cIndex}`,
     });
   }
   private async queryMeetingData() {

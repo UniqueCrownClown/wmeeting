@@ -3,6 +3,7 @@ import { Commit } from 'vuex';
 
 export default {
   async asyncsetUser(context: { commit: Commit }, params: any) {
+    // JSON.stringify(params)
     const responseValue = await login(params);
     const { status, data } = responseValue;
     if (status !== 200) {

@@ -62,72 +62,78 @@
   overflow: hidden;
   .meeting-main {
     overflow: auto;
-    height: calc(100% - 56px);
+    height: calc(100% - 64rpx);
   }
   .item-block {
     .item-block-time {
-      width: 720px;
-      height: 80px;
-      padding-left: 30px;
-      line-height: 80px;
+      width: 720rpx;
+      height: 80rpx;
+      padding-left: 30rpx;
+      line-height: 80rpx;
       text-align: left;
       background-color: #ffffff;
       font-family: PingFangSC-Regular;
-      font-size: 30px;
+      font-size: 30rpx;
       font-weight: normal;
       color: #888888;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1rpx solid #ccc;
     }
     .meeting-blo {
-      width: 750px;
-      height: 136px;
+      width: 750rpx;
+      height: 136rpx;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1rpx solid #ccc;
       background-color: #ffffff;
       .meeting-blo-left {
-        padding: 20px 30px;
+        padding: 20rpx 30rpx;
       }
       .meeting-blo-right {
         flex-grow: 1;
         .meeting-blo-title {
           text-align: left;
-          height: 35px;
-          line-height: 35px;
+          height: 35rpx;
+          line-height: 35rpx;
           font-family: PingFangSC-Medium;
-          font-size: 36px;
+          font-size: 36rpx;
           font-weight: normal;
           color: #333333;
-          padding: 5px 0 25px 0;
+          padding: 5rpx 0 25rpx 0;
         }
         .meeting-blo-tandl {
           text-align: left;
           .icon {
-            font-size: 30px;
+            font-size: 30rpx;
             color: #cecece;
           }
         }
         .meeting-blo-time {
-          width: 159px;
-          height: 29px;
-          line-height: 29px;
+          width: 159rpx;
+          height: 29rpx;
+          line-height: 29rpx;
           font-family: PingFangSC-Regular;
-          font-size: 30px;
+          font-size: 30rpx;
           font-weight: normal;
           font-weight: normal;
           color: #888888;
           text-align: left;
+          i{
+            display: inline;
+          }
         }
         .meeting-blo-location {
-          width: 107px;
-          height: 29px;
-          line-height: 29px;
+          width: 107rpx;
+          height: 29rpx;
+          line-height: 29rpx;
           font-family: PingFangSC-Regular;
-          font-size: 30px;
+          font-size: 30rpx;
           font-weight: normal;
           color: #888888;
-          padding-left: 60px;
+          padding-left: 60rpx;
+          i{
+            display: inline;
+          }
         }
       }
     }

@@ -4,8 +4,7 @@
     <div class="detail-meet-main">
       <div class="detail-meet-content">
         <div class="detail-meet-up">
-          <img src="" alt="" :value="detail.token">
-          <canvas style="width: 200px; height: 200px;" canvas-id="detailMeet"></canvas>
+          <canvas width="150" height="150" canvas-id="detailMeet"></canvas>
         </div>
         <div class="detail-meet-down">
           <div class="detail-meet-down-inner">
@@ -78,22 +77,25 @@
   background-blend-mode: normal, normal;
   .detail-meet-main {
     width: 100%;
-    height: calc(100% - 46px);
+    height: calc(100% - 64rpx);
     .detail-meet-content {
-      width: 686px;
-      height: 824px;
-      margin: 40px auto;
+      width: 686rpx;
+      height: 824rpx;
+      margin: 40rpx auto;
       background: #ffffff;
-      border-radius: 10px;
+      border-radius: 10rpx;
       .detail-meet-up {
-        height: 404px;
-        border: 1px dotted #cccccc;
+        height: 404rpx;
+        border: 1rpx dotted #cccccc;
         display: flex;
         justify-content: center;
         align-items: center;
+        canvas{
+          margin-left:75px;
+        }
       }
       .detail-meet-down {
-        height: 420px;
+        height: 420rpx;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -101,58 +103,61 @@
           display: flex;
           justify-content: center;
           flex-wrap: wrap;
-          width: 558px;
-          height: 307px;
+          width: 558rpx;
+          height: 307rpx;
           .detail-meet-title {
             width: 100%;
-            padding: 20px 0;
+            padding: 20rpx 0;
             font-family: PingFangSC-Medium;
-            font-size: 38px;
+            font-size: 38rpx;
             font-weight: 700;
-            letter-spacing: 0px;
+            letter-spacing: 0rpx;
             color: #333333;
-            border-bottom: 1px solid #cccccc;
-            margin-bottom: 20px;
+            border-bottom: 1rpx solid #cccccc;
+            margin-bottom: 20rpx;
           }
           .detail-meet-down-left {
             flex-grow: 1;
             width: 80%;
+            i{
+              display: inline;
+            }
             & > div {
               text-align: left;
               font-family: PingFangSC-Medium;
-              font-size: 32px;
+              font-size: 32rpx;
               font-weight: normal;
               font-stretch: normal;
-              line-height: 39px;
-              letter-spacing: 0px;
+              line-height: 39rpx;
+              letter-spacing: 0rpx;
               color: #333333;
-              padding: 10px 0;
+              padding: 10rpx 0;
               // white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
               span {
-                margin-left: 10px;
+                margin-left: 10rpx;
               }
               .icon {
-                font-size: 32px;
+                font-size: 32rpx;
                 color: #cecece;
               }
               .detail-meet-location-direct {
-                width: 62px;
-                height: 30px;
-                font-size: 32px;
+                width: 62rpx;
+                height: 30rpx;
+                font-size: 32rpx;
                 font-weight: normal;
                 font-stretch: normal;
-                line-height: 39px;
-                letter-spacing: 0px;
+                line-height: 39rpx;
+                letter-spacing: 0rpx;
                 color: #366bfd;
                 .icon-navigation {
-                  font-size: 28px;
+                  font-size: 28rpx;
                 }
               }
             }
             & > div.detail-meet-personList {
-              height: 68px;
+              height: 68rpx;
               display: -webkit-box;
               -webkit-line-clamp: 2;
               -webkit-box-orient: vertical;
@@ -165,37 +170,37 @@
     .detail-meet-light,
     .detail-meet-tv {
       background-color: #ffffff;
-      width: 686px;
-      height: 104px;
-      margin: 10px auto;
-      border-radius: 10px;
+      width: 686rpx;
+      height: 104rpx;
+      margin: 10rpx auto;
+      border-radius: 10rpx;
       display: flex;
       .detail-meet-light-title,
       .detail-meet-tv-title {
-        height: 37px;
-        font-size: 38px;
-        line-height: 38px;
-        letter-spacing: 0px;
-        margin-left: 20px;
+        height: 37rpx;
+        font-size: 38rpx;
+        line-height: 38rpx;
+        letter-spacing: 0rpx;
+        margin-left: 20rpx;
         color: #333333;
       }
       justify-content: space-between;
       align-items: center;
       .switch-light-block,
       .switch-tv-block {
-        width: 220px;
-        height: 56px;
+        width: 220rpx;
+        height: 56rpx;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         .switch-component {
-          margin: 0 20px;
+          margin: 0 20rpx;
         }
         .icon-power,
         .icon-hdmi {
-          font-size: 46px;
+          font-size: 46rpx;
           color: #cccccc;
-          margin: 0 20px;
+          margin: 0 20rpx;
         }
         .icon-power.active,
         .icon-hdmi.active {
@@ -208,10 +213,10 @@
 /*switch start*/
 .switch-component {
   position: relative;
-  width: 120px;
-  height: 56px;
+  width: 120rpx;
+  height: 56rpx;
   background-color: #dadada;
-  border-radius: 56px;
+  border-radius: 56rpx;
   border: none;
   outline: none;
   -webkit-appearance: none;

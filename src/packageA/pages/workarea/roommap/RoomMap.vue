@@ -1,6 +1,6 @@
 <template>
   <div class="roomMap">
-    <img src="./../../../assets/images/map.png" alt="室内地图">
+    <img src="../../../..//assets/images/map.png" alt="室内地图">
     <div
       class="roomMap-dot-outer"
       :style="{ top: location.topValue, left: location.leftValue }"

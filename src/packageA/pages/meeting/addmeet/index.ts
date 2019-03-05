@@ -52,7 +52,7 @@ export default class AddMeet extends Vue {
     wx.redirectTo({ url: `../meet/main` });
   }
   private async handleComplate() {
-    console.log("apple");
+    console.log('apple');
     // 提交之前校验一下
     if (this.subject.trim() === '') {
       wx.showModal({
@@ -107,23 +107,7 @@ export default class AddMeet extends Vue {
       });
       return;
     }
-    interface ADDMEET {
-      subject: string,
-      room:string,
-      bookDate:string,
-      startTime:string,
-      endTime:string,
-      participants:string
-    }
-    let params = {
-      subject: this.subject,
-      room: this.bookLocation.toString(),
-      bookDate:comitDay,
-      startTime:this.bookTime.startTime,
-      endTime:this.bookTime.endTime,
-      participants:comitPersonList
-    }
-    const params = new URLSearchParams();
+    // let params = new URLSearchParams();
     // params.append('subject', this.subject);
     // params.append('room', this.bookLocation);
     // params.append('bookDate', comitDay);
@@ -131,6 +115,11 @@ export default class AddMeet extends Vue {
     // params.append('endTime', this.bookTime.endTime);
     // params.append('participants', comitPersonList);
     console.log(comitDay + comitPersonList);
+    const params = `subject=${this.subject}&room=${
+      this.bookLocation
+    }&bookDate=${comitDay}&startTime=${this.bookTime.startTime}&endTime=${
+      this.bookTime.endTime
+    }&participants=${comitPersonList}`;
     let responseValue = await bookMeeting(params);
     let { data, status } = responseValue;
     if (status !== 200) {

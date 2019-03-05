@@ -25,17 +25,17 @@ export default class XMain extends Vue {
     {
       name: "会议管理",
       path: require("./../../assets/images/icon-1.png"),
-      link: "/pages/meeting/meet/main"
+      link: "/packageA/pages/meeting/meet/main"
     },
     {
       name: "办公管理",
       path: require("./../../assets/images/icon-2.png"),
-      link: "/pages/workarea/deskbook/main"
+      link: "/packageA/pages/workarea/deskbook/main"
     },
     {
       name: "报销管理",
       path: require("./../../assets/images/icon-3.png"),
-      link: "/main"
+      link: "/packageA/pages/workarea/deskbook/main"
     }
   ];
   private lifeData: any = [

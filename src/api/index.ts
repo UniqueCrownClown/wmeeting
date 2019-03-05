@@ -4,8 +4,8 @@ import config from '../config';
 // 创建一个flyio的实列
 const instance = new Fly();
 instance.config.timeout = 5000;
-instance.config.headers['Content-Type'] = 'application/json;charset=UTF-8';
-
+// instance.config.headers['Content-Type'] = 'application/json;charset=UTF-8';
+instance.config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 // 用户登录
 export const login = (params: any) =>
   instance.post(`${config.IP}:${config.PORT}${config.prefix}/logon`, params);

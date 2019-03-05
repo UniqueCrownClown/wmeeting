@@ -2,15 +2,15 @@
 	"description": "项目配置文件。",
 	"setting": {
 		"urlCheck": false,
-		"es6": false,
+		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
-	"projectname": "wxmp-demo",
+	"appid": "wx6335f1f026ce77ee",
+	"projectname": "wx-meeting",
 	"libVersion": "2.2.1",
 	"condition": {
 		"search": {

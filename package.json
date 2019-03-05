@@ -2,7 +2,7 @@
   "name": "mpvue-ts-demo",
   "version": "1.0.0",
   "description": "A Mpvue Typescript project",
-  "author": "Wing Gao <wing.gao@live.com>",
+  "author": "",
   "private": true,
   "scripts": {
     "dev": "cross-env node build/dev-server.js",

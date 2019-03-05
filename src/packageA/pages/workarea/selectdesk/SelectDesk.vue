@@ -6,7 +6,7 @@
               @rightevent="handleComplate" />
     <div class="selectDesk-main">
       <div class="desk-image-wrap">
-        <img src="../../../assets/images/desk-map.png"
+        <img src="../../../../assets/images/desk-map.png"
              alt />
         <div class="selectDesk-seat-main">
           <div class="selectDesk-seat-item"

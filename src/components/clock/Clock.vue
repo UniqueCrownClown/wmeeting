@@ -20,13 +20,13 @@
 .circle-clock {
   position: relative;
   .circle-clock-cont {
-    width: 100px;
-    height: 100px;
+    width: 100rpx;
+    height: 100rpx;
     background-color: #fba;
     border-radius: 100%;
     position: relative;
     .hour {
-      width: 2px;
+      width: 2rpx;
       height: 30%;
       background-color: #f5f5f5;
       position: absolute;
@@ -35,16 +35,16 @@
     }
   }
   .minue {
-    width: 2px;
+    width: 2rpx;
     background-color: #e5e5e5;
     position: absolute;
     left: 50%;
   }
   .minue.isHalf {
-    bottom: 6px;
+    bottom: 6rpx;
   }
   .minue.isZero {
-    top: 10px;
+    top: 10rpx;
   }
 }
 </style>

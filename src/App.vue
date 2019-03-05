@@ -1,6 +1,6 @@
 <script lang="ts" src="./app.ts"></script>
-
-<style>
+<style lang="less">
+@import url("./assets/iconfont.css");
   .container {
     height: 100%;
     display: flex;
