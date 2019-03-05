@@ -84,19 +84,15 @@ export default class AddDesk extends Vue {
       this.showCalendar = false;
       this.setdeskBookDateCertain(true);
     } else {
-      (this as any).$msgBox
-        .showMsgBox({
-          title: '提示',
-          content: '选择时间不合法，请重新选择',
-        })
-        .then(
-          (val: string) => {
-            this.cancelTime();
-          },
-          (val: string) => {
-            this.cancelTime();
-          },
-        );
+      let _this = this;
+      wx.showModal({
+        title: '提示',
+        content: '选择时间不合法，请重新选择',
+        showCancel: false,
+        success(res) {
+          _this.cancelTime();
+        },
+      });
     }
   }
   cancelTime() {
@@ -107,9 +103,10 @@ export default class AddDesk extends Vue {
     let responseValue: any;
     try {
       if (this.deskBookDate.length === 0) {
-        (this as any).$msgBox.showMsgBox({
+        wx.showModal({
           title: '提示',
           content: '请先选择预约时间！！',
+          showCancel: false
         });
         return;
       }
@@ -117,16 +114,18 @@ export default class AddDesk extends Vue {
       let end = Time.getFormatDateString(this.deskBookDate[1].day, '/');
       let station = this.getStationValue();
       if (start === '' || end === '') {
-        (this as any).$msgBox.showMsgBox({
+        wx.showModal({
           title: '提示',
           content: '请先选择预约时间！！',
+          showCancel: false
         });
         return;
       }
       if (station === '') {
-        (this as any).$msgBox.showMsgBox({
+        wx.showModal({
           title: '提示',
           content: '请前往选择工位！！',
+          showCancel: false
         });
         return;
       }
@@ -137,14 +136,15 @@ export default class AddDesk extends Vue {
       // params.append("endTime", end);
       const params = `userCard=${
         this.user.usercard
-      }&station=${station}&startTime=${start}&endTime=${end}`;
+        }&station=${station}&startTime=${start}&endTime=${end}`;
 
       responseValue = await bookStation(params);
       console.log(responseValue);
     } catch (err) {
-      (this as any).$msgBox.showMsgBox({
+      wx.showModal({
         title: '提示',
         content: 'error',
+        showCancel: false
       });
     }
     const { status, data } = responseValue;
@@ -152,29 +152,23 @@ export default class AddDesk extends Vue {
       alert('服务器异常');
     } else {
       if (data.status === 'success') {
-        (this as any).$msgBox
-          .showMsgBox({
-            title: '提示',
-            content: '预定工位成功',
-          })
-          .then(
-            (val: string) => {
-              // 清空预定时间
-              this.setdeskBookDate([]);
-              this.restoreDeskBookSeatData();
-              wx.redirectTo({ url: `../deskbook/main` });
-            },
-            (val: string) => {
-              // 清空预定时间
-              this.setdeskBookDate([]);
-              this.restoreDeskBookSeatData();
-              wx.redirectTo({ url: `../deskbook/main` });
-            },
-          );
+        let _this = this;
+        wx.showModal({
+          title: '提示',
+          content: '预定工位成功',
+          showCancel: false,
+          success(res) {
+            // 清空预定时间
+            _this.setdeskBookDate([]);
+            _this.restoreDeskBookSeatData();
+            wx.redirectTo({ url: `../deskbook/main` });
+          },
+        });
       } else {
-        (this as any).$msgBox.showMsgBox({
+        wx.showModal({
           title: '提示',
           content: data.msg,
+          showCancel: false
         });
       }
     }

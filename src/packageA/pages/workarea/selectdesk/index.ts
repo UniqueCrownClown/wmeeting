@@ -26,19 +26,14 @@ export default class SelectDesk extends Vue {
   };
   async mounted() {
     if (this.deskBookDate === undefined || this.deskBookDate.length === 0) {
-      (this as any).$msgBox
-        .showMsgBox({
-          title: "提示",
-          content: "请先选择预定时间~~~"
-        })
-        .then(
-          (val: string) => {
-            wx.redirectTo({url:"../adddesk/main"})
-          },
-          (val: string) => {
-            wx.redirectTo({url:"../adddesk/main"})
-          }
-        );
+      wx.showModal({
+        title: "提示",
+        content: "请先选择预定时间~~~",
+        showCancel: false,
+        success(res) {
+            wx.redirectTo({url:"../adddesk/main"});
+        },
+      });
       return;
     }
     let start = Time.getFormatDateString(this.deskBookDate[0].day, "/");
