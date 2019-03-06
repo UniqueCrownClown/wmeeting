@@ -39,7 +39,7 @@
   background: #f0f0f0;
   overflow: hidden;
   .select-person-main {
-    height: calc(100% - 64rpx);
+    height: calc(100% - 84rpx);
   }
   .select-person-fixpart {
     height: 194rpx;
@@ -98,7 +98,7 @@
   }
   .select-person-directory {
     overflow: auto;
-    height: calc(100% - 214rpx);
+    height: calc(100% - 224rpx);
   }
 }
 //小程序复选框样式

@@ -25,9 +25,9 @@ export default class DeskBook extends Vue {
   private tabIndex: number = 0;
   private currentPosition: number = 0;
   private returnMain() {
-    wx.redirectTo({ url: '../../main/main' });
+    wx.redirectTo({ url: `/pages/main/main` });
   }
-  
+
   @Watch('tabIndex')
   onChildChanged(val: number, oldVal: number) {
     // 当tabIndex从0变为1的时候，清除掉旧的红标位置
@@ -46,5 +46,9 @@ export default class DeskBook extends Vue {
       { text: '室内地图', isSelect: index === 0 ? true : false },
       { text: '工位预约', isSelect: index === 1 ? true : false },
     ];
+  }
+
+  onLoad(option) {
+    this.currentPosition = option.currentPosition;
   }
 }

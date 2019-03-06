@@ -13,7 +13,7 @@
       >
         <div class="deskBook-body-left">
           <div class="deskBook-body-desk">
-            {{ deskNumber[Number(item.station) - 1] }}
+            {{ item.desk }}
           </div>
           <div class="deskBook-body-time">
             <i class="iconfont icon-clock"></i>
@@ -21,7 +21,7 @@
           </div>
           <div class="deskBook-body-state">
             <i class="iconfont icon-location"></i>
-            {{ deskState[Number(item.occupy)] }}
+            {{ item.state }}
           </div>
         </div>
         <i class="iconfont icon-chair"></i>
@@ -38,7 +38,7 @@
           class="deskBook-footerchageState"
           @click.stop="handleClick(item.id, item.occupy)"
         >
-          {{ deskStateText[Number(item.occupy)] }}
+          {{ item.occupytext }}
         </div>
       </div>
     </div>
@@ -55,6 +55,9 @@
 .deskList {
   height: 100%;
   overflow: auto;
+  i{
+    display: inline-block;
+  }
   .deskBook-card {
     width: 686rpx;
     height: 306rpx;

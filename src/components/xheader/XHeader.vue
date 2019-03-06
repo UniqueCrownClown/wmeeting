@@ -19,22 +19,23 @@
 @header-background-color: #1978fe;
 .xheader {
   width: 100%;
-  height: 64rpx;
+  height: 84rpx;
   background-color: @header-background-color;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #ffffff;
   div.tabSwitch {
     background-color: #ffffff;
-    color: #366bfd;
+    color: @header-background-color;
+    border-radius: 4rpx;
     span {
       padding: 10rpx;
-      font-size: 32rpx;
+      font-size: 36rpx;
     }
     span.active {
-      background-color: #366bfd;
+      background-color: @header-background-color;
       color: #ffffff;
     }
   }

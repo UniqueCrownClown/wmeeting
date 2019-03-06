@@ -4,7 +4,7 @@
     <button @click="openBluetoothAdapter">开始扫描</button>
     <button @click="stopBluetoothDevicesDiscovery">停止扫描</button>
     <button @click="closeBluetoothAdapter">结束流程</button>
-    <!-- <ul>
+    <ul>
       <li v-for="item in computedevices"
           :key="item.RSSI">
         <div>{{item.name||item.localName}}</div>
@@ -12,11 +12,7 @@
         <div>UUID: {{item.deviceId}}</div>
         <div>Service数量: {{item.advertisServiceUUIDs}}</div>
       </li>
-    </ul> -->
-    <div>
-      <div>{{positiondata.top}}</div>
-      <div>{{positiondata.left}}</div>
-    </div>
+    </ul>
   </div>
 </template>
 <!--必须指定为ts-->

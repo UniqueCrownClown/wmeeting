@@ -38,7 +38,7 @@
   }
   .deskBook-main {
     background-color: #e9e9e9;
-    height: calc(100% - 64rpx);
+    height: calc(100% - 84rpx);
   }
 }
 </style>

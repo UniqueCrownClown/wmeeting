@@ -29,7 +29,7 @@
   overflow: hidden;
   .selectDesk-main {
     width: 100%;
-    height: calc(100% - 64rpx);
+    height: calc(100% - 84rpx);
     background-color: #f2f2f2;
     display: flex;
     align-items: center;

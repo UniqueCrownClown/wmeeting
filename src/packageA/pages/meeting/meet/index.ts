@@ -25,14 +25,14 @@ export default class Meet extends Vue {
     { text: '已完成', isSelect: true },
     { text: '未完成', isSelect: false },
   ];
-  private clockSize: string = '80rpx';
+  private clockSize: string = '96';
   private roomMenu: string[] = ['会议室1', '会议室2', '会议室3'];
   private tabIndex: number = 0;
   private handleTab(index){
     this.tabIndex = index;
     this.headerTab = [
-      { text: '已完成', isSelect: index === 0 ? true : false },
-      { text: '未完成', isSelect: index === 1 ? true : false },
+      { text: '未完成', isSelect: index === 0 ? true : false },
+      { text: '已完成', isSelect: index === 1 ? true : false },
     ];
   }
   private switchstate(e: any) {

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "i-switch": "../../../../static/iview/switch/index"
+  }
+}

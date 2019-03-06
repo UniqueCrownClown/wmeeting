@@ -1,10 +1,14 @@
 <template>
   <div class="detail-meet">
-    <x-header :title="title" :options="headerOption" @leftevent="returnMeeting" />
+    <x-header :title="title"
+              :options="headerOption"
+              @leftevent="returnMeeting" />
     <div class="detail-meet-main">
       <div class="detail-meet-content">
         <div class="detail-meet-up">
-          <canvas width="150" height="150" canvas-id="detailMeet"></canvas>
+          <canvas width="150"
+                  height="150"
+                  canvas-id="detailMeet"></canvas>
         </div>
         <div class="detail-meet-down">
           <div class="detail-meet-down-inner">
@@ -17,10 +21,8 @@
               <div class="detail-meet-location">
                 <i class="icon iconfont icon-location"></i>
                 <span>{{ roomMenu[detail.room - 1] }}</span>
-                <span
-                  class="detail-meet-location-direct"
-                  @click="toRoomMap(detail.room)"
-                >
+                <span class="detail-meet-location-direct"
+                      @click="toRoomMap(detail.room)">
                   导航
                   <i class="iconfont icon-navigation"></i>
                 </span>
@@ -30,42 +32,32 @@
                 <span>{{ detail.participants }}</span>
               </div>
             </div>
-            <clock :time="detail.startTime" :size="clockSize"></clock>
+            <clock :time="detail.startTime"
+                   :size="clockSize"></clock>
           </div>
         </div>
       </div>
       <div class="detail-meet-light">
         <div class="detail-meet-light-title">会议室顶灯</div>
-        <div class="switch-light-block">
-          <input
-            class="switch-component"
-            type="checkbox"
-            v-model="lightState"
-            @change="handleLight"
-            :disabled="isUseful"
-          />
-        </div>
+        <i-switch :value="lightState"
+                  @change="handleLight"
+                  :disabled="isUseful"></i-switch>
       </div>
       <div class="detail-meet-tv">
         <div class="detail-meet-tv-title">会议室TV</div>
         <div class="switch-tv-block">
-          <i
-            class="icon iconfont icon-hdmi"
-            @click="handleDevice('channel', isUseful)"
-            :class="{ active: !isUseful }"
-          ></i>
-          <i
-            class="icon iconfont icon-power"
-            @click="handleDevice('ton', isUseful)"
-            :class="{ active: !isUseful }"
-          ></i>
+          <i class="icon iconfont icon-hdmi"
+             @click="handleDevice('channel', isUseful)"
+             :class="{ active: !isUseful }"></i>
+          <i class="icon iconfont icon-power"
+             @click="handleDevice('ton', isUseful)"
+             :class="{ active: !isUseful }"></i>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" src="./index.ts">
-
 </script>
 <style lang="less" scoped>
 .detail-meet {
@@ -77,7 +69,7 @@
   background-blend-mode: normal, normal;
   .detail-meet-main {
     width: 100%;
-    height: calc(100% - 64rpx);
+    height: calc(100% - 84rpx);
     .detail-meet-content {
       width: 686rpx;
       height: 824rpx;
@@ -90,8 +82,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        canvas{
-          margin-left:75px;
+        canvas {
+          margin-left: 75px;
         }
       }
       .detail-meet-down {
@@ -119,7 +111,7 @@
           .detail-meet-down-left {
             flex-grow: 1;
             width: 80%;
-            i{
+            i {
               display: inline;
             }
             & > div {
@@ -225,7 +217,7 @@
 
 // 按钮
 .switch-component::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

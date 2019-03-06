@@ -95,6 +95,8 @@ export const releaseDesk = (id: string) =>
   instance.delete(
     `${config.IP}:${config.PORT}${config.prefix}/appointmentStation/${id}`,
   );
-
+// 创建一个flyio的实列
+const pfly = new Fly();
+pfly.config.headers['Content-Type'] = 'application/json;charset=UTF-8';
 export const getPosition = (params: any) =>
-  instance.post(`${config.IP}:${config.PORT}/appointment/coordinate`, params);
+pfly.post(`${config.IP}:${config.PORT}/appointment/coordinate`, params);

@@ -15,3 +15,6 @@ interface ExchangeLinkData {
   letter: string;
   data: Array<LinkData>;
 }
+interface DetailMeet {
+  token?:string
+}

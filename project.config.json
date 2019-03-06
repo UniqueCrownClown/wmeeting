@@ -2,16 +2,16 @@
 	"description": "项目配置文件。",
 	"setting": {
 		"urlCheck": false,
-		"es6": true,
+		"es6": false,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
-	"appid": "wx6335f1f026ce77ee",
+	"appid": "wx2040c2a10f96b21a",
 	"projectname": "wx-meeting",
-	"libVersion": "2.2.1",
+	"libVersion": "2.6.1",
 	"condition": {
 		"search": {
 			"current": -1,

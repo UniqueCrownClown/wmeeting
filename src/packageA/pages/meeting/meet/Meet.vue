@@ -62,7 +62,7 @@
   overflow: hidden;
   .meeting-main {
     overflow: auto;
-    height: calc(100% - 64rpx);
+    height: calc(100% - 84rpx);
   }
   .item-block {
     .item-block-time {

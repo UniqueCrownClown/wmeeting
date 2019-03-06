@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "i-icon": "../../../../static/dist/icon/index"
+    "i-icon": "../../../../static/iview/icon/index"
   }
 }

@@ -12,15 +12,34 @@ export default class DeskList extends Vue {
   private deskStateText: string[] = ['开始使用', '提前释放'];
   private deskNumber: string[] = ['1号工位', '2号工位', '3号工位', '4号工位'];
   private Loop: any = null;
-  activated() {
+  mounted() {
+    // vue hook子组件redirectTo不触发
     this.queryDataList();
   }
+  // onReady(){
+  //   console.log("deskOnReady");
+  // }
+  onShow() {
+    this.queryDataList();
+  }
+
+  onHide() {
+    console.log('onHide');
+  }
+
   get getDeskBookList() {
     let data = this.deskBookRecord.filter(
       (character: any) => character.state === '1',
     );
+    //数组的template不支持解析，转一下
+    data.forEach((element) => {
+      element.desk = this.deskNumber[Number(element.station) - 1];
+      element.state = this.deskState[Number(element.occupy)];
+      element.occupytext = this.deskStateText[Number(element.occupy)];
+    });
     return data;
   }
+
   private async releaseBook(id: string) {
     let responseValue;
     try {
