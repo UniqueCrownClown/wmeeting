@@ -2,7 +2,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import { inArray } from '@/utils/consts';
 const debug = require('debug')('log:Index');
 import { getPosition } from '@/api';
-import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import { namespace } from 'vuex-class';
 const workModule = namespace('workarea');
 
 // 必须使用装饰器的方式来指定component
@@ -11,8 +11,7 @@ export default class BLE extends Vue {
   @workModule.Mutation('setPosition') setPosition!: any;
   devices: Array<any> = [];
   _discoveryStarted: boolean = false;
-  sid: any = null;
-
+  private sid: any = null;
   onShow() {
     // 小程序 hook
     debug('onShow');
@@ -34,7 +33,7 @@ export default class BLE extends Vue {
     });
   }
 
-  openBluetoothAdapter() {
+  private openBluetoothAdapter() {
     wx.openBluetoothAdapter({
       success: (res) => {
         console.log('openBluetoothAdapter success', res);
@@ -43,6 +42,11 @@ export default class BLE extends Vue {
       },
       fail: (res) => {
         if (res.errCode === 10001) {
+          wx.showModal({
+            title: '提示',
+            content: '请先开启一下蓝牙和定位~~~',
+            showCancel: false,
+          });
           wx.onBluetoothAdapterStateChange((res) => {
             console.log('onBluetoothAdapterStateChange', res);
             if (res.available) {
@@ -54,7 +58,7 @@ export default class BLE extends Vue {
     });
   }
 
-  startBluetoothDevicesDiscovery() {
+  private startBluetoothDevicesDiscovery() {
     if (this._discoveryStarted) {
       return;
     }
@@ -68,8 +72,9 @@ export default class BLE extends Vue {
     });
   }
 
-  onBluetoothDeviceFound() {
+  private onBluetoothDeviceFound() {
     wx.onBluetoothDeviceFound((res) => {
+      //这里的res.devices的长度为1
       res.devices.forEach((device) => {
         if (!device.name && !(device as any).localName) {
           return;
@@ -81,7 +86,6 @@ export default class BLE extends Vue {
           if (idx === -1) {
             // this.devices[`${foundDevices.length}`] = device;
             Vue.set(this.devices, `${foundDevices.length}`, device);
-            console.log(device);
           } else {
             // this.devices[`${idx}`] = device;
             Vue.set(this.devices, `${idx}`, device);
@@ -91,7 +95,7 @@ export default class BLE extends Vue {
     });
   }
 
-  closeBluetoothAdapter() {
+  private closeBluetoothAdapter() {
     wx.closeBluetoothAdapter({
       success: () => {
         this._discoveryStarted = false;
@@ -104,10 +108,10 @@ export default class BLE extends Vue {
     // 每隔10秒钟请求一次位置
     this.sid = setTimeout(() => {
       // 判断10秒内，是否满足3个蓝牙设备
-      // if (!this.isSatisfiedThreeDevice()) {
-      //   this.timedTask(3000)
-      //   return
-      // }
+      if (this.devices.length < 3) {
+        this.timedTask(5000);
+        return;
+      }
       // 计算10秒钟内，rssi最强的前三蓝牙设备
       const deviceList = this.computedStrongestSignalDeviceList();
       this.getXY(deviceList)
@@ -115,6 +119,8 @@ export default class BLE extends Vue {
           const { data } = response;
           // 实现定位
           this.positioning(data);
+          // 清除devices中的所有值
+          this.devices = [];
           return this.$nextTick();
         })
         .then(() => {
@@ -126,7 +132,7 @@ export default class BLE extends Vue {
         });
     }, timeout);
   }
-  computedStrongestSignalDeviceList() {
+  private computedStrongestSignalDeviceList() {
     let aaa: Array<any> = [];
     this.devices.sort((a, b) => {
       return b.RSSI - a.RSSI;
@@ -141,18 +147,14 @@ export default class BLE extends Vue {
     return aaa.splice(0, 3);
   }
 
-  get computedevices() {
-    return this.devices;
-  }
   // 上传前三最强信号蓝牙设备
-  getXY(deviceList) {
-    console.log(deviceList);
+  private getXY(deviceList) {
+    // console.log(deviceList);
     return getPosition(deviceList);
   }
 
   // 实现定位
-  positioning(coordinate) {
-    console.log(coordinate);
+  private positioning(coordinate) {
     if (!coordinate) return;
     // 实现换算
     const { x, y } = coordinate;
@@ -170,12 +172,18 @@ export default class BLE extends Vue {
       topValue: top + 'vw',
     });
   }
-  async testapi(){
+
+  get computedevices() {
+    return this.devices;
+  }
+
+  async testapi() {
     const a = [
-      {name:"1839647",mac:"40:06:A0:60:3C:ED",rssi:"-65"},
-      {name:"1839682",mac:"40:06:A0:5F:04:FA",rssi:"-76"},
-      {name:"1839638",mac:"40:06:A0:60:3F:17",rssi:"-80"}];
-      let response = await getPosition(JSON.stringify(a));
-      console.log(response)
+      { name: '1839647', mac: '40:06:A0:60:3C:ED', rssi: '-65' },
+      { name: '1839682', mac: '40:06:A0:5F:04:FA', rssi: '-76' },
+      { name: '1839638', mac: '40:06:A0:60:3F:17', rssi: '-80' },
+    ];
+    let response = await getPosition(JSON.stringify(a));
+    console.log(response);
   }
 }

@@ -30,12 +30,6 @@
       color: #ffffff;
     }
   }
-  .vux-header-title-area {
-    .overwrite-title {
-      width: 80%;
-      margin: 5rpx 10%;
-    }
-  }
   .deskBook-main {
     background-color: #e9e9e9;
     height: calc(100% - 84rpx);

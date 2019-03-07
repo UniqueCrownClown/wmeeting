@@ -3,6 +3,7 @@ import Calendar from '@/components/calendar/Calendar.vue';
 import ActionSheet from '@/components/actionsheet/ActionSheet.vue';
 import CheckList from '@/components/checklist/CheckList.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
+import PingYin from "@/utils/pingyin.ts"
 @Component({
   components: {
     Calendar,
@@ -64,8 +65,8 @@ export default class Home extends Vue {
     });
   }
   ssss() {
-    let a = Number('10');
-    console.log(a.toString());
+    const test = ["阿本","曹超","胡小风","方大","范进"]
+    PingYin.pySegSort2(test);
   }
   handleComplate() {
     console.log('完成');
@@ -92,13 +93,13 @@ export default class Home extends Vue {
   handleSelect(data: Array<string>) {
     console.log(data);
     //全量的data.name
-    for(let i=0;i<this.personData.length;i++){
-      if((data as any).includes(this.personData[i].name)){
+    for (let i = 0; i < this.personData.length; i++) {
+      if ((data as any).includes(this.personData[i].name)) {
         Vue.set(this.personData, i, {
           name: this.personData[i].name,
           isCheck: true,
         });
-      }else{
+      } else {
         Vue.set(this.personData, i, {
           name: this.personData[i].name,
           isCheck: false,
@@ -113,6 +114,5 @@ export default class Home extends Vue {
     // );
     console.log(this.personData);
   }
-  mounted (){
-  }
+  mounted() {}
 }

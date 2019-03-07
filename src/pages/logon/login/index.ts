@@ -8,29 +8,19 @@ export default class Login extends Vue {
   private username: string = 'A4407';
   private password: string = '123456';
   private iconEye: string = 'icon-close-eyes';
-  private loginPasswordType: string = 'password';
+  private showPassword: boolean = true;
   private isRemember: boolean = false;
   @meetModule.Action('asyncsetUser') asyncsetUser!: (params: any) => void;
 
   async handleLogin() {
-    // const { error } = Joi.validate(
-    //   {
-    //     username: this.username,
-    //     password: this.password
-    //   },
-    //   loginSchema
-    // );
-    // if (error && error.details.length >= 1) {
-    //   const detail = error.details[0];
-    //   const message = detail.message;
-    //   alert(message);
-    //   return;
-    // }
     try {
-      // let params = new URLSearchParams();
-      // let params = new FormData();
-      // params.append("usercard", this.username);
-      // params.append("password", this.password);
+      if(!new RegExp(/^A\d{4}$/).test(this.username)){
+        wx.showModal({
+          title: '提示',
+          content: '账号有误，请重新检查~~~',
+          showCancel: false,
+        });
+      }
       const params =`usercard=${this.username}&password=${this.password}`;
 
       const responseValue: any = await this.asyncsetUser(params);
@@ -40,7 +30,7 @@ export default class Login extends Vue {
       } else {
         if (data.status === 'success') {
           if (this.username === 'A0000') {
-            // this.$router.push(`/supermain`);
+            wx.redirectTo({ url: '../../superman/main' });
           } else {
             wx.redirectTo({ url: '../../main/main' });
           }
@@ -56,11 +46,11 @@ export default class Login extends Vue {
     wx.redirectTo({ url: '../register/main' });
   }
   eyeOpen() {
-    if (this.loginPasswordType === 'password') {
-      this.loginPasswordType = 'text';
+    if (this.showPassword) {
+      this.showPassword = !this.showPassword;
       this.iconEye = 'icon-eyes';
     } else {
-      this.loginPasswordType = 'password';
+      this.showPassword = !this.showPassword;
       this.iconEye = 'icon-close-eyes';
     }
   }

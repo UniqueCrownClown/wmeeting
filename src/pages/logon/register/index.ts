@@ -24,13 +24,13 @@ export default class Register extends Vue {
   private password: string = '';
   private confirmPassword: string = '';
   private iconEye: string = 'icon-close-eyes';
-  private loginPasswordType: string = 'password';
+  private showPassword: boolean = true;
   eyeOpen() {
-    if (this.loginPasswordType === 'password') {
-      this.loginPasswordType = 'text';
+    if (this.showPassword) {
+      this.showPassword = !this.showPassword;
       this.iconEye = 'icon-eyes';
     } else {
-      this.loginPasswordType = 'password';
+      this.showPassword = !this.showPassword;
       this.iconEye = 'icon-close-eyes';
     }
   }
@@ -38,26 +38,23 @@ export default class Register extends Vue {
     wx.redirectTo({ url: '../../logon/login/main' });
   }
   async handleRegister() {
-    // const { error } = Joi.validate(
-    //   {
-    //     usercard: this.usercard,
-    //     password: this.password,
-    //     confirmPassword: this.confirmPassword,
-    //     username: this.username
-    //   },
-    //   registerSchema
-    // );
-    // if (error && error.details.length >= 1) {
-    //   const message = error.details[0].message;
-    //   vuxInfo(this, message);
-    //   return;
-    // }
     let responseValue;
     try {
-      // const params = new URLSearchParams();
-      // params.append("usercard", this.usercard);
-      // params.append("username", this.username);
-      // params.append("password", this.password);
+      //简单过滤一下
+      if (this.password !== this.confirmPassword) {
+        wx.showToast({
+          title: '两次密码不一致，请从新校验~~~',
+          duration: 3000,
+        });
+        return;
+      }
+      if (!new RegExp(/^A\d{4}$/).test(this.usercard)) {
+        wx.showToast({
+          title: '注册账号有误，请以格式/^Ad{4}$/注册',
+          duration: 3000,
+        });
+        return;
+      }
       const params = `usercard=${this.usercard}&username=${
         this.username
       }&password=${this.password}`;
@@ -73,9 +70,6 @@ export default class Register extends Vue {
       if (data.status === 'fail') {
         alert(data.msg);
       } else {
-        // vuxInfo(data.msg, () => {
-        //   this.$router.replace(`/`);
-        // });
         wx.redirectTo({ url: '../login/main' });
       }
     }

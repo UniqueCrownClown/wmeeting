@@ -2,8 +2,6 @@
   <div class="counter-warp">
     <p>Mpvue</p>
     <p>ts value {{ ver }}</p>
-    <card text="card component"></card>
-    <comp-b text="hello2"></comp-b>
     <comp-alias text="hello3"></comp-alias>
     <button @click="testScan">测试扫码</button>
     <a :href="AppUrls.BLE">去往扫码页面</a>

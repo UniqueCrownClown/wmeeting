@@ -2,3 +2,4 @@ build/*.js
 config/*.js
 weapp-qrcode.js
 rpx2px.js
+ChinesePY.js

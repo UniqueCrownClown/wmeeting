@@ -1,5 +1,5 @@
 import { Component, Prop, Vue, Emit } from "vue-property-decorator";
-import { State, Getter, Action, Mutation, namespace } from "vuex-class";
+import { namespace } from "vuex-class";
 import { getLinkMan } from "@/api";
 import CheckList from "@/components/checklist/CheckList.vue";
 import XHeader from '@/components/xheader/XHeader.vue';

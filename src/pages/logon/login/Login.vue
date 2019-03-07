@@ -12,7 +12,8 @@
       </div>
       <div class="login-password">
         <i class="icon icon-password"></i>
-        <input placeholder="密码/Password" v-model="password">
+        <input placeholder="密码/Password" type="password" v-model="password" v-if="showPassword">
+        <input placeholder="密码/Password" type="text" v-model="password" v-else>
         <i :class="['icon', iconEye]" @click="eyeOpen"></i>
       </div>
       <div class="login-remember">

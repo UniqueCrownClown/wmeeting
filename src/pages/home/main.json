@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "i-button": "../../../static/iviewbutton/index"
+    "i-button": "../../../static/iview/button/index"
 }
 }

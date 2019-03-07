@@ -36,7 +36,7 @@ export default class CheckList extends Vue {
     this.linkData.forEach((element: LinkData) => {
       data.push(element.name);
     });
-    const totalData = Pingyin.pySegSort(data);
+    const totalData = Pingyin.pySegSort2(data);
     //把拼音排序的结果转化为带状态值的
     this.linkData.forEach((element: LinkData) => {
       let a = element.name;

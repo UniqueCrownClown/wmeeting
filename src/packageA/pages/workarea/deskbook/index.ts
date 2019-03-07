@@ -49,6 +49,8 @@ export default class DeskBook extends Vue {
   }
 
   onLoad(option) {
-    this.currentPosition = option.currentPosition;
+    if (option.currentPosition) {
+      this.currentPosition = option.currentPosition;
+    }
   }
 }

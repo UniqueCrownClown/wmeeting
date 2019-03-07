@@ -175,7 +175,6 @@ export default class AddMeet extends Vue {
   private handleSelectRoom() {
     this.isShow = true;
   }
-  @Emit()
   private handleOptions(value: string) {
     const a = this.roomMenu.indexOf(value) + 1;
     this.setbookLocation(a);

@@ -1,6 +1,8 @@
 <template>
   <div class="register">
-    <x-header :title="title" :options="headerOption" @leftevent="returnLogin"/>
+    <x-header :title="title"
+              :options="headerOption"
+              @leftevent="returnLogin" />
     <div class="login-ctn">
       <div class="login-info-ctn">
         <div class="login-title-logo">
@@ -8,21 +10,41 @@
         </div>
         <div class="register-usercard">
           <i class="icon icon-login"></i>
-          <input type="text" placeholder="工号/EmployeeNo" v-model="usercard">
+          <input type="text"
+                 placeholder="工号/EmployeeNo"
+                 v-model="usercard">
         </div>
         <div class="register-usercard">
           <i class="icon icon-login"></i>
-          <input type="text" placeholder="用户名/Username" v-model="username">
+          <input type="text"
+                 placeholder="用户名/Username"
+                 v-model="username">
         </div>
         <div class="register-password">
           <i class="icon icon-password"></i>
-          <input placeholder="密码/Password" v-model="password">
-          <i :class="['icon',iconEye]" @click="eyeOpen"></i>
+          <input placeholder="密码/Password"
+                 type="password"
+                 v-model="password"
+                 v-if="showPassword">
+          <input placeholder="密码/Password"
+                 type="text"
+                 v-model="password"
+                 v-else>
+          <i :class="['icon',iconEye]"
+             @click="eyeOpen"></i>
         </div>
         <div class="register-password2">
           <i class="icon icon-password"></i>
-          <input placeholder="请再次输入密码/Password" v-model="confirmPassword">
-          <i :class="['icon',iconEye]" @click="eyeOpen"></i>
+          <input placeholder="密码/Password"
+                 type="password"
+                 v-model="confirmPassword"
+                 v-if="showPassword">
+          <input placeholder="密码/Password"
+                 type="text"
+                 v-model="confirmPassword"
+                 v-else>
+          <i :class="['icon',iconEye]"
+             @click="eyeOpen"></i>
         </div>
         <div class="login-button">
           <button @click="handleRegister">注册/Sign Up</button>
@@ -34,5 +56,5 @@
 <script lang="ts" src="./index.ts"></script>
 
 <style lang="less">
-@import "../main.less";
+@import '../main.less';
 </style>
