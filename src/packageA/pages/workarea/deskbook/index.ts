@@ -1,9 +1,7 @@
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import RoomMap from '@/packageA/pages/workarea/roommap/RoomMap.vue';
 import DeskList from '@/packageA/pages/workarea/desklist/DeskList.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
-const workModule = namespace('workarea');
 @Component({
   components: {
     RoomMap,
@@ -51,6 +49,11 @@ export default class DeskBook extends Vue {
   onLoad(option) {
     if (option.currentPosition) {
       this.currentPosition = option.currentPosition;
+      // 置回到地图页
+      this.headerTab = [
+        { text: '室内地图', isSelect: true },
+        { text: '工位预约', isSelect: false },
+      ];
     }
   }
 }

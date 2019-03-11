@@ -1,10 +1,5 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-export interface CellData {
-  title: string;
-  content: string;
-  link?: string;
-}
 @Component
 export default class CellItem extends Vue {
   @Prop() private cellData!: CellData;

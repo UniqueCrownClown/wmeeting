@@ -33,16 +33,18 @@
     font-size: 28rpx;
   }
   div.tabSwitch {
-    background-color: #ffffff;
-    color: @header-background-color;
+    // background-color: #ffffff;
+    // color: @header-background-color;
     border-radius: 4rpx;
     span {
       padding: 10rpx;
       font-size: 36rpx;
     }
     span.active {
-      background-color: @header-background-color;
-      color: #ffffff;
+      // background-color: @header-background-color;
+      // color: #ffffff;
+      border-bottom:2px solid #ffffff;
+
     }
   }
 }

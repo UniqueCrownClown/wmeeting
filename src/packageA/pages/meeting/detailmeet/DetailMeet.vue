@@ -72,7 +72,7 @@
     height: calc(100% - 84rpx);
     .detail-meet-content {
       width: 686rpx;
-      height: 824rpx;
+      height: 800rpx;
       margin: 40rpx auto;
       background: #ffffff;
       border-radius: 10rpx;
@@ -83,11 +83,11 @@
         justify-content: center;
         align-items: center;
         canvas {
-          margin-left: 75px;
+          margin-left: 100px;
         }
       }
       .detail-meet-down {
-        height: 420rpx;
+        height: 400rpx;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -96,17 +96,17 @@
           justify-content: center;
           flex-wrap: wrap;
           width: 558rpx;
-          height: 307rpx;
+          height: 287rpx;
           .detail-meet-title {
             width: 100%;
-            padding: 20rpx 0;
+            padding: 10rpx 0;
             font-family: PingFangSC-Medium;
             font-size: 38rpx;
             font-weight: 700;
             letter-spacing: 0rpx;
             color: #333333;
             border-bottom: 1rpx solid #cccccc;
-            margin-bottom: 20rpx;
+            margin-bottom: 10rpx;
           }
           .detail-meet-down-left {
             flex-grow: 1;

@@ -2,8 +2,7 @@ import { login } from '@/api/';
 import { Commit } from 'vuex';
 
 export default {
-  async asyncsetUser(context: { commit: Commit }, params: any) {
-    // JSON.stringify(params)
+  async asyncsetUser(context: { commit: Commit }, params: LoginParams) {
     const responseValue = await login(params);
     const { status, data } = responseValue;
     if (status !== 200) {

@@ -1,5 +1,5 @@
-import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
-import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import { bookMeeting } from '@/api/';
 import CellItem from '@/components/cellitem/CellItem.vue';
 import ActionSheet from '@/components/actionsheet/ActionSheet.vue';
@@ -52,7 +52,6 @@ export default class AddMeet extends Vue {
     wx.redirectTo({ url: `../meet/main` });
   }
   private async handleComplate() {
-    console.log('apple');
     // 提交之前校验一下
     if (this.subject.trim() === '') {
       wx.showModal({

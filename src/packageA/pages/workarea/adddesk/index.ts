@@ -1,5 +1,5 @@
-import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator';
-import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import CellItem from '@/components/cellitem/CellItem.vue';
 import { bookStation } from '@/api/';
 import Calendar from '@/components/calendar/Calendar.vue';
@@ -106,7 +106,7 @@ export default class AddDesk extends Vue {
         wx.showModal({
           title: '提示',
           content: '请先选择预约时间！！',
-          showCancel: false
+          showCancel: false,
         });
         return;
       }
@@ -117,7 +117,7 @@ export default class AddDesk extends Vue {
         wx.showModal({
           title: '提示',
           content: '请先选择预约时间！！',
-          showCancel: false
+          showCancel: false,
         });
         return;
       }
@@ -125,7 +125,7 @@ export default class AddDesk extends Vue {
         wx.showModal({
           title: '提示',
           content: '请前往选择工位！！',
-          showCancel: false
+          showCancel: false,
         });
         return;
       }
@@ -136,7 +136,7 @@ export default class AddDesk extends Vue {
       // params.append("endTime", end);
       const params = `userCard=${
         this.user.usercard
-        }&station=${station}&startTime=${start}&endTime=${end}`;
+      }&station=${station}&startTime=${start}&endTime=${end}`;
 
       responseValue = await bookStation(params);
       console.log(responseValue);
@@ -144,7 +144,7 @@ export default class AddDesk extends Vue {
       wx.showModal({
         title: '提示',
         content: 'error',
-        showCancel: false
+        showCancel: false,
       });
     }
     const { status, data } = responseValue;
@@ -168,7 +168,7 @@ export default class AddDesk extends Vue {
         wx.showModal({
           title: '提示',
           content: data.msg,
-          showCancel: false
+          showCancel: false,
         });
       }
     }

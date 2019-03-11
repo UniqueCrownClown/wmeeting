@@ -1,20 +1,30 @@
 import Fly from 'flyio/dist/npm/wx';
 import config from '../config';
+import ParamsWrapper from '@/utils/paramsWrapper';
 
 // 创建一个flyio的实列
 const instance = new Fly();
 instance.config.timeout = 5000;
 // instance.config.headers['Content-Type'] = 'application/json;charset=UTF-8';
-instance.config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+instance.config.headers['Content-Type'] =
+  'application/x-www-form-urlencoded;charset=UTF-8';
 // 用户登录
-export const login = (params: any) =>
-  instance.post(`${config.IP}:${config.PORT}${config.prefix}/logon`, params);
+export const login: any = (params:LoginParams) => {
+  const wrapper = new ParamsWrapper(params);
+  instance.post(
+    `${config.IP}:${config.PORT}${config.prefix}/logon`,
+    wrapper.getValues(),
+  );
+};
 // 用户注册
-export const register = (params: any) =>
+export const register = (params: RegisterParams) => {
+  const wrapper = new ParamsWrapper(params);
   instance.post(
     `${config.IP}:${config.PORT}${config.prefix}/registration`,
-    params,
+    wrapper.getValues(),
   );
+};
+
 // 请求会议列表
 export const getMeeting = (usercard: string) =>
   instance.get(
@@ -99,4 +109,4 @@ export const releaseDesk = (id: string) =>
 const pfly = new Fly();
 pfly.config.headers['Content-Type'] = 'application/json;charset=UTF-8';
 export const getPosition = (params: any) =>
-pfly.post(`${config.IP}:${config.PORT}/appointment/coordinate`, params);
+  pfly.post(`${config.IP}:${config.PORT}/appointment/coordinate`, params);

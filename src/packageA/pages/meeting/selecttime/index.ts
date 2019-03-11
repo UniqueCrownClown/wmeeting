@@ -1,13 +1,14 @@
-import { Component, Prop, Vue, Emit } from "vue-property-decorator";
-import { State, Getter, Action, Mutation, namespace } from "vuex-class";
-import Time from "@/utils/time.ts";
-import { getBookTimeSpace } from "@/api/";
-import ActionSheet from "@/components/actionsheet/ActionSheet.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+import Time from '@/utils/time.ts';
+import { getBookTimeSpace } from '@/api/';
+import ActionSheet from '@/components/actionsheet/ActionSheet.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
-const meetModule = namespace("meeting");
+const meetModule = namespace('meeting');
 @Component({
   components: {
-    ActionSheet,XHeader
+    ActionSheet,
+    XHeader,
   },
   // filters: {
   //   judgeIsToday: function(value: number) {
@@ -20,33 +21,33 @@ const meetModule = namespace("meeting");
   // }
 })
 export default class SelectTime extends Vue {
-  @meetModule.State("weekData") weekData!: any;
-  @meetModule.State("dayTime") dayTime!: any;
-  @meetModule.State("bookTime") bookTime!: any;
-  @meetModule.State("currentday") currentday!: any;
-  @meetModule.State("bookLocation") bookLocation!: any;
+  @meetModule.State('weekData') weekData!: any;
+  @meetModule.State('dayTime') dayTime!: any;
+  @meetModule.State('bookTime') bookTime!: any;
+  @meetModule.State('currentday') currentday!: any;
+  @meetModule.State('bookLocation') bookLocation!: any;
 
-  @meetModule.Mutation("selectWeek") selectWeek!: (amount: number) => void;
-  @meetModule.Mutation("setdayTime") setdayTime!: (data: any) => void;
-  @meetModule.Mutation("setbookLocation") setbookLocation!: (data: any) => void;
-  @meetModule.Mutation("setisBookTimeCertain") setisBookTimeCertain!: (
-    data: any
+  @meetModule.Mutation('selectWeek') selectWeek!: (amount: number) => void;
+  @meetModule.Mutation('setdayTime') setdayTime!: (data: any) => void;
+  @meetModule.Mutation('setbookLocation') setbookLocation!: (data: any) => void;
+  @meetModule.Mutation('setisBookTimeCertain') setisBookTimeCertain!: (
+    data: any,
   ) => void;
-  @meetModule.Mutation("setbookTime2") setbookTime2!: (data: any) => void;
-    private headerOption={
-      lefttext: '返回',
-      lefticon: '',
-      righttext: '完成',
-      righticon: '',
-    }
-  private roomMenu: string[] = ["会议室1", "会议室2", "会议室3"];
+  @meetModule.Mutation('setbookTime2') setbookTime2!: (data: any) => void;
+  private headerOption = {
+    lefttext: '返回',
+    lefticon: '',
+    righttext: '完成',
+    righticon: '',
+  };
+  private roomMenu: string[] = ['会议室1', '会议室2', '会议室3'];
   private isShow: boolean = false;
   private mockTime = [
-    { startTime: "09:00", endTime: "09:30" },
-    { startTime: "11:00", endTime: "12:30" }
+    { startTime: '09:00', endTime: '09:30' },
+    { startTime: '11:00', endTime: '12:30' },
   ];
   private returnAddMeet() {
-    wx.redirectTo({url:`../addmeet/main`});
+    wx.redirectTo({ url: `../addmeet/main` });
   }
   private handleComplate() {}
   async mounted() {
@@ -60,7 +61,7 @@ export default class SelectTime extends Vue {
   // 请求对应日期房间数据
   private async queryState() {
     // 清空预约时间
-    this.setbookTime2({ startTime: "", endTime: "" });
+    this.setbookTime2({ startTime: '', endTime: '' });
     // 请求数据状态
     // 要不要加0？
     let comitDate = `${this.currentday.year}/${this.currentday.month}/${
@@ -69,7 +70,7 @@ export default class SelectTime extends Vue {
     let responseValue = await getBookTimeSpace(comitDate, this.bookLocation);
     let { data, status } = responseValue;
     if (status !== 200) {
-      alert("请求异常");
+      alert('请求异常');
     } else {
       console.log(data);
       this.setdayTime(data);
@@ -98,17 +99,17 @@ export default class SelectTime extends Vue {
     return this.weekData;
   }
   get timeSlot() {
-    let cutSlot:string[] = [];
+    let cutSlot: string[] = [];
     for (let i = 0; i < this.dayTime.length; i += 4) {
       cutSlot.push(this.dayTime.slice(i, i + 4));
     }
     return cutSlot;
   }
   get getCurrentDay() {
-    let monthValue = this.currentday.month + "月";
-    let dayValue = this.currentday.day + "日";
-    let weekValue = "周" + this.currentday.week;
-    let dateValue = monthValue + dayValue + " " + weekValue;
+    let monthValue = this.currentday.month + '月';
+    let dayValue = this.currentday.day + '日';
+    let weekValue = '周' + this.currentday.week;
+    let dateValue = monthValue + dayValue + ' ' + weekValue;
     return dateValue;
   }
   /** computed*/
@@ -126,12 +127,12 @@ export default class SelectTime extends Vue {
         bStart === this.bookTime.endTime &&
         Time.compareTime({
           startTime: this.bookTime.startTime,
-          endTime: value
+          endTime: value,
         })
       ) {
         let selectspace = Time.getTimeSpace({
           startTime: this.bookTime.startTime,
-          endTime: value
+          endTime: value,
         });
         for (let i = 0; i < selectspace.length; i++) {
           if (unableArr.some(this.hasTimeText(selectspace[i]))) {
@@ -139,7 +140,7 @@ export default class SelectTime extends Vue {
             // 跳不可选的格时置回单个这种情况
             this.setbookTime2({
               startTime: value,
-              endTime: Time.getNextTimeSpace(value)
+              endTime: Time.getNextTimeSpace(value),
             });
             break;
           }
@@ -147,20 +148,20 @@ export default class SelectTime extends Vue {
         if (!tempBool) {
           this.setbookTime2({
             startTime: this.bookTime.startTime,
-            endTime: Time.getNextTimeSpace(value)
+            endTime: Time.getNextTimeSpace(value),
           });
         }
       } else {
         this.setbookTime2({
           startTime: value,
-          endTime: Time.getNextTimeSpace(value)
+          endTime: Time.getNextTimeSpace(value),
         });
       }
     }
   }
   certainBookTime() {
     this.setisBookTimeCertain(true);
-    wx.redirectTo({url:`../addmeet/main`});
+    wx.redirectTo({ url: `../addmeet/main` });
   }
   hasTimeText(text: string) {
     return (character: any) => character.text === text;

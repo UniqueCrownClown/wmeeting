@@ -1,5 +1,5 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import { getDeskList, releaseDesk, updateDeskState } from '@/api/';
 const workModule = namespace('workarea');
 const meetModule = namespace('meeting');

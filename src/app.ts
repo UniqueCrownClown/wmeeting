@@ -19,7 +19,6 @@ class App extends Vue {
   @workModule.Mutation('setPosition') setPosition!: any;
   devices: Array<any> = [];
   _discoveryStarted: boolean = false;
-  private sid: any = null;
   // app hook
   onLaunch() {
     let opt = this.$root.$mp.appOptions;
@@ -122,7 +121,7 @@ class App extends Vue {
   // 开启定时服务
   timedTask(timeout = 5000) {
     // 每隔10秒钟请求一次位置
-    this.sid = setTimeout(() => {
+    setTimeout(() => {
       // 判断10秒内，是否满足3个蓝牙设备
       if (this.devices.length < 3) {
         this.timedTask(5000);

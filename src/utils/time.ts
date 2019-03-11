@@ -101,7 +101,6 @@ const degressDate = (data: Array<any>) => {
   });
   // 数组去掉重复日期
   let resultarr = [...new Set(exchange)];
-  console.log('hahaha' + resultarr);
   exchange.sort(function (a, b) {
     return a > b ? 1 : -1;
   });

@@ -1,13 +1,4 @@
-interface Options {
-  lefttext: string;
-  lefticon: string;
-  righttext: string;
-  righticon:string;
-}
-interface Tab {
-  text:string;
-  isSelect:boolean;
-}
+
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component

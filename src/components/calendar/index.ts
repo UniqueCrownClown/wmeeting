@@ -1,12 +1,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 const debug = require('debug')('log:Comp/Calendar');
-export interface DayObj {
-  day: Date;
-  isSelect?: boolean;
-  date?:string;
-  month?:number;
-  year?:number;
-}
+
 @Component
 export default class Calendar extends Vue {
   private apple: boolean = false;

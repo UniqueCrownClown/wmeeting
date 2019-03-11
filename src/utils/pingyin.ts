@@ -5,7 +5,6 @@ function pySegSort(arr: string[], empty?: boolean) {
   }
   var letters = '*abcdefghjklmnopqrstwxyz'.split('');
   var zh = '阿八嚓哒妸发旮哈讥咔垃麻拏噢妑七呥扨它穵夕丫帀'.split('');
-  // var zh = '驁簿錯鵽樲鰒餜靃攟鬠纙鞪黁漚曝裠鶸蜶籜鶩鑂韻糳'.split('');
   var segs = [];
   var curr;
   for (let i = 0; i < letters.length; i++) {
@@ -28,7 +27,7 @@ function pySegSort(arr: string[], empty?: boolean) {
       });
     }
   }
-  console.log(segs);
+  // console.log(segs);
   return segs;
 }
 function pySegSort2(arr: string[]) {
@@ -39,7 +38,6 @@ function pySegSort2(arr: string[]) {
     let filterData: Array<string> = [];
     arr.forEach((item: string) => {
       let c = Pinyin.getWordsCode(item).charAt(0);
-      console.log(c);
       if (c === element) {
         filterData.push(item);
       }
@@ -60,7 +58,6 @@ function pySegSort2(arr: string[]) {
     };
     segs.push(mohu);
   }
-  console.log(segs);
   return segs;
 }
 export default {

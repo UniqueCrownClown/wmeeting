@@ -1,10 +1,10 @@
 <template>
   <div class="select-time">
     <x-header :title="roomName"
-    :options="headerOption"
-    @leftevent="returnAddMeet"
-    @rightevent="certainBookTime"
-    @titleevent="handleSelectRoom" />
+              :options="headerOption"
+              @leftevent="returnAddMeet"
+              @rightevent="certainBookTime"
+              @titleevent="handleSelectRoom" />
     <div class="select-time-content">
       <div class="select-time-calendar">
         <div class="week-title">
@@ -17,12 +17,10 @@
           <span>六</span>
         </div>
         <div class="week-detail">
-          <div
-            v-for="(item, index) in weekDetail"
-            :key="item.day"
-            @click="handleSelectDay(index)"
-            :class="{ active: item.isActive }"
-          >
+          <div v-for="(item, index) in weekDetail"
+               :key="item.day"
+               @click="handleSelectDay(index)"
+               :class="{ active: item.isActive }">
             <span>{{ item.day }}</span>
             <span>{{ item.lunar }}</span>
           </div>
@@ -38,35 +36,27 @@
         {{ bookTime.startTime }} - {{ bookTime.endTime }}
       </div>
       <div class="select-time-block">
-        <div
-          v-for="(items, oindex) in timeSlot"
-          :key="oindex"
-          class="select-time-outter"
-        >
-          <span
-            v-for="(item, index) in items"
-            :key="index"
-            class="select-time-inner"
-            :class="{
+        <div v-for="(items, oindex) in timeSlot"
+             :key="oindex"
+             class="select-time-outter">
+          <span v-for="(item, index) in items"
+                :key="index"
+                class="select-time-inner"
+                :class="{
               unable: !item.isAble,
               select: item.isSelect
             }"
-            @click="handleSelectTime(item.text)"
-            >{{ item.text }}</span
-          >
+                @click="handleSelectTime(item.text)">{{ item.text }}</span>
         </div>
       </div>
     </div>
-    <action-sheet
-      :options="roomMenu"
-      @handleOptions="handleOptions"
-      :isShow="isShow"
-      @handleShow="handleShow"
-    />
+    <action-sheet :options="roomMenu"
+                  @handleOptions="handleOptions"
+                  :isShow="isShow"
+                  @handleShow="handleShow" />
   </div>
 </template>
 <script lang="ts" src="./index.ts">
-
 </script>
 <style lang="less" scoped>
 .select-time {
@@ -95,8 +85,9 @@
         display: flex;
         padding: 8rpx 0;
         & > div {
-          width: 106rpx;
-          height: 106rpx;
+          // width: 106rpx;
+          // height: 106rpx;
+          flex-grow: 1;
           display: flex;
           align-items: center;
           flex-wrap: wrap;
@@ -104,6 +95,7 @@
           span {
             display: inline-block;
             width: 100%;
+            padding: 10rpx 0;
           }
           span:first-child {
             font-size: 30rpx;

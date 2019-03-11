@@ -1,18 +1,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Pingyin from '@/utils/pingyin.ts';
 const debug = require('debug')('log:comp/CheckList');
-interface LinkData {
-  name: string;
-  isCheck: boolean;
-}
-interface PingyinData {
-  letter: string;
-  data: Array<string>;
-}
-interface ExchangeLinkData {
-  letter: string;
-  data: Array<LinkData>;
-}
 @Component
 export default class CheckList extends Vue {
   @Prop() private linkData!: Array<LinkData>;

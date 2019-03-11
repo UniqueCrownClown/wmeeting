@@ -1,5 +1,5 @@
 
-import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class ActionSheet extends Vue {
   @Prop() private options!: string[];

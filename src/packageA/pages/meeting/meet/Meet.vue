@@ -1,51 +1,46 @@
 <template>
   <div class="meeting">
-    <!-- <Header title :leftOptions="{ backText: '' }">
-      <a slot="left" @click="returnMain">首页</a>
-      <div slot="middle" class="tabSwitch" @click="switchstate">
-        <span :class="{ active: this.tabIndex === 0 }">已完成</span>
-        <span :class="{ active: this.tabIndex === 1 }">未完成</span>
-      </div>
-      <a slot="right" @click.prevent="addMeet">新增</a>
-    </Header> -->
-    <x-header
-    :title="title"
-    :headerTab="headerTab"
-    :options="headerOption"
-    @leftevent="returnMain"
-    @rightevent="addMeet"
-    @handleTab="handleTab"/>
+    <x-header :title="title"
+              :headerTab="headerTab"
+              :options="headerOption"
+              @leftevent="returnMain"
+              @rightevent="addMeet"
+              @handleTab="handleTab" />
     <div class="meeting-main">
-      <div v-for="(item, index) in meetingData" :key="index" class="item-block">
+      <div v-for="(item, index) in meetingData"
+           :key="index"
+           class="item-block">
         <h3 class="item-block-time">{{ item.day }}</h3>
         <ul>
-          <li v-for="(mItem, mIndex) in item.data" :key="mIndex">
-            <div
-              class="meeting-blo"
-              slot="content"
-              @click="toMeetDetail(index, mIndex)"
-            >
-              <div class="meeting-blo-left">
-                <clock
-                  :time="mItem.startTime"
-                  :size="clockSize"
-                  :state="mItem.state"
-                ></clock>
-              </div>
-              <div class="meeting-blo-right">
-                <h4 class="meeting-blo-title">{{ mItem.subject }}</h4>
-                <div class="meeting-blo-tandl">
-                  <span class="meeting-blo-time">
-                    <i class="icon iconfont icon-clock"></i>
-                    {{ mItem.startTime }}-{{ mItem.endTime }}
-                  </span>
-                  <span class="meeting-blo-location">
-                    <i class="icon iconfont icon-clock"></i>
-                    {{ roomMenu[mItem.room - 1] }}
-                  </span>
+          <li v-for="(mItem, mIndex) in item.data"
+              :key="mIndex">
+            <i-swipeout :actions="actions"
+                        @change="showDeleteConfirm(mItem.id)">
+              <view slot="content">
+                <div class="meeting-blo"
+                     slot="content"
+                     @click="toMeetDetail(index, mIndex)">
+                  <div class="meeting-blo-left">
+                    <clock :time="mItem.startTime"
+                           :size="clockSize"
+                           :state="mItem.state"></clock>
+                  </div>
+                  <div class="meeting-blo-right">
+                    <h4 class="meeting-blo-title">{{ mItem.subject }}</h4>
+                    <div class="meeting-blo-tandl">
+                      <span class="meeting-blo-time">
+                        <i class="icon iconfont icon-clock"></i>
+                        {{ mItem.startTime }}-{{ mItem.endTime }}
+                      </span>
+                      <span class="meeting-blo-location">
+                        <i class="icon iconfont icon-clock"></i>
+                        {{ roomMenu[mItem.room - 1] }}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </view>
+            </i-swipeout>
           </li>
         </ul>
       </div>
@@ -84,7 +79,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border-bottom: 1rpx solid #ccc;
+      // border-bottom: 1rpx solid #ccc;
       background-color: #ffffff;
       .meeting-blo-left {
         padding: 20rpx 30rpx;
@@ -118,7 +113,7 @@
           font-weight: normal;
           color: #888888;
           text-align: left;
-          i{
+          i {
             display: inline;
           }
         }
@@ -131,11 +126,15 @@
           font-weight: normal;
           color: #888888;
           padding-left: 60rpx;
-          i{
+          i {
             display: inline;
           }
         }
       }
+    }
+    //  修改一下iview的样式
+    .i-swipeout-item {
+      padding: 5rpx 10rpx;
     }
   }
 }

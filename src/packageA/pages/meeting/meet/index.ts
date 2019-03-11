@@ -1,5 +1,5 @@
-import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
-import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import { getMeeting, deleteMeet } from '@/api/';
 import Clock from '@/components/clock/Clock.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
@@ -22,13 +22,22 @@ export default class Meet extends Vue {
     righticon: '',
   };
   private headerTab = [
-    { text: '已完成', isSelect: true },
-    { text: '未完成', isSelect: false },
+    { text: '未完成', isSelect: true },
+    { text: '已完成', isSelect: false },
+  ];
+  private actions = [
+    {
+      name: '删除',
+      color: '#fff',
+      fontsize: '20',
+      width: 100,
+      background: '#ed3f14',
+    },
   ];
   private clockSize: string = '96';
   private roomMenu: string[] = ['会议室1', '会议室2', '会议室3'];
   private tabIndex: number = 0;
-  private handleTab(index){
+  private handleTab(index) {
     this.tabIndex = index;
     this.headerTab = [
       { text: '未完成', isSelect: index === 0 ? true : false },
@@ -57,21 +66,27 @@ export default class Meet extends Vue {
       }
     }
   }
-  onButtonClick(type: string) {
-    let _this = this;
-    // this.$vux.confirm.show({
-    //   title: "取消提示",
-    //   content: "残忍取消该预约？",
-    //   onConfirm() {
-    //     _this.deleteMeet(type);
-    //   }
-    // });
+  private showDeleteConfirm(value: string) {
+    const _this = this;
+    wx.showModal({
+      title: '取消提示',
+      content: '残忍取消该预约？',
+      success(res) {
+        if (res.confirm) {
+          _this.deleteMeet(value);
+        } else if (res.cancel) {
+          return;
+        }
+      },
+    });
   }
+
   toMeetDetail(fIndex: any, cIndex: any) {
     //fIndex(时间序号) cIndex(时间里的数据序号)
     wx.redirectTo({
-      url:
-        `../detailmeet/main?tabIndex=${this.tabIndex}&fIndex=${fIndex}&cIndex=${cIndex}`,
+      url: `../detailmeet/main?tabIndex=${
+        this.tabIndex
+      }&fIndex=${fIndex}&cIndex=${cIndex}`,
     });
   }
   private async queryMeetingData() {

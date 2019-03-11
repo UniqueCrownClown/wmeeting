@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/logon/login/main",
+    "pages/main/main",
     "pages/index/main",
     "pages/home/main",
     "pages/ble/main",
-    "pages/main/main",
     "pages/logon/register/main",
     "pages/logs/main",
     "pages/counter/main",
@@ -27,7 +27,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "办公管理",
     "navigationBarTextStyle": "black"
   }
 }

@@ -1,10 +1,6 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
 import { register } from '@/api';
 import XHeader from '@/components/xheader/XHeader.vue';
-// import Joi from "joi";
-// import registerSchema from "./register.schema";
-const meetModule = namespace('meeting');
 
 @Component({
   components: {
@@ -43,21 +39,23 @@ export default class Register extends Vue {
       //简单过滤一下
       if (this.password !== this.confirmPassword) {
         wx.showToast({
-          title: '两次密码不一致，请从新校验~~~',
+          title: '密码不一致~~~',
           duration: 3000,
         });
         return;
       }
       if (!new RegExp(/^A\d{4}$/).test(this.usercard)) {
         wx.showToast({
-          title: '注册账号有误，请以格式/^Ad{4}$/注册',
+          title: '请以格式/^Ad{4}$/注册账号',
           duration: 3000,
         });
         return;
       }
-      const params = `usercard=${this.usercard}&username=${
-        this.username
-      }&password=${this.password}`;
+      const params: RegisterParams = {
+        usercard: this.usercard,
+        username: this.username,
+        password: this.password,
+      };
       responseValue = await register(params);
     } catch (err) {
       alert(err);
@@ -70,7 +68,16 @@ export default class Register extends Vue {
       if (data.status === 'fail') {
         alert(data.msg);
       } else {
-        wx.redirectTo({ url: '../login/main' });
+        wx.showModal({
+          title: '提示',
+          content: '注册成功org~~~',
+          showCancel: false,
+          success(res: any) {
+            if (res.confirm) {
+              wx.redirectTo({ url: '../login/main' });
+            }
+          },
+        });
       }
     }
   }

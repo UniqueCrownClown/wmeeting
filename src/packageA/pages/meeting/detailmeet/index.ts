@@ -1,5 +1,5 @@
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import Clock from '@/components/clock/Clock.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
 import { lightControl, tvControl } from '@/api/';
@@ -28,7 +28,7 @@ export default class DetailMeet extends Vue {
   private tvState: boolean = false;
   private query: any;
   private detail = {};
-  private isUseful= false;
+  private isUseful = false;
   mounted() {
     // 300rpx 在6s上为 150px
     const qrcodeWidth = rpx2px(300);
@@ -57,8 +57,8 @@ export default class DetailMeet extends Vue {
     let responseValue = await lightControl(params);
     console.log(responseValue);
     wx.showModal({
-      title: "提示",
-      content:responseValue.data
+      title: '提示',
+      content: responseValue.data,
     });
     this.lightState = !this.lightState;
   }
@@ -72,7 +72,7 @@ export default class DetailMeet extends Vue {
       let responseValue = await tvControl(params);
       wx.showToast({
         title: responseValue.data,
-        duration: 2000
+        duration: 2000,
       });
     }
   }
