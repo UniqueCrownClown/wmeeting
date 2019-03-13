@@ -45,12 +45,18 @@ export default class DeskList extends Vue {
     try {
       responseValue = await releaseDesk(id);
     } catch (err) {
-      alert(err);
+              wx.showModal({
+  title: '提示',
+ content:err
+});;
       return;
     }
     const { status, data } = responseValue;
     if (status !== 200) {
-      alert('服务器异常');
+      wx.showModal({
+  title: '提示',
+ content:'服务器异常'
+});
     } else {
       let _this = this;
       if (data === 'success') {
@@ -104,13 +110,19 @@ export default class DeskList extends Vue {
     try {
       responseValue = await getDeskList(this.user.usercard);
     } catch (err) {
-      alert(err);
+              wx.showModal({
+  title: '提示',
+ content:err
+});;
       return;
     }
     console.log(responseValue);
     let { status, data } = responseValue;
     if (status !== 200) {
-      alert('请求异常');
+      wx.showModal({
+  title: '提示',
+ content:'请求异常'
+});
     } else {
       this.setdeskBookRecord(data);
     }
@@ -131,7 +143,10 @@ export default class DeskList extends Vue {
             console.log(responseValue);
             let { status, data } = responseValue;
             if (status !== 200) {
-              alert('请求异常');
+              wx.showModal({
+  title: '提示',
+ content:'服务器异常'
+});
             } else {
               let _this = this;
               wx.showModal({
@@ -147,7 +162,10 @@ export default class DeskList extends Vue {
             }
           } catch (err) {
             console.log('fetch error:' + err);
-            alert(err);
+                    wx.showModal({
+  title: '提示',
+ content:err
+});;
           }
         },
       });

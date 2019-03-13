@@ -1,6 +1,5 @@
 declare var require: any;
 
-class ParamsWrapper {}
 declare interface ResponseValue {
   status: string | object;
   data: object;

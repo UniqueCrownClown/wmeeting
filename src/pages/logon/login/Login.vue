@@ -7,14 +7,14 @@
       </div>
       <div class="login-info-title">智慧办公管理系统</div>
       <div class="login-name">
-        <i class="icon icon-login"></i>
+        <i class="iconfont icon-admin"></i>
         <input type="text" placeholder="工号/EmployeeNo" v-model="username">
       </div>
       <div class="login-password">
-        <i class="icon icon-password"></i>
+        <i class="iconfont icon-lock"></i>
         <input placeholder="密码/Password" type="password" v-model="password" v-if="showPassword">
         <input placeholder="密码/Password" type="text" v-model="password" v-else>
-        <i :class="['icon', iconEye]" @click="eyeOpen"></i>
+        <i :class="['iconfont', iconEye]" @click="eyeOpen"></i>
       </div>
       <div class="login-remember">
         <div>

@@ -9,17 +9,15 @@ instance.config.timeout = 5000;
 instance.config.headers['Content-Type'] =
   'application/x-www-form-urlencoded;charset=UTF-8';
 // 用户登录
-export const login: any = (params:LoginParams) => {
+export const login = (params: LoginParams) => {
   const wrapper = new ParamsWrapper(params);
-  instance.post(
-    `${config.IP}:${config.PORT}${config.prefix}/logon`,
-    wrapper.getValues(),
-  );
+  const sss = wrapper.getValues();
+  return instance.post(`${config.IP}:${config.PORT}${config.prefix}/logon`, sss);
 };
 // 用户注册
 export const register = (params: RegisterParams) => {
   const wrapper = new ParamsWrapper(params);
-  instance.post(
+  return instance.post(
     `${config.IP}:${config.PORT}${config.prefix}/registration`,
     wrapper.getValues(),
   );

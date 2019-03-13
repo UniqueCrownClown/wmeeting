@@ -76,7 +76,6 @@ export default class Home extends Vue {
     this.deskBookDate = value;
   }
   handleOptions(value: string) {
-    // alert(value);
     console.log(value);
     this.isShow = false;
   }

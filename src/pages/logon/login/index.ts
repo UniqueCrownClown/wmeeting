@@ -3,8 +3,8 @@ import { namespace } from 'vuex-class';
 const meetModule = namespace('meeting');
 @Component
 export default class Login extends Vue {
-  private username: string = '';
-  private password: string = '';
+  private username: string = 'A4407';
+  private password: string = '123456';
   private iconEye: string = 'icon-close-eyes';
   private showPassword: boolean = true;
   private isRemember: boolean = false;
@@ -27,50 +27,43 @@ export default class Login extends Vue {
       };
 
       const responseValue: any = await this.asyncsetUser(params);
-      const { status, data } = responseValue;
-      if (status !== 200) {
-        alert('服务器异常');
-      } else {
-        if (data.status === 'success') {
-          //成功登录，是否勾选了记住密码
-          if (this.isRemember) {
-            wx.setStorage({
-              key: 'login',
-              data: JSON.stringify({
-                usercard: this.username,
-                password: this.password,
-              }),
-              success: () => {
-                console.log('remenberPassword success');
-              },
-              fail: () => {
-                console.log('remenberPassword fail');
-              },
-            });
-          } else {
-            wx.getStorage({
-              key: 'login',
-              success(res: any) {
-                console.log(res.data);
-                try {
-                  wx.removeStorageSync('login');
-                } catch (e) {
-                  console.log(e);
-                }
-              },
-            });
-          }
-          if (this.username === 'A0000') {
-            wx.redirectTo({ url: '../../superman/main' });
-          } else {
-            wx.redirectTo({ url: '../../main/main' });
-          }
+      if (responseValue !== 'fail') {
+        //成功登录，是否勾选了记住密码
+        if (this.isRemember) {
+          wx.setStorage({
+            key: 'login',
+            data: JSON.stringify({
+              usercard: this.username,
+              password: this.password,
+            }),
+            success: () => {
+              console.log('remenberPassword success');
+            },
+            fail: () => {
+              console.log('remenberPassword fail');
+            },
+          });
         } else {
-          alert(data.msg);
+          wx.getStorage({
+            key: 'login',
+            success(res: any) {
+              console.log(res.data);
+              try {
+                wx.removeStorageSync('login');
+              } catch (e) {
+                console.log(e);
+              }
+            },
+          });
+        }
+        if (this.username === 'A0000') {
+          wx.redirectTo({ url: '../../superman/main' });
+        } else {
+          wx.redirectTo({ url: '../../main/main' });
         }
       }
     } catch (err) {
-      alert(err);
+      console.log(err);
     }
   }
   private toRegister() {
@@ -79,7 +72,7 @@ export default class Login extends Vue {
   private eyeOpen() {
     if (this.showPassword) {
       this.showPassword = !this.showPassword;
-      this.iconEye = 'icon-eyes';
+      this.iconEye = 'icon-eye';
     } else {
       this.showPassword = !this.showPassword;
       this.iconEye = 'icon-close-eyes';

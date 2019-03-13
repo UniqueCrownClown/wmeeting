@@ -18,14 +18,14 @@ export default class SuperMan extends Vue {
     righttext: '',
     righticon: '',
   };
-  @meetModule.Action('asyncsetUser') asyncsetUser!: (params: any) => void;
+  @meetModule.Mutation('setuser') setuser!: (params: any) => void;
   private returnLogin() {
     // 路由置回登陆界面，清除vuex
     let user = {
       usercard: '',
       username: '',
     };
-    this.asyncsetUser(user);
+    this.setuser(user);
     wx.redirectTo({ url: '../logon/login/main' });
   }
   async mounted() {

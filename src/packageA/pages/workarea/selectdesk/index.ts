@@ -42,7 +42,10 @@ export default class SelectDesk extends Vue {
     console.log(responseValue);
     let { status, data } = responseValue;
     if (status !== 200) {
-      alert('请求异常');
+      wx.showModal({
+  title: '提示',
+ content: '请求异常'
+});
     } else {
       this.restoreDeskBookSeatData();
       this.setunableBookSeatData(data);

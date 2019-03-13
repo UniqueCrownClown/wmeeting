@@ -32,7 +32,10 @@ export default class SelectPerson extends Vue {
     let { status, data } = responseValue;
     console.log(responseValue);
     if (status !== 200) {
-      alert('服务器异常');
+      wx.showModal({
+        title: '提示',
+        content: '服务器异常',
+      });
     } else {
       if (data.length > 0) {
         // 设置checkList状态
@@ -57,7 +60,7 @@ export default class SelectPerson extends Vue {
         });
         this.personData = [...selectData, ...noselectData];
       } else {
-        alert('联系人列表查询为空');
+        wx.showModal({ title: '提示', content: '联系人列表查询为空' });
       }
     }
   }

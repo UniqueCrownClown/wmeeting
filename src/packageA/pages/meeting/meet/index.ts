@@ -59,7 +59,10 @@ export default class Meet extends Vue {
     responseValue = await deleteMeet(type);
     let { status, data } = responseValue;
     if (status !== 200) {
-      alert('服务器异常');
+      wx.showModal({
+  title: '提示',
+ content:'服务器异常'
+});
     } else {
       if (data === 'success') {
         this.queryMeetingData();
@@ -94,7 +97,10 @@ export default class Meet extends Vue {
     console.log(responseValue);
     let { status, data } = responseValue;
     if (status !== 200) {
-      alert('请求异常');
+      wx.showModal({
+  title: '提示',
+ content:'请求异常'
+});
     } else {
       this.setmeetingData(data);
     }

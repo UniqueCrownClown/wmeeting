@@ -9,19 +9,19 @@
           <i class="iconfont icon-logo"></i>
         </div>
         <div class="register-usercard">
-          <i class="icon icon-login"></i>
+          <i class="iconfont icon-admin"></i>
           <input type="text"
                  placeholder="工号/EmployeeNo"
                  v-model="usercard">
         </div>
         <div class="register-usercard">
-          <i class="icon icon-login"></i>
+          <i class="iconfont icon-admin"></i>
           <input type="text"
                  placeholder="用户名/Username"
                  v-model="username">
         </div>
         <div class="register-password">
-          <i class="icon icon-password"></i>
+          <i class="iconfont icon-lock"></i>
           <input placeholder="密码/Password"
                  type="password"
                  v-model="password"
@@ -30,11 +30,11 @@
                  type="text"
                  v-model="password"
                  v-else>
-          <i :class="['icon',iconEye]"
+          <i :class="['iconfont',iconEye]"
              @click="eyeOpen"></i>
         </div>
         <div class="register-password2">
-          <i class="icon icon-password"></i>
+          <i class="iconfont icon-lock"></i>
           <input placeholder="密码/Password"
                  type="password"
                  v-model="confirmPassword"
@@ -43,7 +43,7 @@
                  type="text"
                  v-model="confirmPassword"
                  v-else>
-          <i :class="['icon',iconEye]"
+          <i :class="['iconfont',iconEye]"
              @click="eyeOpen"></i>
         </div>
         <div class="login-button">

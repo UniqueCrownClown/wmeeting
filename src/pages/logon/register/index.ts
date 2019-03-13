@@ -24,7 +24,7 @@ export default class Register extends Vue {
   eyeOpen() {
     if (this.showPassword) {
       this.showPassword = !this.showPassword;
-      this.iconEye = 'icon-eyes';
+      this.iconEye = 'icon-eye';
     } else {
       this.showPassword = !this.showPassword;
       this.iconEye = 'icon-close-eyes';
@@ -58,15 +58,24 @@ export default class Register extends Vue {
       };
       responseValue = await register(params);
     } catch (err) {
-      alert(err);
+      wx.showModal({
+        title: '提示',
+        content: err,
+      });
       return;
     }
     let { status, data } = responseValue;
     if (status !== 200) {
-      alert('服务器异常');
+      wx.showModal({
+        title: '提示',
+        content: '服务器异常',
+      });
     } else {
       if (data.status === 'fail') {
-        alert(data.msg);
+        wx.showModal({
+          title: '提示',
+          content: data.msg,
+        });
       } else {
         wx.showModal({
           title: '提示',

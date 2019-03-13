@@ -122,7 +122,10 @@ export default class AddMeet extends Vue {
     let responseValue = await bookMeeting(params);
     let { data, status } = responseValue;
     if (status !== 200) {
-      alert('请求异常');
+      wx.showModal({
+        title: '提示',
+        content: '请求异常',
+      });
     } else {
       console.log(data.status + data.msg);
       // 成功提交
@@ -142,8 +145,6 @@ export default class AddMeet extends Vue {
             }
           },
         });
-      } else {
-        alert(data.msg);
       }
     }
   }

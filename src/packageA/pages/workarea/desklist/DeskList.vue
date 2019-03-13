@@ -44,7 +44,7 @@
     </div>
     <div class="deskBook-card-add" @click="deskBookAdd">
       <div class="deskBook-card-add-cont">
-        <!-- <x-icon type="ios-plus-empty" size="100" class="deskBook-plus"></x-icon> -->
+        <i class="iconfont icon-hao deskBook-plus"></i>
         <div class="deskBook-card-text">新增工位预约</div>
       </div>
     </div>
@@ -141,7 +141,8 @@
     align-items: center;
     .deskBook-card-add-cont {
       .deskBook-plus {
-        fill: #cccccc;
+        color: #cccccc;
+        font-size: 160rpx;
       }
       .deskBook-card-text {
         font-family: PingFangSC-Medium;

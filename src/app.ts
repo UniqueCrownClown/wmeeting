@@ -1,8 +1,9 @@
 import { Vue, Component } from 'vue-property-decorator';
 const debug = require('debug')('log:App');
-import { inArray } from '@/utils/consts';
+import { inArray, cinArray } from '@/utils/consts';
 import { getPosition } from '@/api';
 import { namespace } from 'vuex-class';
+import { list } from 'postcss';
 const workModule = namespace('workarea');
 
 declare module 'vue/types/vue' {
@@ -18,6 +19,7 @@ declare module 'vue/types/vue' {
 class App extends Vue {
   @workModule.Mutation('setPosition') setPosition!: any;
   devices: Array<any> = [];
+  devicesCollection: Array<Array<any>> = [];
   _discoveryStarted: boolean = false;
   // app hook
   onLaunch() {
@@ -95,15 +97,19 @@ class App extends Vue {
           return;
         }
         const foundDevices = this.devices;
+        const cfoundDevices = this.devicesCollection;
         const idx = inArray(foundDevices, 'deviceId', device.deviceId);
+        const cidx = cinArray(cfoundDevices, 'deviceId', device.deviceId);
         //只收集ble为183的蓝牙
         if (new RegExp(/^183\d{4}$/).test(device.name)) {
           if (idx === -1) {
             // this.devices[`${foundDevices.length}`] = device;
             Vue.set(this.devices, `${foundDevices.length}`, device);
+            this.devicesCollection[cfoundDevices.length] = [device];
           } else {
             // this.devices[`${idx}`] = device;
             Vue.set(this.devices, `${idx}`, device);
+            this.devicesCollection[cidx].push(device);
           }
         }
       });
@@ -129,7 +135,8 @@ class App extends Vue {
       }
       // 计算10秒钟内，rssi最强的前三蓝牙设备
       const deviceList = this.computedStrongestSignalDeviceList();
-      this.getXY(deviceList)
+      const cdeviceList = this.ccomputedStrongestSignalDeviceList();
+      this.getXY(cdeviceList)
         .then((response) => {
           const { data } = response;
           // 实现定位
@@ -160,6 +167,30 @@ class App extends Vue {
       });
     });
     return aaa.splice(0, 3);
+  }
+
+  private ccomputedStrongestSignalDeviceList() {
+    let haha: Array<any> = [];
+
+    this.devicesCollection.forEach((lists:Array<any>) => {
+      let totalRssi = 0;
+
+      lists.forEach(element => {
+        totalRssi += element.RSSI;
+      });
+
+      const averageRssi = (totalRssi/lists.length).toFixed(6);
+      haha.push({
+        name: lists[0].name,
+        mac: lists[0].deviceId,
+        rssi: averageRssi,
+      })
+    });
+    haha.sort((a, b) => {
+      return b.RSSI - a.RSSI;
+    });
+
+    return haha.splice(0, 3);
   }
 
   // 上传前三最强信号蓝牙设备

@@ -63,7 +63,6 @@ export default class DetailMeet extends Vue {
     this.lightState = !this.lightState;
   }
   private async handleDevice(value: string, isUseful: boolean) {
-    // alert(isUseful)
     if (!isUseful) {
       // let params = new URLSearchParams();
       // params.append('tvNum', '5');

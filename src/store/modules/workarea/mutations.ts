@@ -1,5 +1,7 @@
+import { MutationPayload } from "vuex";
+
 export default {
-  setdeskBookDate: (state: any, data: any) => {
+  setdeskBookDate: (state: any, data: MutationPayload) => {
     state.deskBookDate = data;
   },
   setdeskBookSeatData: (state: any, data: any) => {

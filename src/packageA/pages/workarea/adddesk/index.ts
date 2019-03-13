@@ -149,7 +149,10 @@ export default class AddDesk extends Vue {
     }
     const { status, data } = responseValue;
     if (status !== 200) {
-      alert('服务器异常');
+      wx.showModal({
+  title: '提示',
+ content:'服务器异常'
+});
     } else {
       if (data.status === 'success') {
         let _this = this;

@@ -70,7 +70,10 @@ export default class SelectTime extends Vue {
     let responseValue = await getBookTimeSpace(comitDate, this.bookLocation);
     let { data, status } = responseValue;
     if (status !== 200) {
-      alert('请求异常');
+      wx.showModal({
+  title: '提示',
+ content: '请求异常'
+});
     } else {
       console.log(data);
       this.setdayTime(data);
