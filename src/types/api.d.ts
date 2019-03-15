@@ -13,4 +13,12 @@ declare interface RegisterParams {
   username: string;
   password: string;
 }
+declare interface BookMeetParams {
+  subject: string;
+  room: string;
+  bookDate: string;
+  startTime: string;
+  endTime: string;
+  participants: string;
+}
 declare function Ilogin(params: LoginParams): void;

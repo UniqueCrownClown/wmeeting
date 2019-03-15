@@ -1,6 +1,6 @@
 export default class ParamsWrapper {
   private returnParams: string = '';
-  constructor(params: RegisterParams | LoginParams) {
+  constructor(params: RegisterParams | LoginParams|BookMeetParams) {
     for (let prop in params) {
       this.returnParams += `${prop}=${params[prop]}&`;
     }

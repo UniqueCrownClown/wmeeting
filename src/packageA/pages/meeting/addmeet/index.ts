@@ -106,19 +106,15 @@ export default class AddMeet extends Vue {
       });
       return;
     }
-    // let params = new URLSearchParams();
-    // params.append('subject', this.subject);
-    // params.append('room', this.bookLocation);
-    // params.append('bookDate', comitDay);
-    // params.append('startTime', this.bookTime.startTime);
-    // params.append('endTime', this.bookTime.endTime);
-    // params.append('participants', comitPersonList);
+    const params = {
+      subject: this.subject,
+      room: this.bookLocation,
+      bookDate: comitDay,
+      startTime: this.bookTime.startTime,
+      endTime: this.bookTime.endTime,
+      participants: comitPersonList,
+    };
     console.log(comitDay + comitPersonList);
-    const params = `subject=${this.subject}&room=${
-      this.bookLocation
-    }&bookDate=${comitDay}&startTime=${this.bookTime.startTime}&endTime=${
-      this.bookTime.endTime
-    }&participants=${comitPersonList}`;
     let responseValue = await bookMeeting(params);
     let { data, status } = responseValue;
     if (status !== 200) {

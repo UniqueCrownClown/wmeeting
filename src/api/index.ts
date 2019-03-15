@@ -11,8 +11,7 @@ instance.config.headers['Content-Type'] =
 // 用户登录
 export const login = (params: LoginParams) => {
   const wrapper = new ParamsWrapper(params);
-  const sss = wrapper.getValues();
-  return instance.post(`${config.IP}:${config.PORT}${config.prefix}/logon`, sss);
+  return instance.post(`${config.IP}:${config.PORT}${config.prefix}/logon`, wrapper.getValues());
 };
 // 用户注册
 export const register = (params: RegisterParams) => {
@@ -36,8 +35,11 @@ export const getLinkMan = (usercard: string) =>
     `${config.IP}:${config.PORT}${config.prefix}/office-usernames/${usercard}`,
   );
 // 提交会议预约
-export const bookMeeting = (params: any) =>
-  instance.post(`${config.IP}:${config.PORT}${config.prefix}/bookRoom`, params);
+export const bookMeeting = (params: BookMeetParams) =>{
+  const wrapper = new ParamsWrapper(params);
+  return instance.post(`${config.IP}:${config.PORT}${config.prefix}/bookRoom`, wrapper.getValues());
+}
+
 // 获取被预约的时间段
 export const getBookTimeSpace = (bookDate: string, room: string) =>
   instance.get(
