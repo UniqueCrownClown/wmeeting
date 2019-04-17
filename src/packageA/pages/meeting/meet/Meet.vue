@@ -75,7 +75,7 @@
     }
     .meeting-blo {
       width: 750rpx;
-      height: 136rpx;
+      height: 106rpx;
       display: flex;
       justify-content: center;
       align-items: center;

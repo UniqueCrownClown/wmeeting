@@ -3,7 +3,7 @@ import Time from '@/utils/time.ts';
 export default {
   user: {
     usercard: 'A4407',
-    username: '郑旭涛',
+    username: '周杰伦',
   },
   filterData: [], // 孩子和meetingData格式一致，存放是否完成分类
   bookTitle: '',

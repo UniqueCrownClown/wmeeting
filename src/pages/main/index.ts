@@ -1,8 +1,9 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import VerticalBox from '@/components/verticalbox/VerticalBox.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
 import ActionSheet from "@/components/actionsheet/ActionSheet.vue"
 import { namespace } from 'vuex-class';
+import { staticImage } from '@/api'
 const meetModule = namespace('meeting');
 @Component({
   components: {
@@ -18,7 +19,7 @@ export default class XMain extends Vue {
     lefttext: '',
     lefticon: '',
     righttext: '更多',
-    righticon: '',
+    righticon: 'icon-shenglve',
   };
   leftevent() {
     console.log('left');
@@ -31,27 +32,27 @@ export default class XMain extends Vue {
   private workData: any = [
     {
       name: '会议管理',
-      path: require('./../../assets/images/icon-1.png'),
+      path: staticImage('icon-1.png'),
       link: '/packageA/pages/meeting/meet/main',
     },
     {
       name: '办公管理',
-      path: require('./../../assets/images/icon-2.png'),
+      path: staticImage('icon-2.png'),
       link: '/packageA/pages/workarea/deskbook/main',
     },
     {
-      name: '报销管理',
-      path: require('./../../assets/images/icon-3.png'),
-      link: '/packageA/pages/workarea/deskbook/main',
+      name: '云打印',
+      path: staticImage('icon-3.png'),
+      link: '/packageA/pages/print/print/main',
     },
   ];
   private lifeData: any = [
-    { name: '请假', path: require('./../../assets/images/icon-4.png') },
-    { name: '项目', path: require('./../../assets/images/icon-5.png') },
-    { name: '合同', path: require('./../../assets/images/icon-6.png') },
-    { name: '出差', path: require('./../../assets/images/icon-7.png') },
-    { name: '外出登记', path: require('./../../assets/images/icon-8.png') },
-    { name: '宿舍入住', path: require('./../../assets/images/icon-9.png') },
+    { name: '请假', path: staticImage('icon-4.png') },
+    { name: '项目', path: staticImage('icon-5.png') },
+    { name: '合同', path: staticImage('icon-6.png') },
+    { name: '出差', path: staticImage('icon-7.png') },
+    { name: '外出登记', path: staticImage('icon-8.png') },
+    { name: '宿舍入住', path: staticImage('icon-9.png') },
   ];
   /**ActionSheet部分 **/
   private handleOptions(value: string) {

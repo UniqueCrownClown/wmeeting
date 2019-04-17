@@ -2,8 +2,8 @@
   "pages": [
     "pages/logon/login/main",
     "pages/main/main",
-    "pages/index/main",
     "pages/home/main",
+    "pages/index/main",
     "pages/ble/main",
     "pages/logon/register/main",
     "pages/logs/main",
@@ -13,7 +13,6 @@
   "subPackages": [{
     "root": "packageA",
     "pages": [
-      "pages/index/main",
       "pages/meeting/meet/main",
       "pages/meeting/addmeet/main",
       "pages/meeting/detailmeet/main",
@@ -21,7 +20,9 @@
       "pages/meeting/selecttime/main",
       "pages/workarea/adddesk/main",
       "pages/workarea/deskbook/main",
-      "pages/workarea/selectdesk/main"
+      "pages/workarea/selectdesk/main",
+      "pages/print/print/main",
+      "pages/print/printdetail/main"
     ]
   }],
   "window": {

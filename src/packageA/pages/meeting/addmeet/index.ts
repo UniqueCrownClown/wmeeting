@@ -93,6 +93,9 @@ export default class AddMeet extends Vue {
         title: '提示',
         content: '该时间段不合法,选择正确时间段~~~',
         showCancel: false,
+        success(res: any) {
+          console.log(res)
+        }
       });
       return;
     }
@@ -103,6 +106,9 @@ export default class AddMeet extends Vue {
         title: '提示',
         content: '参会人员不能为空,请选择~~~',
         showCancel: false,
+        success(res: any) {
+          console.log(res)
+        }
       });
       return;
     }
@@ -114,16 +120,16 @@ export default class AddMeet extends Vue {
       endTime: this.bookTime.endTime,
       participants: comitPersonList,
     };
-    console.log(comitDay + comitPersonList);
+    // console.log(comitDay + comitPersonList);
     let responseValue = await bookMeeting(params);
     let { data, status } = responseValue;
     if (status !== 200) {
-      wx.showModal({
-        title: '提示',
-        content: '请求异常',
+      wx.showToast({
+        title: '请求异常',
+        duration: 3000
       });
     } else {
-      console.log(data.status + data.msg);
+      // console.log(data.status + data.msg);
       // 成功提交
       if (data.status === 'success') {
         let _this = this;

@@ -31,15 +31,5 @@
     letter-spacing: 0rpx;
     color: #333333;
   }
-  input {
-    border: none;
-    font-family: PingFangSC-Regular;
-    font-size: 32rpx;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0rpx;
-    color: #333333;
-    outline: none;
-  }
 }
 </style>

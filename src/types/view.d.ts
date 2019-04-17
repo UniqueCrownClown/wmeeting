@@ -1,3 +1,4 @@
+//meeting start
 declare interface LinkData {
   name: string;
   isCheck?: boolean;
@@ -47,3 +48,15 @@ interface DetailMeet {
 // meeting end
 // workarea start
 // workarea end
+//print start
+declare interface IFileMessage{
+  id?: number;
+  name:string;
+  size:number;
+  time:string;
+  token?:string;
+  isUploaded?:boolean;
+  percent?:string;
+}
+
+//print end

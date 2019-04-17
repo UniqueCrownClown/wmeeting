@@ -1,6 +1,6 @@
 
 const getTime = () => {
-  let timeSlot = [];
+  let timeSlot: Array<TimeItem> = [];
   for (let i = 9; i < 21; i++) {
     let temp = [':00', ':30'];
     let hour = '0';
@@ -10,12 +10,12 @@ const getTime = () => {
       } else {
         hour = i.toString();
       }
-      let item: any = {};
-      item.text = hour + temp[j];
-
-      item.isAble = true;
-      item.isSelect = false;
-      (timeSlot as any).push(item);
+      const item: TimeItem = {
+        text: hour + temp[j],
+        isAble: true,
+        isSelect: false
+      };
+      timeSlot.push(item);
     }
   }
   return timeSlot;
@@ -43,13 +43,13 @@ const getNextTimeSpace = (value: string) => {
   }
   return nextValue;
 };
-const getTimeSpace = (data: any) => {
+const getTimeSpace = (data: TimeSpace) => {
   let startTime = data.startTime;
   let endTime = data.endTime;
   if (!startTime || !endTime) {
     return [];
   }
-  let timeSpace = [];
+  let timeSpace: Array<string> = [];
   let start = startTime.split(':');
   let end = endTime.split(':');
   let temp = [':00', ':30'];
@@ -59,7 +59,7 @@ const getTimeSpace = (data: any) => {
       if (i === 9) {
         perfix = '09';
       }
-      (timeSpace as any).push(perfix + temp[j]);
+      timeSpace.push(perfix + temp[j]);
     }
   }
   if (start[1] === '30') {
@@ -71,7 +71,7 @@ const getTimeSpace = (data: any) => {
   return timeSpace;
 };
 // 验证时间格式,正确返回true
-const compareTime = (data: any) => {
+const compareTime = (data: TimeSpace) => {
   let startTime = data.startTime;
   let endTime = data.endTime;
   if (!startTime || !endTime) {
@@ -93,14 +93,14 @@ const compareTime = (data: any) => {
   return false;
 };
 // 日期字符串升序排序
-const degressDate = (data: Array<any>) => {
+const degressDate = (data: Array<string>) => {
   let exchange: Array<Date> = [];
   let returnValue: string[] = [];
   data.forEach((element) => {
     exchange.push(new Date(element));
   });
   // 数组去掉重复日期
-  let resultarr = [...new Set(exchange)];
+  // let resultarr = [...new Set(exchange)];
   exchange.sort(function (a, b) {
     return a > b ? 1 : -1;
   });

@@ -3,7 +3,7 @@ import Calendar from '@/components/calendar/Calendar.vue';
 import ActionSheet from '@/components/actionsheet/ActionSheet.vue';
 import CheckList from '@/components/checklist/CheckList.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
-import PingYin from "@/utils/pingyin.ts"
+import PingYin from '@/utils/pingyin.ts';
 @Component({
   components: {
     Calendar,
@@ -65,8 +65,23 @@ export default class Home extends Vue {
     });
   }
   ssss() {
-    const test = ["阿本","曹超","胡小风","方大","范进"]
-    PingYin.pySegSort2(test);
+    // const test = ["阿本","曹超","胡小风","方大","范进"]
+    // PingYin.pySegSort2(test);
+    //测试文件目录读取
+    // console.log((wx as any).env.USER_DATA_PATH);
+    // const fs = (wx as any).getFileSystemManager()
+    // fs.stat({
+    //   path: `${(wx as any).env.USER_DATA_PATH}`,
+    //   success: res => {
+    //     console.log(res.stats.isDirectory())
+    //   }
+    // })
+    (wx as any).chooseMessageFile({
+      success(res) {
+        const tempFilePaths = res.tempFilePaths;
+        //文件上传
+      },
+    });
   }
   handleComplate() {
     console.log('完成');

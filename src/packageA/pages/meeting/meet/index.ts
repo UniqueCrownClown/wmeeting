@@ -16,10 +16,10 @@ export default class Meet extends Vue {
   @meetModule.Mutation('setshowData') setshowData!: (data: any) => void;
   @meetModule.Getter('showData') showData!: (data: any) => void;
   private headerOption = {
-    lefttext: '返回首页',
-    lefticon: '',
+    lefttext: '首页',
+    lefticon: 'icon-leftarrow',
     righttext: '新增',
-    righticon: '',
+    righticon: 'icon-hao',
   };
   private headerTab = [
     { text: '未完成', isSelect: true },

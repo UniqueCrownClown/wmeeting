@@ -1,7 +1,12 @@
 <template>
   <div class="xheader">
     <div class="left-option"
-         @click="leftevent">{{options.lefttext}}</div>
+         @click="leftevent">
+      <span v-if="!isleftIcon">{{options.lefttext}}</span>
+      <i v-if="isleftIcon"
+         class="iconfont"
+         :class="options.lefticon"></i>
+    </div>
     <h3 v-if="headerTab === undefined"
         @click="titleevent">{{ title }}</h3>
     <div v-else
@@ -12,7 +17,12 @@
             :class="{active:item.isSelect}">{{item.text}}</span>
     </div>
     <div class="right-option"
-         @click="rightevent">{{options.righttext}}</div>
+         @click="rightevent">
+      <span v-if="!isrightIcon">{{options.righttext}}</span>
+      <i v-if="isrightIcon"
+         class="iconfont"
+         :class="options.righticon"></i>
+    </div>
   </div>
 </template>
 <script lang="ts" src="./index.ts">
@@ -31,6 +41,13 @@
   .left-option,
   .right-option {
     font-size: 28rpx;
+    span {
+      min-width: 4rpx;
+      padding: 0 6rpx;
+    }
+    i {
+      padding: 0 6rpx;
+    }
   }
   div.tabSwitch {
     // background-color: #ffffff;
@@ -43,8 +60,7 @@
     span.active {
       // background-color: @header-background-color;
       // color: #ffffff;
-      border-bottom:2px solid #ffffff;
-
+      border-bottom: 2px solid #ffffff;
     }
   }
 }

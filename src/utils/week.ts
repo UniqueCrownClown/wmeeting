@@ -5,7 +5,7 @@ const getTodayData = () => {
   return today;
 };
 const getWeekData = () => {
-  let detail:Array<any> = [];
+  let detail:Array<DetailItem> = [];
   let date = getFirstDay();
   for (var i = 0; i < 7; i++) {
     detail.push(formatDate(i === 0 ? addDate(date, -1) : addDate(date, 1)));
@@ -20,18 +20,18 @@ const getWeekData = () => {
   }
   return detail;
 };
-const getFirstDay = () => {
+const getFirstDay = ():Date => {
   let date = new Date();
   let week = date.getDay() - 1;
   date = addDate(date, week * -1);
   return new Date(date);
 };
-const addDate = (date: Date, n: number) => {
+const addDate = (date: Date, n: number):Date => {
   date.setDate(date.getDate() + n);
   return date;
 };
 
-const formatDate = (date: Date) => {
+const formatDate = (date: Date):DetailItem => {
   var year = date.getFullYear();
   var month = date.getMonth() + 1;
   var day = date.getDate();

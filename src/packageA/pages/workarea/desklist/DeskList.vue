@@ -1,16 +1,12 @@
 <template>
   <div class="deskList">
-    <div
-      class="deskBook-card"
-      v-for="item in getDeskBookList"
-      :key="item.id"
-      @touchstart="showDeleteConfirm(item.id)"
-      @touchend="clearLoop"
-    >
-      <div
-        class="deskBook-body"
-        :class="{ occupy: Number(item.occupy) === 1 ? true : false }"
-      >
+    <div class="deskBook-card"
+         v-for="item in getDeskBookList"
+         :key="item.id"
+         @touchstart="showDeleteConfirm(item.id)"
+         @touchend="clearLoop">
+      <div class="deskBook-body"
+           :class="{ occupy: Number(item.occupy) === 1 ? true : false }">
         <div class="deskBook-body-left">
           <div class="deskBook-body-desk">
             {{ item.desk }}
@@ -27,22 +23,19 @@
         <i class="iconfont icon-chair"></i>
       </div>
       <div class="deskBook-footer">
-        <div
-          class="deskBook-footernavigation"
-          @click.stop="toRoomMap(item.station)"
-        >
+        <div class="deskBook-footernavigation"
+             @click.stop="toRoomMap(item.station)">
           导航
           <i class="iconfont icon-navigation"></i>
         </div>
-        <div
-          class="deskBook-footerchageState"
-          @click.stop="handleClick(item.id, item.occupy)"
-        >
+        <div class="deskBook-footerchageState"
+             @click.stop="handleClick(item.id, item.occupy)">
           {{ item.occupytext }}
         </div>
       </div>
     </div>
-    <div class="deskBook-card-add" @click="deskBookAdd">
+    <div class="deskBook-card-add"
+         @click="deskBookAdd">
       <div class="deskBook-card-add-cont">
         <i class="iconfont icon-hao deskBook-plus"></i>
         <div class="deskBook-card-text">新增工位预约</div>
@@ -55,7 +48,7 @@
 .deskList {
   height: 100%;
   overflow: auto;
-  i{
+  i {
     display: inline-block;
   }
   .deskBook-card {
@@ -140,6 +133,7 @@
     justify-content: center;
     align-items: center;
     .deskBook-card-add-cont {
+      text-align: center;
       .deskBook-plus {
         color: #cccccc;
         font-size: 160rpx;

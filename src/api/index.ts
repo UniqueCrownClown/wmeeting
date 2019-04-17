@@ -26,7 +26,7 @@ export const register = (params: RegisterParams) => {
 export const getMeeting = (usercard: string) =>
   instance.get(
     `${config.IP}:${config.PORT}${
-      config.prefix
+    config.prefix
     }/appointmentRoom-list/${usercard}`,
   );
 // 请求联系人
@@ -35,7 +35,7 @@ export const getLinkMan = (usercard: string) =>
     `${config.IP}:${config.PORT}${config.prefix}/office-usernames/${usercard}`,
   );
 // 提交会议预约
-export const bookMeeting = (params: BookMeetParams) =>{
+export const bookMeeting = (params: BookMeetParams) => {
   const wrapper = new ParamsWrapper(params);
   return instance.post(`${config.IP}:${config.PORT}${config.prefix}/bookRoom`, wrapper.getValues());
 }
@@ -44,7 +44,7 @@ export const bookMeeting = (params: BookMeetParams) =>{
 export const getBookTimeSpace = (bookDate: string, room: string) =>
   instance.get(
     `${config.IP}:${config.PORT}${
-      config.prefix
+    config.prefix
     }/appointmentRoom-daily-list/?bookDate=${bookDate}&room=${room}`,
   );
 // 管理员开门码
@@ -81,7 +81,7 @@ export const bookStation = (params: any) =>
 export const getDeskList = (usercard: string) =>
   instance.get(
     `${config.IP}:${config.PORT}${
-      config.prefix
+    config.prefix
     }/appointmentStation-list/${usercard}`,
   );
 
@@ -89,14 +89,14 @@ export const getDeskList = (usercard: string) =>
 export const getDeskState = (startTime: string, endTime: string) =>
   instance.get(
     `${config.IP}:${config.PORT}${
-      config.prefix
+    config.prefix
     }/station-busy-list/?startTime=${startTime}&endTime=${endTime}`,
   );
 // 显示屏扫码后请求使用工位
 export const updateDeskState = (token: string, userCard: string) =>
   instance.put(
     `${config.IP}:${config.PORT}${
-      config.prefix
+    config.prefix
     }/appointmentStation/${token}/userCard/${userCard}`,
   );
 
@@ -110,3 +110,16 @@ const pfly = new Fly();
 pfly.config.headers['Content-Type'] = 'application/json;charset=UTF-8';
 export const getPosition = (params: any) =>
   pfly.post(`${config.IP}:${config.PORT}/appointment/coordinate`, params);
+
+
+// 云打印
+export const getPrintFile = (userCard: string) =>
+  instance.get(`${config.IP}:${config.PORT}/office/printer/file/${userCard}`);
+
+export const delPrintFile = (id: string) =>
+  instance.delete(`${config.IP}:${config.PORT}/office/printer/file/${id}`);
+
+export const getUploadUrl = `${config.IP}:${config.PORT}/office/printer/file`;
+
+//静态图片的路径
+export const staticImage = (fileName: string) => `${config.IP}:${config.PORT}/images/${fileName}`;
