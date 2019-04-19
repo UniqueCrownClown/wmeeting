@@ -1,14 +1,12 @@
 {
   "pages": [
-    "pages/logon/login/main",
     "pages/main/main",
+    "pages/logon/login/main",
     "pages/home/main",
     "pages/index/main",
     "pages/ble/main",
     "pages/logon/register/main",
-    "pages/logs/main",
-    "pages/counter/main",
-    "pages/testExtend/main"
+    "pages/logs/main"
   ],
   "subPackages": [{
     "root": "packageA",

@@ -24,8 +24,28 @@ export const cinArray = (arr, key, val) => {
 
 // ArrayBuffer转16进度字符串示例
 export const ab2hex = (buffer) => {
-  var hexArr = Array.prototype.map.call(new Uint8Array(buffer), function(bit) {
+  var hexArr = Array.prototype.map.call(new Uint8Array(buffer), function (bit) {
     return ('00' + bit.toString(16)).slice(-2);
   });
   return hexArr.join('');
 };
+
+export const compose = (...fns: Array<IComposeFn>) => {
+  // const fns: Array<any> = [].slice.call(args);
+  // return function (initialArg: any) {
+  //   let res = initialArg
+  //   for (let i = fns.length - 1; i > -1; i--) {
+  //     res = fns[i](res)
+  //   }
+  //   return res
+  // }
+  const length = fns.length;
+  return function (this: any, ...args: Array<any>) {
+    let index = length - 1,
+      result = length > 0 ? fns[index].apply(this, args) : args; //注意arg为数组，要用apply
+    while (--index >= 0) {
+      result = fns[index].call(this, result);
+    }
+    return result
+  }
+}

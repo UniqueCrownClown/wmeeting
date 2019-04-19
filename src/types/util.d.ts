@@ -18,3 +18,5 @@ interface TimeSpace {
   startTime: string,
   endTime: string
 }
+//const.ts
+declare type IComposeFn = (...args: any) => any;

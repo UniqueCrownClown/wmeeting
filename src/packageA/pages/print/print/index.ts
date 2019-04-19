@@ -3,6 +3,7 @@ import XHeader from '@/components/xheader/XHeader.vue';
 import PrintList from '@/components/printlist/PrintList.vue';
 import { getUploadUrl, getPrintFile } from '@/api/index';
 import { namespace } from 'vuex-class';
+import { compose } from '@/utils/consts'
 const meetModule = namespace('meeting');
 const printModule = namespace('print');
 @Component({
@@ -13,9 +14,9 @@ const printModule = namespace('print');
 })
 export default class Print extends Vue {
   @meetModule.State('user') user!: User;
-  @printModule.State('waitingFiles') waitingFiles!: Array<string>;
+  @printModule.State('waitingFiles') waitingFiles!: Array<any>;
   @printModule.Mutation('setWaitingFiles') setWaitingFiles!: (
-    payload: Array<string>
+    payload: Array<any>
   ) => void;
   private uploadTask: any = null;
   private title = '云打印列表';
@@ -32,6 +33,10 @@ export default class Print extends Vue {
   }
   private handleAdd() {
     const _this = this;
+    if (this.isShowTip) {
+      //隐藏showTip
+      this.isShowTip = false;
+    }
     (wx as any).chooseMessageFile({
       count: 5,
       type: 'all',
@@ -70,14 +75,29 @@ export default class Print extends Vue {
       }
     })
   }
-  private fileUpload(tFile: any) {
+  private fileUpload(tFile: IChooseItem) {
     const _this = this;
+    const exclaim = (str: string) => str.startsWith('wx') ? str : 'tmp_' + str;
+    const transform = (str: string) => str.substring(str.lastIndexOf('/') + 1);
+    const test = compose(exclaim, transform);
+    const ddddd = test(tFile.path);
+    // let sssss = tFile.path.lastIndexOf('/') + 1;
+    // let ddddd = tFile.path.substring(sssss);
+    // if (!ddddd.startsWith('wx')) {
+    //   ddddd = 'tmp_' + ddddd;
+    // }
+    // let hahaha = new Map();
+    // hahaha.set(ddddd, tFile.name);
+    let hahaha = {};
+    hahaha[ddddd] = tFile.name;
+    console.log(JSON.stringify(hahaha));
     const xxx = wx.uploadFile({
       url: getUploadUrl,
       filePath: tFile.path,
       name: 'exampleInputFile',
       formData: {
-        userCard: _this.user.usercard
+        userCard: _this.user.usercard,
+        fileName: JSON.stringify(hahaha)
       },
       success(res) {
         console.info(res);
@@ -104,9 +124,9 @@ export default class Print extends Vue {
       }
     });
     return xxx;
-
   }
   private fileReupload() {
+
   }
 
   private fileUploadCancel() {
@@ -136,7 +156,9 @@ export default class Print extends Vue {
   private async queryData(userCard: string) {
     //查数据给fileItems赋值
     try {
+      wx.showLoading({ title: '加载中~~~' });
       const responseValue: any = await getPrintFile(userCard);
+      wx.hideLoading();
       const { data, status } = responseValue;
       if (status === 200) {
         //清空列表
@@ -155,6 +177,7 @@ export default class Print extends Vue {
       }
     } catch (e) {
       console.log(e);
+      wx.hideLoading();
       (this as any).showToast('服务器异常');
     }
     if (this.waitingFiles.length !== 0) {

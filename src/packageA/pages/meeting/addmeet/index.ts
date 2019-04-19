@@ -112,6 +112,8 @@ export default class AddMeet extends Vue {
       });
       return;
     }
+    //请求前显示loading
+    wx.showLoading({ title: '请求数据中~~~' })
     const params = {
       subject: this.subject,
       room: this.bookLocation,
@@ -123,6 +125,8 @@ export default class AddMeet extends Vue {
     // console.log(comitDay + comitPersonList);
     let responseValue = await bookMeeting(params);
     let { data, status } = responseValue;
+    //隐藏loading
+    wx.hideLoading();
     if (status !== 200) {
       wx.showToast({
         title: '请求异常',

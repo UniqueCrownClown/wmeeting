@@ -16,8 +16,8 @@ export default class PrintDetail extends Vue {
     righticon: 'icon-del',
   };
   private query: any;
-  private item: IFileMessage = { id: -1, name: 'default.txt', size: 12345, time: 'dadadad', token: '313214e4' };
-  onLoad(option) {
+  private item: IFileMessage = { id: -1, name: '', size: 0, time: '', token: '' };
+  onLoad(option: any) {
     this.query = option;
   }
   onReady() {

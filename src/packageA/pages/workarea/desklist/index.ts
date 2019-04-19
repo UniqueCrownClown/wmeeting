@@ -45,18 +45,18 @@ export default class DeskList extends Vue {
     try {
       responseValue = await releaseDesk(id);
     } catch (err) {
-              wx.showModal({
-  title: '提示',
- content:err
-});;
+      wx.showModal({
+        title: '提示',
+        content: err
+      });;
       return;
     }
     const { status, data } = responseValue;
     if (status !== 200) {
       wx.showModal({
-  title: '提示',
- content:'服务器异常'
-});
+        title: '提示',
+        content: '服务器异常'
+      });
     } else {
       let _this = this;
       if (data === 'success') {
@@ -75,7 +75,7 @@ export default class DeskList extends Vue {
           title: '提示',
           content: '释放失败',
           showCancel: false,
-          success(res: any) {},
+          success(res: any) { },
         });
       }
     }
@@ -107,22 +107,25 @@ export default class DeskList extends Vue {
   }
   async queryDataList() {
     let responseValue;
+    wx.showLoading({ title: '加载中~~~' })
     try {
       responseValue = await getDeskList(this.user.usercard);
     } catch (err) {
-              wx.showModal({
-  title: '提示',
- content:err
-});;
+      wx.hideLoading();
+      wx.showModal({
+        title: '提示',
+        content: err
+      });;
       return;
     }
-    console.log(responseValue);
+    wx.hideLoading();
+    // console.log(responseValue);
     let { status, data } = responseValue;
     if (status !== 200) {
       wx.showModal({
-  title: '提示',
- content:'请求异常'
-});
+        title: '提示',
+        content: '请求异常'
+      });
     } else {
       this.setdeskBookRecord(data);
     }
@@ -144,9 +147,9 @@ export default class DeskList extends Vue {
             let { status, data } = responseValue;
             if (status !== 200) {
               wx.showModal({
-  title: '提示',
- content:'服务器异常'
-});
+                title: '提示',
+                content: '服务器异常'
+              });
             } else {
               let _this = this;
               wx.showModal({
@@ -162,10 +165,10 @@ export default class DeskList extends Vue {
             }
           } catch (err) {
             console.log('fetch error:' + err);
-                    wx.showModal({
-  title: '提示',
- content:err
-});;
+            wx.showModal({
+              title: '提示',
+              content: err
+            });;
           }
         },
       });

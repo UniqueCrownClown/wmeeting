@@ -54,6 +54,12 @@ export default class XMain extends Vue {
     { name: '外出登记', path: staticImage('icon-8.png') },
     { name: '宿舍入住', path: staticImage('icon-9.png') },
   ];
+  onLoad(options: any) {
+    wx.showLoading({ title: '加载中' })
+  }
+  onReady() {
+    wx.hideLoading();
+  }
   /**ActionSheet部分 **/
   private handleOptions(value: string) {
     if (value === this.showMenu[0]) {

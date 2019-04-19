@@ -7,20 +7,20 @@ declare interface LinkData {
 declare interface DayObj {
   day: Date;
   isSelect?: boolean;
-  date?:string;
-  month?:number;
-  year?:number;
+  date?: string;
+  month?: number;
+  year?: number;
 }
 
 interface Options {
   lefttext: string;
   lefticon: string;
   righttext: string;
-  righticon:string;
+  righticon: string;
 }
 interface Tab {
-  text:string;
-  isSelect:boolean;
+  text: string;
+  isSelect: boolean;
 }
 // meeting start
 
@@ -42,21 +42,27 @@ interface ExchangeLinkData {
   data: Array<LinkData>;
 }
 interface DetailMeet {
-  token?:string
+  token?: string
 }
 
 // meeting end
 // workarea start
 // workarea end
 //print start
-declare interface IFileMessage{
+declare interface IFileMessage {
   id?: number;
-  name:string;
-  size:number;
-  time:string;
-  token?:string;
-  isUploaded?:boolean;
-  percent?:string;
+  name: string;
+  size: number;
+  time: string;
+  token?: string;
+  isUploaded?: boolean;
+  percent?: string;
+}
+declare interface IChooseItem {
+  name: string;
+  path: string;
+  size: number;
+  type: string;
 }
 
 //print end

@@ -54,15 +54,15 @@ export default class Meet extends Vue {
       }
     }
   }
-  async deleteMeet(type: string) {
+  private async deleteMeet(type: string) {
     let responseValue;
     responseValue = await deleteMeet(type);
     let { status, data } = responseValue;
     if (status !== 200) {
       wx.showModal({
-  title: '提示',
- content:'服务器异常'
-});
+        title: '提示',
+        content: '服务器异常'
+      });
     } else {
       if (data === 'success') {
         this.queryMeetingData();
@@ -84,23 +84,25 @@ export default class Meet extends Vue {
     });
   }
 
-  toMeetDetail(fIndex: any, cIndex: any) {
+  public toMeetDetail(fIndex: any, cIndex: any) {
     //fIndex(时间序号) cIndex(时间里的数据序号)
     wx.redirectTo({
       url: `../detailmeet/main?tabIndex=${
         this.tabIndex
-      }&fIndex=${fIndex}&cIndex=${cIndex}`,
+        }&fIndex=${fIndex}&cIndex=${cIndex}`,
     });
   }
   private async queryMeetingData() {
+    wx.showLoading({ title: '加载中~~~' })
     let responseValue = await getMeeting(this.user.usercard);
     console.log(responseValue);
     let { status, data } = responseValue;
+    wx.hideLoading();
     if (status !== 200) {
       wx.showModal({
-  title: '提示',
- content:'请求异常'
-});
+        title: '提示',
+        content: '请求异常'
+      });
     } else {
       this.setmeetingData(data);
     }
@@ -108,8 +110,12 @@ export default class Meet extends Vue {
   mounted() {
     this.queryMeetingData();
   }
-  // activated() {
-  //   this.queryMeetingData();
+
+  // onLauch(optio: any) {
+  //   wx.showLoading({ title: '加载中~~~' })
+  // }
+  // onReady() {
+  //   wx.hideLoading();
   // }
 
   get meetingData() {
