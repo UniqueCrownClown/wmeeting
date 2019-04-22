@@ -4,6 +4,7 @@ import PrintList from '@/components/printlist/PrintList.vue';
 import { getUploadUrl, getPrintFile } from '@/api/index';
 import { namespace } from 'vuex-class';
 import { compose } from '@/utils/consts'
+import { getImgType } from '@/utils/fileFormat'
 const meetModule = namespace('meeting');
 const printModule = namespace('print');
 @Component({
@@ -42,7 +43,13 @@ export default class Print extends Vue {
       type: 'all',
       async success(res: any) {
         const { tempFiles } = res;
-        _this.setWaitingFiles(tempFiles);
+        //过滤掉不是能打印的文件格式的文件
+        const type = ['list-word', 'list-ppt', 'list-pdf', 'list-txt', 'list-photo', 'list-xlsx'];
+        const haha = tempFiles.filter((element: any) => type.includes(getImgType(element.name, false)));
+        if(haha.length<=0){
+          return;
+        }
+        _this.setWaitingFiles(haha);
         console.log(tempFiles);
         //tempFiles是个数组
         //上传之前先展现
@@ -90,14 +97,13 @@ export default class Print extends Vue {
     // hahaha.set(ddddd, tFile.name);
     let hahaha = {};
     hahaha[ddddd] = tFile.name;
-    console.log(JSON.stringify(hahaha));
     const xxx = wx.uploadFile({
       url: getUploadUrl,
       filePath: tFile.path,
       name: 'exampleInputFile',
       formData: {
         userCard: _this.user.usercard,
-        fileName: JSON.stringify(hahaha)
+        fileNames: JSON.stringify(hahaha)
       },
       success(res) {
         console.info(res);
@@ -112,21 +118,19 @@ export default class Print extends Vue {
       console.log('上传进度', res.progress)
       // console.log('已经上传的数据长度', res.totalBytesSent)
       // console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-      if (true) {
-        const sha: any = _this.fileItems.find(
-          element => element.name === tFile.name
-        );
-        const index: number = _this.fileItems.findIndex(
-          element => element.name === tFile.name
-        );
-        sha.percent = res.progress;
-        Vue.set(this.fileItems, index, sha);
-      }
+      const sha: any = _this.fileItems.find(
+        element => element.name === tFile.name
+      );
+      const index: number = _this.fileItems.findIndex(
+        element => element.name === tFile.name
+      );
+      sha.percent = res.progress;
+      Vue.set(this.fileItems, index, sha);
     });
     return xxx;
   }
   private fileReupload() {
-
+    //重新开始下载文件
   }
 
   private fileUploadCancel() {

@@ -63,12 +63,12 @@
         text-align: center;
         .print-detail-filename {
           font-size: 38rpx;
-          line-height: 38rpx;
+          line-height: 50rpx;
           color: '#333333';
           margin-bottom: 10rpx;
           font-weight: 700;
           width: 80%;
-          text-overflow: hidden;
+          text-overflow: ellipsis;
           overflow: hidden;
           display: inline-block;
         }

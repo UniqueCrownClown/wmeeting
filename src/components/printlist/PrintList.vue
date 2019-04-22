@@ -72,7 +72,7 @@ ul.print-list {
       div.print-main {
         width: 500rpx;
         text-align: left;
-        line-height: 30rpx;
+        line-height: 40rpx;
 
         div.print-main-filename {
           width: 100%;
@@ -85,7 +85,7 @@ ul.print-list {
         }
 
         div.print-main-filemess {
-          margin-top: 10rpx;
+          margin-top: 4rpx;
           font-size: 24rpx;
           color: #a6a6a6;
         }
