@@ -12,37 +12,33 @@
           <i class="iconfont icon-admin"></i>
           <input type="text"
                  placeholder="工号/EmployeeNo"
+                 cursor-spacing=320
                  v-model="usercard">
         </div>
         <div class="register-usercard">
           <i class="iconfont icon-admin"></i>
           <input type="text"
                  placeholder="用户名/Username"
+                 cursor-spacing=240
                  v-model="username">
         </div>
         <div class="register-password">
           <i class="iconfont icon-lock"></i>
           <input placeholder="密码/Password"
-                 type="password"
-                 v-model="password"
-                 v-if="showPassword">
-          <input placeholder="密码/Password"
                  type="text"
+                 :password="showPassword"
                  v-model="password"
-                 v-else>
+                 cursor-spacing=170>
           <i :class="['iconfont',iconEye]"
              @click="eyeOpen"></i>
         </div>
         <div class="register-password2">
           <i class="iconfont icon-lock"></i>
           <input placeholder="密码/Password"
-                 type="password"
-                 v-model="confirmPassword"
-                 v-if="showPassword">
-          <input placeholder="密码/Password"
                  type="text"
+                 :password="showPassword"
                  v-model="confirmPassword"
-                 v-else>
+                 cursor-spacing=100>
           <i :class="['iconfont',iconEye]"
              @click="eyeOpen"></i>
         </div>
