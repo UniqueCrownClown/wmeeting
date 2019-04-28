@@ -1,35 +1,33 @@
-import { MutationPayload } from "vuex";
-
 export default {
-  setdeskBookDate: (state: any, data: MutationPayload) => {
+  setdeskBookDate: (state: WorkAreaState, data: Array<ResponseStation>) => {
     state.deskBookDate = data;
   },
-  setdeskBookSeatData: (state: any, data: any) => {
+  setdeskBookSeatData: (state: WorkAreaState, data: Array<BookSeatData>) => {
     state.deskBookSeatData = data;
   },
-  restoreDeskBookSeatData: (state: any) => {
-    state.deskBookSeatData.forEach((element: any) => {
+  restoreDeskBookSeatData: (state: WorkAreaState) => {
+    state.deskBookSeatData.forEach(element => {
       element.isActive = false;
       element.isAble = true;
     });
   },
-  setunableBookSeatData: (state: any, data: any) => {
+  setunableBookSeatData: (state: WorkAreaState, data: Array<string>) => {
     // 用index 来实现挂钩
-    data.forEach((element: any) => {
-      state.deskBookSeatData[Number(element) - 1].isAble = false;
+    data.forEach(element => {
+      state.deskBookSeatData[parseInt(element) - 1].isAble = false;
     });
   },
-  setdeskBookDateCertain: (state: any, data: any) => {
+  setdeskBookDateCertain: (state: WorkAreaState, data: boolean) => {
     state.deskBookDateCertain = data;
   },
-  setdeskSeatCertain: (state: any, data: any) => {
+  setdeskSeatCertain: (state: WorkAreaState, data: boolean) => {
     state.deskSeatCertain = data;
   },
-  setdeskBookRecord: (state: any, data: any) => {
+  setdeskBookRecord: (state: WorkAreaState, data: Array<ResponseStation>) => {
     state.deskBookRecord = data;
   },
-  setPosition: (state: any, data: any) => {
+  setPosition: (state: WorkAreaState, data: IPosition) => {
     state.position.topValue = data.topValue;
     state.position.leftValue = data.leftValue;
-  },
+  }
 };

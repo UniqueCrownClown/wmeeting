@@ -51,10 +51,11 @@ export default class DetailMeet extends Vue {
     wx.redirectTo({ url: '../meet/main' });
   }
   private async handleLight() {
-    const params = `room=${
-      this.showData[this.timeIndex()].data[this.dataIndex()].room
-    }&method=${this.lightState ? 'Open' : 'Close'}`;
-    let responseValue = await lightControl(params);
+    const params = {
+      room: this.showData[this.timeIndex()].data[this.dataIndex()].room,
+      method: this.lightState ? LightMethod.Open : LightMethod.Close
+    }
+    const responseValue = await lightControl(params);
     console.log(responseValue);
     wx.showModal({
       title: '提示',
@@ -64,11 +65,12 @@ export default class DetailMeet extends Vue {
   }
   private async handleDevice(value: string, isUseful: boolean) {
     if (!isUseful) {
-      // let params = new URLSearchParams();
-      // params.append('tvNum', '5');
-      // params.append('method', value);
-      const params = `tvNum=5&method=${value}`;
-      let responseValue = await tvControl(params);
+      const params = {
+        tvNum: '5',
+        method: value === TVtype.channel ? TVtype.channel : TVtype.ton
+      }
+      //const params = `tvNum=5&method=${value}`;
+      const responseValue = await tvControl(params);
       wx.showToast({
         title: responseValue.data,
         duration: 2000,

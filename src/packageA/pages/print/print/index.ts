@@ -14,7 +14,7 @@ const printModule = namespace('print');
   }
 })
 export default class Print extends Vue {
-  @meetModule.State('user') user!: User;
+  @meetModule.State('user') user!: IUser;
   @printModule.State('waitingFiles') waitingFiles!: Array<any>;
   @printModule.Mutation('setWaitingFiles') setWaitingFiles!: (
     payload: Array<any>

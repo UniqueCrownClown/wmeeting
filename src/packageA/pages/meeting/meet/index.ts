@@ -11,7 +11,7 @@ const meetModule = namespace('meeting');
   },
 })
 export default class Meet extends Vue {
-  @meetModule.State('user') user!: any;
+  @meetModule.State('user') user!: IUser;
   @meetModule.Mutation('setmeetingData') setmeetingData!: (data: any) => void;
   @meetModule.Mutation('setshowData') setshowData!: (data: any) => void;
   @meetModule.Getter('showData') showData!: (data: any) => void;
@@ -57,7 +57,7 @@ export default class Meet extends Vue {
   private async deleteMeet(type: string) {
     let responseValue;
     responseValue = await deleteMeet(type);
-    let { status, data } = responseValue;
+    const { status, data } = responseValue;
     if (status !== 200) {
       wx.showModal({
         title: '提示',
@@ -94,9 +94,8 @@ export default class Meet extends Vue {
   }
   private async queryMeetingData() {
     wx.showLoading({ title: '加载中~~~' })
-    let responseValue = await getMeeting(this.user.usercard);
-    console.log(responseValue);
-    let { status, data } = responseValue;
+    const responseValue = await getMeeting(this.user.usercard);
+    const { status, data } = responseValue;
     wx.hideLoading();
     if (status !== 200) {
       wx.showModal({

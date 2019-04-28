@@ -110,9 +110,9 @@ export default class AddDesk extends Vue {
         });
         return;
       }
-      let start = Time.getFormatDateString(this.deskBookDate[0].day, '/');
-      let end = Time.getFormatDateString(this.deskBookDate[1].day, '/');
-      let station = this.getStationValue();
+      const start = Time.getFormatDateString(this.deskBookDate[0].day, '/');
+      const end = Time.getFormatDateString(this.deskBookDate[1].day, '/');
+      const station = this.getStationValue();
       if (start === '' || end === '') {
         wx.showModal({
           title: '提示',
@@ -129,14 +129,12 @@ export default class AddDesk extends Vue {
         });
         return;
       }
-      // const params = new URLSearchParams();
-      // params.append("userCard", this.user.usercard);
-      // params.append("station", station);
-      // params.append("startTime", start);
-      // params.append("endTime", end);
-      const params = `userCard=${
-        this.user.usercard
-      }&station=${station}&startTime=${start}&endTime=${end}`;
+      const params = {
+        userCard: this.user.usercard,
+        station: station,
+        startTime: start,
+        endTime: end,
+      }
 
       responseValue = await bookStation(params);
       console.log(responseValue);
@@ -150,9 +148,9 @@ export default class AddDesk extends Vue {
     const { status, data } = responseValue;
     if (status !== 200) {
       wx.showModal({
-  title: '提示',
- content:'服务器异常'
-});
+        title: '提示',
+        content: '服务器异常'
+      });
     } else {
       if (data.status === 'success') {
         let _this = this;

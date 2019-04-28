@@ -8,19 +8,22 @@ instance.config.timeout = 5000;
 // instance.config.headers['Content-Type'] = 'application/json;charset=UTF-8';
 instance.config.headers['Content-Type'] =
   'application/x-www-form-urlencoded;charset=UTF-8';
+const getReqParams = (params: any) => {
+  const wrapper = new ParamsWrapper(params);
+  return wrapper.getValues()
+}
 // 用户登录
-export const login = (params: LoginParams) => {
-  const wrapper = new ParamsWrapper(params);
-  return instance.post(`${config.IP}:${config.PORT}${config.prefix}/logon`, wrapper.getValues());
-};
+export const login = (params: LoginParams) =>
+  instance.post(
+    `${config.IP}:${config.PORT}${config.prefix}/logon`,
+    getReqParams(params));
+
 // 用户注册
-export const register = (params: RegisterParams) => {
-  const wrapper = new ParamsWrapper(params);
-  return instance.post(
+export const register = (params: RegisterParams) =>
+  instance.post(
     `${config.IP}:${config.PORT}${config.prefix}/registration`,
-    wrapper.getValues(),
+    getReqParams(params)
   );
-};
 
 // 请求会议列表
 export const getMeeting = (usercard: string) =>
@@ -35,10 +38,10 @@ export const getLinkMan = (usercard: string) =>
     `${config.IP}:${config.PORT}${config.prefix}/office-usernames/${usercard}`,
   );
 // 提交会议预约
-export const bookMeeting = (params: BookMeetParams) => {
-  const wrapper = new ParamsWrapper(params);
-  return instance.post(`${config.IP}:${config.PORT}${config.prefix}/bookRoom`, wrapper.getValues());
-}
+export const bookMeeting = (params: BookMeetParams) =>
+  instance.post(
+    `${config.IP}:${config.PORT}${config.prefix}/bookRoom`,
+    getReqParams(params));
 
 // 获取被预约的时间段
 export const getBookTimeSpace = (bookDate: string, room: string) =>
@@ -58,23 +61,23 @@ export const deleteMeet = (id: string) =>
   );
 
 // 会议室灯光控制
-export const lightControl = (params: any) =>
+export const lightControl = (params: LightParams) =>
   instance.post(
     `${config.IP}:${config.PORT}${config.prefix}/meeting-room-switchs`,
-    params,
+    getReqParams(params)
   );
 
-export const tvControl = (params: any) =>
+export const tvControl = (params: TVParams) =>
   instance.post(
     `${config.IP}:${config.PORT}${config.prefix}/television`,
-    params,
+    getReqParams(params)
   );
 
 // 工位预约
-export const bookStation = (params: any) =>
+export const bookStation = (params: BookStationParams) =>
   instance.post(
     `${config.IP}:${config.PORT}${config.prefix}/bookStation`,
-    params,
+    getReqParams(params)
   );
 
 // 根据员工工号查询预约工位列表
@@ -108,8 +111,8 @@ export const releaseDesk = (id: string) =>
 // 创建一个flyio的实列
 const pfly = new Fly();
 pfly.config.headers['Content-Type'] = 'application/json;charset=UTF-8';
-export const getPosition = (params: any) =>
-  pfly.post(`${config.IP}:${config.PORT}/appointment/coordinate`, params);
+export const getPosition = (params: Array<ICoordinate>) =>
+  pfly.post(`${config.IP}:${config.PORT}/appointment/coordinate`, JSON.stringify(params));
 
 
 // 云打印

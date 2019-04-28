@@ -1,25 +1,25 @@
 import Time from '@/utils/time.ts';
 import Vue from 'vue';
 export default {
-  setuser: (state: any, data: any) => {
+  setuser: (state: MeetingState, data: IUser) => {
     state.user = data;
   },
-  setmeetingData: (state: any, data: Array<any>) => {
+  setmeetingData: (state: MeetingState, data: Array<ResponseMeet>) => {
     let finishArray = data.filter((character) => character.state === '0');
     let unfinishArray = data.filter((character) => character.state === '1');
     Vue.set(state.filterData, 0, handlemeetingData(unfinishArray));
     Vue.set(state.filterData, 1, handlemeetingData(finishArray));
   },
-  setbookTitle: (state: any, data: any) => {
+  setbookTitle: (state: MeetingState, data: string) => {
     state.bookTitle = data;
   },
-  setbookLocation: (state: any, data: any) => {
+  setbookLocation: (state: MeetingState, data: number) => {
     state.bookLocation = data;
   },
-  setbookPersonList: (state: any, data: any) => {
+  setbookPersonList: (state: MeetingState, data: Array<string>) => {
     state.bookPersonList = data;
   },
-  selectWeek: (state: any, data: any) => {
+  selectWeek: (state: MeetingState, data: any) => {
     state.weekData.forEach((element: any) => {
       element.isActive = false;
     });
@@ -30,7 +30,7 @@ export default {
     // 每次调用都置回初始值
     state.dayTime = Time.getTime();
     data.forEach((element: any) => {
-      let setIndex:Array<number> = [];
+      let setIndex: Array<number> = [];
       for (let i = 0; i < state.dayTime.length; i++) {
         if (state.dayTime[i].text === element.startTime) {
           setIndex.push(i);
@@ -80,10 +80,10 @@ export default {
   },
 };
 
-const handlemeetingData = (data: Array<any>) => {
+const handlemeetingData = (data: Array<ResponseMeet>): Array<SortMeetData> => {
   // 将请求的数据转换为指定格式
   let exchangeDate: string[] = [];
-  let exchangeData:Array<any> = [];
+  let exchangeData: Array<any> = [];
   data.forEach((element) => {
     if (!(exchangeDate as any).includes(element.bookDate)) {
       exchangeDate.push(element.bookDate);

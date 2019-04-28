@@ -134,7 +134,7 @@ class App extends Vue {
         return;
       }
       // 计算10秒钟内，rssi最强的前三蓝牙设备
-      const deviceList = this.computedStrongestSignalDeviceList();
+      // const deviceList = this.computedStrongestSignalDeviceList();
       const cdeviceList = this.ccomputedStrongestSignalDeviceList();
       this.getXY(cdeviceList)
         .then((response) => {

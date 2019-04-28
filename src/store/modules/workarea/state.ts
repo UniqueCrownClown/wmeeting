@@ -1,4 +1,4 @@
-export default {
+const initalState: WorkAreaState = {
   deskBookRecord: [
     {
       id: 1,
@@ -49,3 +49,5 @@ export default {
     leftValue: '100vw'
   }
 }
+
+export default initalState

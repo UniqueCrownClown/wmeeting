@@ -183,7 +183,7 @@ export default class BLE extends Vue {
       { name: '1839682', mac: '40:06:A0:5F:04:FA', rssi: '-76' },
       { name: '1839638', mac: '40:06:A0:60:3F:17', rssi: '-80' },
     ];
-    let response = await getPosition(JSON.stringify(a));
+    let response = await getPosition(a);
     console.log(response);
   }
 }

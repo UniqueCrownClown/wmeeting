@@ -1,9 +1,9 @@
 import Week from '@/utils/week.ts';
 import Time from '@/utils/time.ts';
-export default {
+const initalState: MeetingState = {
   user: {
-    usercard: 'A4407',
-    username: '周杰伦',
+    usercard: '',
+    username: '',
   },
   filterData: [], // 孩子和meetingData格式一致，存放是否完成分类
   bookTitle: '',
@@ -15,3 +15,5 @@ export default {
   dayTime: Time.getTime(), // 存储当前日期的时间段状态
   isBookTimeCertain: false, // 是否确认预约时间选择
 };
+
+export default initalState
