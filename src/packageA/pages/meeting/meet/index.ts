@@ -55,8 +55,7 @@ export default class Meet extends Vue {
     }
   }
   private async deleteMeet(type: string) {
-    let responseValue;
-    responseValue = await deleteMeet(type);
+    const responseValue = await deleteMeet(type);
     const { status, data } = responseValue;
     if (status !== 200) {
       wx.showModal({
@@ -94,7 +93,7 @@ export default class Meet extends Vue {
   }
   private async queryMeetingData() {
     wx.showLoading({ title: '加载中~~~' })
-    const responseValue = await getMeeting(this.user.usercard);
+    const responseValue: ResponseMeetValue = await getMeeting(this.user.usercard);
     const { status, data } = responseValue;
     wx.hideLoading();
     if (status !== 200) {

@@ -1,25 +1,39 @@
 declare var require: any;
 
+interface LoginParams {
+  staffNum: string;
+  password: string;
+}
+interface RegisterParams {
+  staffNum: string;
+  username: string;
+  password: string;
+  email?: string;
+  department?: string;
+}
+
 declare interface ResponseValue {
   status: string | object;
   data: object;
 }
 
-//responseQuery
+//会议预约
+declare interface ResponseMeetValue {
+  status: number;
+  data: Array<ResponseMeet>;
+}
+
 declare interface ResponseMeet {
-  id: number,
+  id: string,
   subject: string,
-  room: string,
-  userCard: string,
-  token: string,
-  bookDate: string,
+  meetingDate: string,
   startTime: string,
   endTime: string,
-  releaseTime: string,
-  state: string,
-  occupy: string,
-  bodyDetected: string,
-  participants: string
+  room: string,
+  participants: string,
+  qrToken: string,
+  meetingStatus: number,
+  roomStatus: number
 }
 
 declare interface SortMeetData {
@@ -27,37 +41,31 @@ declare interface SortMeetData {
   data: Array<ResponseMeet>
 }
 
-declare interface ResponseFileListItem {
-  extraName: string
-  fileName: string,
-  filePath: string,
-  id: string,
-  md5: string,
-  size: number,
-  userCard: string,
-  token: string,
-  uploadTime: string
+declare interface BookMeetParams {
+  subject: string;
+  room: string;
+  meetingDate: string;
+  startTime: string;
+  endTime: string;
+  participants: string;
 }
 
-declare interface ResponseStation {
-  id: number,
-  station: string,
-  deskNumber: string,
+declare enum TVtype {
+  channel = 'channel',
+  ton = 'ton'
+}
+
+declare enum LightMethod {
+  Open = 'Open',
+  Close = 'Close'
+}
+
+//工位预约
+declare interface sss {
   startTime: string,
-  endTime: string,
-  occupy: string,
-  state: string
+  endTime: string
 }
-
-declare interface LoginParams {
-  usercard: string;
-  password: string;
-}
-declare interface RegisterParams {
-  usercard: string;
-  username: string;
-  password: string;
-}
+type ResponseTimeSpace = Array<sss>
 
 interface LightParams {
   room: string;
@@ -68,30 +76,44 @@ interface TVParams {
   method: TVtype;
 }
 interface BookStationParams {
-  userCard: string;
+  staffNum: string;
   station: string;
   startTime: string;
   endTime: string;
 }
+
+declare interface ResponseStation {
+  qrToken: string,
+  startDate: string,
+  endDate: string,
+  stationNum: string,
+  status: number
+}
+
 interface ICoordinate {
   name: string,
   mac: string,
   rssi: string
 }
-declare enum TVtype {
-  channel = 'channel',
-  ton = 'ton'
-}
-declare enum LightMethod {
-  Open = 'Open',
-  Close = 'Close'
+
+declare interface PrintScreenParams {
+  staffNum: string,
+  sceneName: string
 }
 
-declare interface BookMeetParams {
-  subject: string;
-  room: string;
-  bookDate: string;
-  startTime: string;
-  endTime: string;
-  participants: string;
+declare interface PrintFileResponse {
+  status: number;
+  data: Array<PrintFileResponseItem>
+}
+declare interface PrintFileResponseItem {
+  extraName: string,
+  fileName: string,
+  filePath: string,
+  id: string,
+  md5: string,
+  scene: any,
+  sceneName: string,
+  token: string,
+  size: number,
+  uploadTime: string
 }

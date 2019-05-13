@@ -2,35 +2,35 @@
   <div class="deskList">
     <div class="deskBook-card"
          v-for="item in getDeskBookList"
-         :key="item.id"
-         @touchstart="showDeleteConfirm(item.id)"
+         :key="item.qrToken"
+         @touchstart="showDeleteConfirm(item.qrToken)"
          @touchend="clearLoop">
       <div class="deskBook-body"
-           :class="{ occupy: Number(item.occupy) === 1 ? true : false }">
+           :class="{ occupy: item.status === 1 ? true : false }">
         <div class="deskBook-body-left">
           <div class="deskBook-body-desk">
-            {{ item.desk }}
+            {{ deskNumber[parseInt(item.stationNum) - 1] }}
           </div>
           <div class="deskBook-body-time">
             <i class="iconfont icon-clock"></i>
-            {{ item.startTime }}-{{ item.endTime }}
+            {{ item.startDate }}-{{ item.endDate }}
           </div>
           <div class="deskBook-body-state">
             <i class="iconfont icon-location"></i>
-            {{ item.state }}
+            {{ deskState[item.status] }}
           </div>
         </div>
         <i class="iconfont icon-chair"></i>
       </div>
       <div class="deskBook-footer">
         <div class="deskBook-footernavigation"
-             @click.stop="toRoomMap(item.station)">
+             @click.stop="toRoomMap(item.stationNum)">
           导航
           <i class="iconfont icon-navigation"></i>
         </div>
         <div class="deskBook-footerchageState"
-             @click.stop="handleClick(item.id, item.occupy)">
-          {{ item.occupytext }}
+             @click.stop="handleClick(item.qrToken, item.status)">
+          {{ deskStateText[item.status] }}
         </div>
       </div>
     </div>

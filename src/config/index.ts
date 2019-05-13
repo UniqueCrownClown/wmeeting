@@ -1,5 +1,6 @@
 export default {
   IP: 'https://nanyan.agree.cn',
   PORT: 10443,
-  prefix: '/appointment'
+  STATICPORT: 10080,
+  prefix: '/office'
 }

@@ -23,7 +23,7 @@ export default class Login extends Vue {
         });
       }
       const params: LoginParams = {
-        usercard: this.username,
+        staffNum: this.username,
         password: this.password,
       };
 

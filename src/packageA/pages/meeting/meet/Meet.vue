@@ -23,7 +23,7 @@
                   <div class="meeting-blo-left">
                     <clock :time="mItem.startTime"
                            :size="clockSize"
-                           :state="mItem.state"></clock>
+                           :state="mItem.meetingStatus"></clock>
                   </div>
                   <div class="meeting-blo-right">
                     <h4 class="meeting-blo-title">{{ mItem.subject }}</h4>

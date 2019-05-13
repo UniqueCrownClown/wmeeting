@@ -3,7 +3,6 @@ import Calendar from '@/components/calendar/Calendar.vue';
 import ActionSheet from '@/components/actionsheet/ActionSheet.vue';
 import CheckList from '@/components/checklist/CheckList.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
-import PingYin from '@/utils/pingyin.ts';
 @Component({
   components: {
     Calendar,
@@ -91,21 +90,18 @@ export default class Home extends Vue {
     this.deskBookDate = value;
   }
   handleOptions(value: string) {
-    console.log(value);
     this.isShow = false;
   }
   handleShow(value: boolean) {
     this.isShow = value;
   }
   testAS() {
-    console.log('aaaaaaaaaa');
     this.isShow = !this.isShow;
   }
   link() {
     wx.redirectTo({ url: '/pages/main/main' });
   }
   handleSelect(data: Array<string>) {
-    console.log(data);
     //全量的data.name
     for (let i = 0; i < this.personData.length; i++) {
       if ((data as any).includes(this.personData[i].name)) {
@@ -120,12 +116,6 @@ export default class Home extends Vue {
         });
       }
     }
-    // const change = this.personData.filter(
-    //   (character) => character.name === data[0],
-    // );
-    // const index = this.personData.findIndex(
-    //   (character) => character.name === data[0],
-    // );
     console.log(this.personData);
   }
   mounted() {}

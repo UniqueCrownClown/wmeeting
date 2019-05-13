@@ -117,7 +117,7 @@ export default class AddMeet extends Vue {
     const params = {
       subject: this.subject,
       room: this.bookLocation,
-      bookDate: comitDay,
+      meetingDate: comitDay,
       startTime: this.bookTime.startTime,
       endTime: this.bookTime.endTime,
       participants: comitPersonList,

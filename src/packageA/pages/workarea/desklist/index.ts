@@ -7,7 +7,7 @@ const meetModule = namespace('meeting');
 export default class DeskList extends Vue {
   @meetModule.State('user') user!: any;
   @workModule.State('deskBookRecord') deskBookRecord!: any;
-  @workModule.Mutation('setdeskBookRecord') setdeskBookRecord!: any;
+  @workModule.Mutation('setdeskBookRecord') setdeskBookRecord!: (payLoad: Array<ResponseStation>) => void;
   private deskState: string[] = ['未使用', '使用中'];
   private deskStateText: string[] = ['开始使用', '提前释放'];
   private deskNumber: string[] = ['1号工位', '2号工位', '3号工位', '4号工位'];
@@ -16,16 +16,13 @@ export default class DeskList extends Vue {
     // vue hook子组件redirectTo不触发
     this.queryDataList();
   }
-  // onReady(){
-  //   console.log("deskOnReady");
-  // }
   onShow() {
     this.queryDataList();
   }
 
-  onHide() {
-    console.log('onHide');
-  }
+  // onHide() {
+  //   console.log('onHide');
+  // }
 
   get getDeskBookList() {
     let data = this.deskBookRecord.filter(

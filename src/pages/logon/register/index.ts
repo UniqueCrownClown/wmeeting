@@ -52,7 +52,7 @@ export default class Register extends Vue {
         return;
       }
       const params: RegisterParams = {
-        usercard: this.usercard,
+        staffNum: this.usercard,
         username: this.username,
         password: this.password,
       };

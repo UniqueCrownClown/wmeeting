@@ -1,5 +1,5 @@
 export default {
-  setdeskBookDate: (state: WorkAreaState, data: Array<ResponseStation>) => {
+  setdeskBookDate: (state: WorkAreaState, data: Array<DayObj>) => {
     state.deskBookDate = data;
   },
   setdeskBookSeatData: (state: WorkAreaState, data: Array<BookSeatData>) => {

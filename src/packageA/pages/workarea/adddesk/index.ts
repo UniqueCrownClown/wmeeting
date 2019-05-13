@@ -20,7 +20,7 @@ const meetModule = namespace('meeting');
 })
 export default class AddDesk extends Vue {
   @workModule.Mutation('setdeskBookDateCertain') setdeskBookDateCertain!: any;
-  @workModule.Mutation('setdeskBookDate') setdeskBookDate!: any;
+  @workModule.Mutation('setdeskBookDate') setdeskBookDate!:(payLoad:Array<DayObj>)=>void;
   @workModule.Mutation('restoreDeskBookSeatData') restoreDeskBookSeatData!: any;
   @workModule.State('deskBookDate') deskBookDate!: any;
   @workModule.State('deskBookSeatData') deskBookSeatData!: Array<any>;
@@ -49,7 +49,6 @@ export default class AddDesk extends Vue {
     this.showCalendar = true;
   }
   private setdeskBookCalendar(value: Array<DayObj>) {
-    console.log(value);
     this.deskBookCalendar = value;
     this.setdeskBookDate(value);
   }
@@ -130,14 +129,12 @@ export default class AddDesk extends Vue {
         return;
       }
       const params = {
-        userCard: this.user.usercard,
+        staffNum: this.user.usercard,
         station: station,
         startTime: start,
         endTime: end,
       }
-
       responseValue = await bookStation(params);
-      console.log(responseValue);
     } catch (err) {
       wx.showModal({
         title: '提示',

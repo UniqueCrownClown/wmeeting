@@ -58,7 +58,7 @@ interface WorkAreaState {
   deskBookRecord: Array<ResponseStation>,
   deskBookDateCertain: boolean, // 是否确认提交
   deskSeatCertain: boolean, // 是否确认选择位置
-  deskBookDate: Array<ResponseStation>, // 预约时间数组
+  deskBookDate: Array<DayObj>, // 预约时间数组
   deskBookSeatData: Array<BookSeatData>,
   position: IPosition
 }
