@@ -2,10 +2,10 @@
   "pages": [
     "pages/main/main",
     "pages/logon/login/main",
+    "pages/logon/register/main",
     "pages/home/main",
     "pages/index/main",
     "pages/ble/main",
-    "pages/logon/register/main",
     "pages/logs/main"
   ],
   "subPackages": [{
@@ -28,6 +28,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "办公管理",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
   }
 }

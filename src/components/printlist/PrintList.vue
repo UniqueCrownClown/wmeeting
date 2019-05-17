@@ -53,7 +53,6 @@ ul.print-list {
   background-color: #ffffff;
   li {
     width: 100%;
-    height: 120rpx;
     position: relative;
     border-bottom: 1rpx solid #ccc;
     div.print-has-upload {

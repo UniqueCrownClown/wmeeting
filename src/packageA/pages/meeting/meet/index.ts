@@ -30,9 +30,9 @@ export default class Meet extends Vue {
     {
       name: '删除',
       color: '#fff',
-      fontsize: '20',
+      fontsize: '32',
       width: 100,
-      icon: 'delete',
+      icon: 'trash',
       background: '#ed3f14',
     },
   ];
@@ -110,20 +110,13 @@ export default class Meet extends Vue {
     this.queryMeetingData();
   }
 
-  // onLauch(optio: any) {
-  //   wx.showLoading({ title: '加载中~~~' })
-  // }
-  // onReady() {
-  //   wx.hideLoading();
-  // }
-
   get meetingData() {
     return this.showData(this.tabIndex);
   }
   private addMeet() {
-    wx.redirectTo({ url: `../addmeet/main` });
+    wx.navigateTo({ url: `../addmeet/main` });
   }
   private returnMain() {
-    wx.redirectTo({ url: `/pages/main/main` });
+    wx.navigateBack();
   }
 }

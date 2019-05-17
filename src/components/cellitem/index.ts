@@ -10,8 +10,7 @@ export default class CellItem extends Vue {
       this.$emit("insertContent", value);
     }
     else {
-      console.log(this.cellData.link);
-      wx.redirectTo({url :this.cellData.link as string});
+      wx.navigateTo({url :this.cellData.link as string});
     }
   }
 }

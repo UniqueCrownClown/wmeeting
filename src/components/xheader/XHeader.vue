@@ -29,24 +29,24 @@
 </script>
 <style lang="less">
 @header-background-color: #1978fe;
+
 .xheader {
-  padding: 0 10rpx;
-  height: 84rpx;
-  background-color: @header-background-color;
+  height: 120rpx;
+  background: @header-background-color;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 30rpx;
+  font-size: 36rpx;
   color: #ffffff;
   .left-option,
   .right-option {
-    font-size: 28rpx;
+    font-size: 32rpx;
     span {
-      min-width: 4rpx;
-      padding: 0 6rpx;
+      min-width: 20rpx;
+      padding: 0 16rpx;
     }
     i {
-      padding: 0 6rpx;
+      padding: 0 16rpx;
     }
   }
   div.tabSwitch {

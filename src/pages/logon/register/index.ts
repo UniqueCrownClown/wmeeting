@@ -11,10 +11,11 @@ export default class Register extends Vue {
   private title: string = '注册';
   private headerOption = {
     lefttext: '返回',
-    lefticon: '',
+    lefticon: 'icon-leftarrow',
     righttext: '',
     righticon: '',
   };
+
   private usercard: string = '';
   private username: string = '';
   private password: string = '';
@@ -31,7 +32,8 @@ export default class Register extends Vue {
     }
   }
   returnLogin() {
-    wx.redirectTo({ url: '../../logon/login/main' });
+    // wx.redirectTo({ url: '../../logon/login/main' });
+    wx.navigateBack();
   }
   async handleRegister() {
     let responseValue;

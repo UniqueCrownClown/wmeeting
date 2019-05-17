@@ -155,7 +155,7 @@ export default class SelectTime extends Vue {
   }
   certainBookTime() {
     this.setisBookTimeCertain(true);
-    wx.redirectTo({ url: `../addmeet/main` });
+    wx.navigateBack();
   }
   hasTimeText(text: string) {
     return (character: any) => character.text === text;

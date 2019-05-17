@@ -54,14 +54,13 @@ export default class Print extends Vue {
     };
     const data = JSON.stringify(transform);
     console.log(data);
-    wx.redirectTo({
+    wx.navigateTo({
       url: `../printdetail/main?data=${
         data
         }`,
     });
   }
   private returnMain() {
-    // wx.redirectTo({ url: `/pages/main/main` });
     wx.navigateBack();
   }
   private handleAdd() {
@@ -122,13 +121,14 @@ export default class Print extends Vue {
     const ddddd = test(tFile.path);
     let hahaha = {};
     hahaha[ddddd] = tFile.name;
-    // fileNames: JSON.stringify(hahaha)
+    fileNames: JSON.stringify(hahaha)
     const xxx = wx.uploadFile({
       url: getUploadUrl,
       filePath: tFile.path,
       name: 'filelist',
       formData: {
-        staffNum: _this.user.staffNum
+        staffNum: _this.user.staffNum,
+        sceneId: _this.sceneData.id,
       },
       success(res) {
         //从waitingFiles上移除该文件
@@ -174,7 +174,7 @@ export default class Print extends Vue {
     this.queryData(this.sceneData.id);
   }
 
-  private async queryData(sceneId: string) {
+  private async queryData(sceneId: string = this.sceneData.id) {
     //查数据给fileItems赋值
     try {
       wx.showLoading({ title: '加载中~~~' });
@@ -215,11 +215,12 @@ export default class Print extends Vue {
     }
   }
 
+
   private handleDelete(value: string) {
     const params: XXParms = {
       delFn: delPrintFile,
       value: value,
-      queryFn: () => { this.queryData(this.sceneData.id) }
+      queryFn: this.queryData
     };
     deleteWrap(params);
   }

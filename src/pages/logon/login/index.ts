@@ -68,7 +68,7 @@ export default class Login extends Vue {
     }
   }
   private toRegister() {
-    wx.redirectTo({ url: '../register/main' });
+    wx.navigateTo({ url: '../register/main' });
   }
   private eyeOpen() {
     if (this.showPassword) {

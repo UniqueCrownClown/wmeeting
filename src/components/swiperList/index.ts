@@ -11,10 +11,10 @@ export declare interface SwiperListItem {
 export default class SwiperList extends Vue {
   private actions = [
     {
-      name: '删除',
       color: '#fff',
-      fontsize: '20',
+      fontsize: '32',
       width: 100,
+      icon: 'trash',
       background: '#ed3f14',
     },
   ];

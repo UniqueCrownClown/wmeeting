@@ -69,7 +69,7 @@ export default class SelectPerson extends Vue {
   }
   private returnAddMeet() {
     //清空选择数据
-    wx.redirectTo({ url: `../addmeet/main` });
+    wx.navigateBack();
   }
   private handleSelect(data: Array<string>) {
     console.log(data);

@@ -30,8 +30,7 @@ export default class Print extends Vue {
   private screenName = '';
   private fileItems: Array<SwiperListItem> = [];
   private returnMain() {
-    // wx.navigateBack();
-    wx.redirectTo({ url: `/pages/main/main` });
+    wx.navigateBack();
   }
   private handleAdd() {
     this.isShowCreate = !this.isShowCreate;
@@ -71,7 +70,7 @@ export default class Print extends Vue {
       }
     } catch (e) {
       wx.hideLoading();
-      wx.showToast({ title: '服务器异常' })
+      wx.showToast({ title: '服务器异常~~' })
     }
   }
 

@@ -6,6 +6,6 @@ export default class VerticalBox extends Vue {
   @Prop() private size!: number;
   private vsize: string = 100 / this.size + '%';
   private handleRouter(path: string) {
-    wx.redirectTo({ url: path });
+    wx.navigateTo({ url: path });
   }
 }

@@ -49,7 +49,7 @@ export default class AddMeet extends Vue {
   private roomMenu: string[] = ['会议室1', '会议室2', '会议室3'];
   private isShow: boolean = false;
   private returnMeet() {
-    wx.redirectTo({ url: `../meet/main` });
+    wx.navigateBack();
   }
   private async handleComplate() {
     // 提交之前校验一下

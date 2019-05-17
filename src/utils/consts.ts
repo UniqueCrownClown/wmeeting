@@ -59,7 +59,7 @@ const deleteQuery = async (xxparms: XXParms) => {
       content: '服务器异常'
     });
   } else {
-    if (data === 'success') {
+    if (data === 'success' || data.status === 'success') {
       return xxparms.queryFn();
     }
   }
@@ -68,12 +68,12 @@ const deleteQuery = async (xxparms: XXParms) => {
 export declare interface XXParms {
   value: string,
   delFn: (value: string) => any,
-  queryFn: (queryParm?:string) => any
+  queryFn: (queryParm?: string) => any
 }
 export const deleteWrap = (xxparms: XXParms): void => {
   wx.showModal({
-    title: '取消提示',
-    content: '残忍取消该预约？',
+    title: '删除提示',
+    content: '残忍删除该记录？',
     success(res) {
       if (res.confirm) {
         return deleteQuery(xxparms)

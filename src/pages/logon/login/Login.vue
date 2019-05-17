@@ -11,7 +11,7 @@
           <input type="text"
                  placeholder="工号/EmployeeNo"
                  v-model="username"
-                 cursor-spacing=220>
+                 cursor-spacing=240>
         </div>
         <div class="login-password">
           <i class="iconfont icon-lock"></i>
@@ -19,7 +19,7 @@
                  type="text"
                  :password="showPassword"
                  v-model="password"
-                 cursor-spacing=150>
+                 cursor-spacing=180>
           <i :class="['iconfont', iconEye]"
              @click="eyeOpen"></i>
         </div>

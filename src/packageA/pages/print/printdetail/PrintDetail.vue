@@ -24,6 +24,10 @@
           <p>请移步至打印机旁出示二维码被扫描后，于打印机上设置并打印文件</p>
         </div>
       </div>
+      <div class="icon-wraper">
+        <i class="iconfont icon-uparrow"
+           @click="returnPrint"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -106,6 +110,13 @@
         height: 300rpx;
         margin: 20rpx auto;
       }
+    }
+  }
+  .icon-wraper {
+    text-align: center;
+    i {
+      color: #fff;
+      font-size: 40px;
     }
   }
 }

@@ -12,7 +12,7 @@
           <i class="iconfont icon-admin"></i>
           <input type="text"
                  placeholder="工号/EmployeeNo"
-                 cursor-spacing=320
+                 cursor-spacing=310
                  v-model="usercard">
         </div>
         <div class="register-usercard">

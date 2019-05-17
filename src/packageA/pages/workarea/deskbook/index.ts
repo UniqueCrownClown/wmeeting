@@ -12,7 +12,7 @@ import XHeader from '@/components/xheader/XHeader.vue';
 export default class DeskBook extends Vue {
   private headerOption = {
     lefttext: '返回',
-    lefticon: '',
+    lefticon: 'icon-leftarrow',
     righttext: '',
     righticon: '',
   };
@@ -23,7 +23,7 @@ export default class DeskBook extends Vue {
   private tabIndex: number = 0;
   private currentPosition: number = 0;
   private returnMain() {
-    wx.redirectTo({ url: `/pages/main/main` });
+    wx.navigateBack();
   }
 
   @Watch('tabIndex')

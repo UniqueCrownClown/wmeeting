@@ -1,6 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import { getImgType } from '@/utils/fileFormat';
-import { staticImage, delPrintFile } from '@/api/';
+import { staticImage } from '@/api/';
 import XHeader from '@/components/xheader/XHeader.vue';
 const QRCode = require('@/utils/weapp-qrcode.js');
 import rpx2px from '@/utils/rpx2px.js';
@@ -40,32 +39,7 @@ export default class PrintDetail extends Vue {
   get getImgPath() {
     return staticImage('list-folder.png')
   }
-
-  private handleDel(id: string) {
-    let _this = this;
-    wx.showModal({
-      title: '提示',
-      content: '残忍删除该文件？？？',
-      async success(res: any) {
-        if (res.confirm) {
-          const response = await delPrintFile(id);
-          console.log(response);
-          //成功删除后跳回打印列表页
-          const { data } = response;
-          if (data === 'success') {
-            _this.returnPrint();
-          } else {
-            wx.showToast({
-              title: '删除失败',
-              duration: 3000,
-            });
-          }
-        }
-      }
-    })
-  }
   private returnPrint() {
-    // wx.redirectTo({ url: '../print/main' })
     wx.navigateBack();
   }
 }
