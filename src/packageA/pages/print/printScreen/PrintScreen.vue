@@ -1,29 +1,30 @@
 <template>
   <div class="print">
-    <x-header :title="currentSceneData.name"
+    <x-header title="场景列表"
               isTab="false"
               :options="headerOption"
               @leftevent="returnMain"
               @rightevent="handleAdd" />
-    <div class="print-swiper-tips"
-         v-show="isShowSwiperTip">
-      <div class="print-swiper-tips-text">下拉展示打印二维码</div>
-      <div class="print-swiper-tips-nomore"
-           @click="setShowSwiperTip">不再提示</div>
+    <div class="print-create-screen"
+         :class="{printShow:isShowCreate}">
+      <input type="text"
+             placeholder="新建场景"
+             v-model="screenName">
+      <div>
+        <button @click="newScreenClick">新建</button>
+        <button @click="cancelScreenClick">取消</button>
+      </div>
     </div>
-    <Button @click="showDetail">场景二维码</Button>
-    <PrintList :items="fileItems"
-               @handle-into="handleInto"
-               @file-reupload="fileReupload"
-               @file-uploadCancel="fileUploadCancel"
-               @handle-delete="handleDelete" />
+    <SwiperList :items="fileItems"
+                @handle-into="handleInto"
+                @handle-delete="handleDelete" />
     <div class="print-empty-tips"
          v-if="isShowTip">
       <i class="tips-trigger"></i>
       <div>
         <i class="iconfont icon-info"></i>
         <p>
-          你尚未添加任何打印文件，请点击【+】按钮添加打印文件
+          你尚未添加任何场景，请点击【+】按钮添加打印场景
         </p>
         <span @click="setShowTip">我知道了</span>
       </div>
@@ -36,24 +37,29 @@
   background-color: #e9e9e9;
   width: 100vw;
   height: 100vh;
-  .print-swiper-tips {
-    width: 100%;
-    background-color: #dff2ff;
-    position: relative;
+  .print-create-screen {
+    background-color: #f5f5f5;
+    height: 0;
+    opacity: 0;
+    transition: all 1s;
+    input {
+      border: 1px solid #aaaaaa;
+      font-size: 18px;
+      border-radius: 5px;
+      width: 80%;
+      margin: 10rpx 10%;
+      text-align: center;
+    }
     div {
-      height: 40px;
-      line-height: 40px;
-      font-size: 24rpx;
+      display: flex;
+      justify-content: space-around;
+      padding: 10rpx;
     }
-    .print-swiper-tips-text {
-      color: #366bfd;
-    }
-    .print-swiper-tips-nomore {
-      color: #888888;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
+  }
+  .printShow {
+    height: 200rpx;
+    opacity: 1;
+    padding: 10rpx;
   }
   .print-empty-tips {
     background-color: #ffffff;

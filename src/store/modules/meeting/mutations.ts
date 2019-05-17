@@ -26,6 +26,33 @@ export default {
     state.weekData[data].isActive = true;
     state.currentday = state.weekData[data];
   },
+  setdayTime: (state: MeetingState, data: any) => {
+    // 每次调用都置回初始值
+    state.dayTime = Time.getTime();
+    data.forEach((element: any) => {
+      let setIndex: Array<number> = [];
+      for (let i = 0; i < state.dayTime.length; i++) {
+        if (state.dayTime[i].text === element.startTime) {
+          setIndex.push(i);
+          // 最后一个时间点是个特例
+          if (element.endTime === '21:00') {
+            setIndex.push(23);
+            break;
+          }
+        }
+        if (state.dayTime[i].text === element.endTime) {
+          setIndex.push(i - 1);
+          break;
+        }
+      }
+      // 设置一下状态
+      for (let i = 0; i < state.dayTime.length; i++) {
+        if (i <= setIndex[1] && i >= setIndex[0]) {
+          state.dayTime[i].isAble = false;
+        }
+      }
+    });
+  },
   setbookTime2: (state: any, data: any) => {
     // 1存储预约时间状态
     state.bookTime = data;

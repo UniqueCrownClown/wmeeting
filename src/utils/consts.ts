@@ -49,3 +49,35 @@ export const compose = (...fns: Array<IComposeFn>) => {
     return result
   }
 }
+
+const deleteQuery = async (xxparms: XXParms) => {
+  const responseValue = await xxparms.delFn(xxparms.value);
+  const { status, data } = responseValue;
+  if (status !== 200) {
+    wx.showModal({
+      title: '提示',
+      content: '服务器异常'
+    });
+  } else {
+    if (data === 'success') {
+      return xxparms.queryFn();
+    }
+  }
+  return false
+}
+export declare interface XXParms {
+  value: string,
+  delFn: (value: string) => any,
+  queryFn: (queryParm?:string) => any
+}
+export const deleteWrap = (xxparms: XXParms): void => {
+  wx.showModal({
+    title: '取消提示',
+    content: '残忍取消该预约？',
+    success(res) {
+      if (res.confirm) {
+        return deleteQuery(xxparms)
+      }
+    },
+  });
+}

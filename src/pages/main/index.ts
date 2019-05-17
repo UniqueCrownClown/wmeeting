@@ -13,7 +13,7 @@ const meetModule = namespace('meeting');
   },
 })
 export default class XMain extends Vue {
-  @meetModule.Action('asyncsetUser') asyncsetUser!: (params: any) => void;
+  @meetModule.Mutation('setUser') setUser!: (params: IUser) => void;
   private title: string = '首页';
   private headerOption = {
     lefttext: '',
@@ -21,6 +21,11 @@ export default class XMain extends Vue {
     righttext: '更多',
     righticon: 'icon-shenglve',
   };
+  private current = 'homepage';
+  handleChange(e: any) {
+    //e.mp.detail.key
+    this.current = e.mp.detail.key;
+  }
   leftevent() {
     console.log('left');
   }
@@ -28,7 +33,7 @@ export default class XMain extends Vue {
     this.isShow = true;
   }
   private isShow = false;
-  private showMenu = ['退出登录'];
+  private showMenu = ['退出登录', '取消'];
   private workData: any = [
     {
       name: '会议管理',
@@ -43,7 +48,7 @@ export default class XMain extends Vue {
     {
       name: '云打印',
       path: staticImage('icon-3.png'),
-      link: '/packageA/pages/print/print/main',
+      link: '/packageA/pages/print/printScreen/main',
     },
   ];
   private lifeData: any = [
@@ -65,10 +70,10 @@ export default class XMain extends Vue {
     if (value === this.showMenu[0]) {
       // 路由置回登陆界面，清除vuex
       let user = {
-        usercard: '',
+        staffNum: '',
         username: '',
       };
-      this.asyncsetUser(user);
+      this.setUser(user);
       wx.redirectTo({ url: '../logon/login/main' });
     }
   }

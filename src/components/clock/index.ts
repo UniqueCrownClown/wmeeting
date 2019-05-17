@@ -4,7 +4,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class Clock extends Vue {
   @Prop() private time!: string;
   @Prop() private size!: string;
-  @Prop() private state!: string;
+  @Prop() private state!: number;
   private colorCollection: string[] = [
     "#FE8849",
     "#3384FE",
@@ -15,7 +15,7 @@ export default class Clock extends Vue {
   get background(): string {
     let start = this.time;
     let time = Number(start.substring(0, 2));
-    if (this.state === "0") {
+    if (this.state === 2) {
       return this.colorCollection[3];
     }
     if (time < 12) {

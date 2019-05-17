@@ -1,5 +1,5 @@
 interface IUser {
-  usercard: string;
+  staffNum: string;
   username: string;
 }
 interface IBookTime {

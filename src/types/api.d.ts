@@ -12,6 +12,16 @@ interface RegisterParams {
   department?: string;
 }
 
+declare interface ResponseLoginValue {
+  status: number;
+  data: ResponseLogin;
+}
+declare interface ResponseLogin{
+  data: IUser
+  msg: string,
+  status:string
+}
+
 declare interface ResponseValue {
   status: string | object;
   data: object;
@@ -77,9 +87,9 @@ interface TVParams {
 }
 interface BookStationParams {
   staffNum: string;
-  station: string;
-  startTime: string;
-  endTime: string;
+  stationNum: string;
+  startDate: string;
+  endDate: string;
 }
 
 declare interface ResponseStation {
@@ -116,4 +126,16 @@ declare interface PrintFileResponseItem {
   token: string,
   size: number,
   uploadTime: string
+}
+
+declare interface ResponseScreenPrintItem {
+  id: string;
+  sceneName: string;
+  token: string;
+  staff: StaffCC;
+  fileCount: number;
+}
+declare interface PrintScreenResponse {
+  status: number,
+  data: Array<ResponseScreenPrintItem>,
 }

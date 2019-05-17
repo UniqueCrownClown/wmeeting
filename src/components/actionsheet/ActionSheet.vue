@@ -23,6 +23,7 @@
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index:2;
+  transition: all .8s;
   ul {
     list-style-type: none;
     position: fixed;

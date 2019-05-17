@@ -9,16 +9,7 @@ const meetModule = namespace('meeting');
   components: {
     ActionSheet,
     XHeader,
-  },
-  // filters: {
-  //   judgeIsToday: function(value: number) {
-  //     let today = new Date();
-  //     if (value === today.getDate()) {
-  //       return "今";
-  //     }
-  //     return value;
-  //   }
-  // }
+  }
 })
 export default class SelectTime extends Vue {
   @meetModule.State('weekData') weekData!: any;
@@ -36,7 +27,7 @@ export default class SelectTime extends Vue {
   @meetModule.Mutation('setbookTime2') setbookTime2!: (data: any) => void;
   private headerOption = {
     lefttext: '返回',
-    lefticon: '',
+    lefticon: 'icon-leftarrow',
     righttext: '完成',
     righticon: '',
   };

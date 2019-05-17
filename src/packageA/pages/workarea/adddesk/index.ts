@@ -130,9 +130,9 @@ export default class AddDesk extends Vue {
       }
       const params = {
         staffNum: this.user.usercard,
-        station: station,
-        startTime: start,
-        endTime: end,
+        stationNum: station,
+        startDate: start,
+        endDate: end,
       }
       responseValue = await bookStation(params);
     } catch (err) {

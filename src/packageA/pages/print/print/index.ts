@@ -1,10 +1,11 @@
 import { Component, Vue } from 'vue-property-decorator';
 import XHeader from '@/components/xheader/XHeader.vue';
 import PrintList from '@/components/printlist/PrintList.vue';
-import { getUploadUrl, getPrintFile } from '@/api/index';
+import { getUploadUrl, getPrintFile, delPrintFile } from '@/api/index';
 import { namespace } from 'vuex-class';
-import { compose } from '@/utils/consts'
+import { compose, XXParms, deleteWrap } from '@/utils/consts'
 import { getImgType } from '@/utils/fileFormat'
+import { SwiperListItem } from '@/components/swiperList';
 const meetModule = namespace('meeting');
 const printModule = namespace('print');
 @Component({
@@ -15,12 +16,12 @@ const printModule = namespace('print');
 })
 export default class Print extends Vue {
   @meetModule.State('user') user!: IUser;
+  @printModule.State('currentSceneData') currentSceneData!: SwiperListItem;
   @printModule.State('waitingFiles') waitingFiles!: Array<any>;
   @printModule.Mutation('setWaitingFiles') setWaitingFiles!: (
     payload: Array<any>
   ) => void;
   private uploadTask: any = null;
-  private title = '云打印列表';
   private headerOption = {
     lefttext: '首页',
     lefticon: 'icon-leftarrow',
@@ -28,9 +29,40 @@ export default class Print extends Vue {
     righticon: 'icon-hao',
   };
   private isShowTip = false;
+  private isShowSwiperTip = false;
+  private setShowSwiperTip() {
+    this.isShowSwiperTip = false;
+  }
+  swipeHandler(e: any) {
+    //e.changedTouches.clientX和clientY
+    if (e.direction === 'Down') {
+      this.showDetail()
+    }
+  }
   private fileItems: Array<IFileMessage> = [];
+  get sceneData() {
+    return this.currentSceneData;
+  }
+  private showDetail() {
+    //查询,然后传递
+    const transform: any = {
+      id: this.sceneData.id,
+      time: this.sceneData.time,
+      name: this.sceneData.name,
+      size: this.sceneData.fileCount,
+      token: this.sceneData.token
+    };
+    const data = JSON.stringify(transform);
+    console.log(data);
+    wx.redirectTo({
+      url: `../printdetail/main?data=${
+        data
+        }`,
+    });
+  }
   private returnMain() {
-    wx.redirectTo({ url: `/pages/main/main` });
+    // wx.redirectTo({ url: `/pages/main/main` });
+    wx.navigateBack();
   }
   private handleAdd() {
     const _this = this;
@@ -46,7 +78,7 @@ export default class Print extends Vue {
         //过滤掉不是能打印的文件格式的文件
         const type = ['list-word', 'list-ppt', 'list-pdf', 'list-txt', 'list-photo', 'list-xlsx'];
         const haha = tempFiles.filter((element: any) => type.includes(getImgType(element.name, false)));
-        if(haha.length<=0){
+        if (haha.length <= 0) {
           return;
         }
         _this.setWaitingFiles(haha);
@@ -88,30 +120,22 @@ export default class Print extends Vue {
     const transform = (str: string) => str.substring(str.lastIndexOf('/') + 1);
     const test = compose(exclaim, transform);
     const ddddd = test(tFile.path);
-    // let sssss = tFile.path.lastIndexOf('/') + 1;
-    // let ddddd = tFile.path.substring(sssss);
-    // if (!ddddd.startsWith('wx')) {
-    //   ddddd = 'tmp_' + ddddd;
-    // }
-    // let hahaha = new Map();
-    // hahaha.set(ddddd, tFile.name);
     let hahaha = {};
     hahaha[ddddd] = tFile.name;
+    // fileNames: JSON.stringify(hahaha)
     const xxx = wx.uploadFile({
       url: getUploadUrl,
       filePath: tFile.path,
-      name: 'exampleInputFile',
+      name: 'filelist',
       formData: {
-        userCard: _this.user.usercard,
-        fileNames: JSON.stringify(hahaha)
+        staffNum: _this.user.staffNum
       },
       success(res) {
-        console.info(res);
         //从waitingFiles上移除该文件
         _this.setWaitingFiles(
           _this.waitingFiles.filter(element => element !== tFile)
         );
-        _this.queryData(_this.user.usercard);
+        _this.queryData(_this.sceneData.id);
       }
     });
     xxx.onProgressUpdate((res) => {
@@ -143,36 +167,28 @@ export default class Print extends Vue {
   }
 
   private handleInto(value: IFileMessage) {
-    const data = JSON.stringify(value);
-    console.log(data);
-    wx.redirectTo({
-      url: `../printdetail/main?data=${
-        data
-        }`,
-    });
+    console.log(value);
   }
 
-  public onReady() {
-    // console.log('测试生命周期');
-    this.queryData(this.user.usercard);
+  mounted() {
+    this.queryData(this.sceneData.id);
   }
 
-  private async queryData(userCard: string) {
+  private async queryData(sceneId: string) {
     //查数据给fileItems赋值
     try {
       wx.showLoading({ title: '加载中~~~' });
-      const responseValue: any = await getPrintFile(userCard);
+      const responseValue: PrintFileResponse = await getPrintFile(sceneId);
       wx.hideLoading();
       const { data, status } = responseValue;
       if (status === 200) {
         //清空列表
         this.fileItems = [];
-        console.info(data);
-        data.forEach((element: any) => {
+        data.forEach(element => {
           this.fileItems.push({
             id: element.id,
             name: element.fileName,
-            time: element.time,
+            time: element.uploadTime,
             size: element.size,
             token: element.token,
             isUploaded: true
@@ -180,9 +196,8 @@ export default class Print extends Vue {
         });
       }
     } catch (e) {
-      console.log(e);
       wx.hideLoading();
-      (this as any).showToast('服务器异常');
+      wx.showToast({ title: '服务器异常' });
     }
     if (this.waitingFiles.length !== 0) {
       this.waitingFiles.forEach((element: any) => {
@@ -198,6 +213,15 @@ export default class Print extends Vue {
     if (this.fileItems.length === 0) {
       this.isShowTip = true;
     }
+  }
+
+  private handleDelete(value: string) {
+    const params: XXParms = {
+      delFn: delPrintFile,
+      value: value,
+      queryFn: () => { this.queryData(this.sceneData.id) }
+    };
+    deleteWrap(params);
   }
 
 }

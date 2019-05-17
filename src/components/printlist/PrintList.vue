@@ -2,43 +2,44 @@
   <ul class="print-list">
     <li v-for="(item, index) in items"
         :key="index">
-      <div class="print-has-upload"
-           @click="handleInto(item)">
-        <div class="filetype">
-          <img :src="getImgPath[index]"
-               alt />
-        </div>
-        <div class="print-main">
-          <div class="print-main-filename">{{ item.name }}</div>
-          <div class="print-main-filemess">
-            {{ item.time }} | {{ item.size }} B
+      <i-swipeout :actions="actions"
+                  @change="handleDelete(item.id)">
+        <div slot="content"
+             class="print-has-upload"
+             @click="handleInto(item)">
+          <div class="filetype">
+            <img :src="getImgPath[index]"
+                 alt />
+          </div>
+          <div class="print-main">
+            <div class="print-main-filename">{{ item.name }}</div>
+            <div class="print-main-filemess">
+              {{ item.time }} | {{ item.size }} B
+            </div>
           </div>
         </div>
-        <div class="iconnavigation">
-          <i class="iconfont icon-rightarrow"></i>
-        </div>
-      </div>
-      <div v-if="!item.isUploaded"
-           class="print-upload-mask">
-        <div class="upload-percent"
-             v-if="item.percent">
-          <div class="upload-outcircle">
-            <div class="upload-incircle"></div>
+        <div v-if="!item.isUploaded"
+             class="print-upload-mask">
+          <div class="upload-percent"
+               v-if="item.percent">
+            <div class="upload-outcircle">
+              <div class="upload-incircle"></div>
+            </div>
+            <span>{{ item.percent }}</span>
           </div>
-          <span>{{ item.percent }}</span>
+          <div class="upload-fail"
+               v-else>
+            <i class="iconfont icon-am-error"></i>
+            <span>上传失败</span>
+            <button class="reupload-btn"
+                    @click="fileReupload(item.name)">
+              重新上传
+            </button>
+          </div>
+          <i class="iconfont icon-del"
+             @click="fileUploadCancel(item.name)"></i>
         </div>
-        <div class="upload-fail"
-             v-else>
-          <i class="iconfont icon-am-error"></i>
-          <span>上传失败</span>
-          <button class="reupload-btn"
-                  @click="fileReupload(item.name)">
-            重新上传
-          </button>
-        </div>
-        <i class="iconfont icon-del"
-           @click="fileUploadCancel(item.name)"></i>
-      </div>
+      </i-swipeout>
     </li>
   </ul>
 </template>
@@ -58,8 +59,6 @@ ul.print-list {
     div.print-has-upload {
       display: flex;
       align-items: center;
-      position: absolute;
-      top: 0;
       div.filetype {
         padding: 24rpx 40rpx;
 
@@ -88,22 +87,6 @@ ul.print-list {
           margin-top: 4rpx;
           font-size: 24rpx;
           color: #a6a6a6;
-        }
-      }
-
-      div.iconnavigation {
-        padding: 20rpx;
-        span.list-radio {
-          position: absolute;
-          left: 640rpx;
-          top: 40rpx;
-        }
-
-        i.icon-rightarrow {
-          font-size: 32rpx;
-          position: absolute;
-          left: 650rpx;
-          top: 40rpx;
         }
       }
     }

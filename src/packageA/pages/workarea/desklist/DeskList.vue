@@ -9,7 +9,7 @@
            :class="{ occupy: item.status === 1 ? true : false }">
         <div class="deskBook-body-left">
           <div class="deskBook-body-desk">
-            {{ deskNumber[parseInt(item.stationNum) - 1] }}
+            {{item.stationNum }}号工位
           </div>
           <div class="deskBook-body-time">
             <i class="iconfont icon-clock"></i>

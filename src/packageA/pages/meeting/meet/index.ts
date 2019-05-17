@@ -3,6 +3,7 @@ import { namespace } from 'vuex-class';
 import { getMeeting, deleteMeet } from '@/api/';
 import Clock from '@/components/clock/Clock.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
+import { XXParms, deleteWrap } from '@/utils/consts';
 const meetModule = namespace('meeting');
 @Component({
   components: {
@@ -31,6 +32,7 @@ export default class Meet extends Vue {
       color: '#fff',
       fontsize: '20',
       width: 100,
+      icon: 'delete',
       background: '#ed3f14',
     },
   ];
@@ -69,18 +71,12 @@ export default class Meet extends Vue {
     }
   }
   private showDeleteConfirm(value: string) {
-    const _this = this;
-    wx.showModal({
-      title: '取消提示',
-      content: '残忍取消该预约？',
-      success(res) {
-        if (res.confirm) {
-          _this.deleteMeet(value);
-        } else if (res.cancel) {
-          return;
-        }
-      },
-    });
+    const params: XXParms = {
+      delFn: deleteMeet,
+      value: value,
+      queryFn: this.queryMeetingData
+    };
+    deleteWrap(params);
   }
 
   public toMeetDetail(fIndex: any, cIndex: any) {
@@ -92,17 +88,22 @@ export default class Meet extends Vue {
     });
   }
   private async queryMeetingData() {
-    wx.showLoading({ title: '加载中~~~' })
-    const responseValue: ResponseMeetValue = await getMeeting(this.user.usercard);
-    const { status, data } = responseValue;
-    wx.hideLoading();
-    if (status !== 200) {
-      wx.showModal({
-        title: '提示',
-        content: '请求异常'
-      });
-    } else {
-      this.setmeetingData(data);
+    try {
+      wx.showLoading({ title: '加载中~~' })
+      const responseValue: ResponseMeetValue = await getMeeting(this.user.staffNum);
+      wx.hideLoading();
+      const { status, data } = responseValue;
+      if (status !== 200) {
+        wx.showModal({
+          title: '提示',
+          content: '请求异常'
+        });
+      } else {
+        this.setmeetingData(data);
+      }
+    } catch (e) {
+      wx.hideLoading();
+      wx.showToast({ title: '服务器异常' });
     }
   }
   mounted() {

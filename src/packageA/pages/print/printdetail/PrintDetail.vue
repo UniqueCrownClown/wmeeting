@@ -1,10 +1,5 @@
 <template>
   <div class="print-detail">
-    <x-header title="打印详情"
-              isTab="false"
-              :options="headerOption"
-              @leftevent="returnPrint"
-              @rightevent="handleDel(item.id)" />
     <div class="print-detail-main">
       <div class="print-detail-up">
         <div class="print-detail-filetype">
@@ -14,7 +9,8 @@
         <div class="print-detail-file">
           <div class="print-detail-filename">{{ item.name }}</div>
           <div class="print-detail-filemess">
-            {{ item.time }} | {{ item.size }}
+            {{ item.time }}
+            {{ item.size }}
           </div>
         </div>
       </div>

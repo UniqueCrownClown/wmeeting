@@ -5,8 +5,8 @@ const workModule = namespace('workarea');
 const meetModule = namespace('meeting');
 @Component
 export default class DeskList extends Vue {
-  @meetModule.State('user') user!: any;
-  @workModule.State('deskBookRecord') deskBookRecord!: any;
+  @meetModule.State('user') user!: IUser;
+  @workModule.State('deskBookRecord') deskBookRecord!: Array<ResponseStation>;
   @workModule.Mutation('setdeskBookRecord') setdeskBookRecord!: (payLoad: Array<ResponseStation>) => void;
   private deskState: string[] = ['未使用', '使用中'];
   private deskStateText: string[] = ['开始使用', '提前释放'];
@@ -26,14 +26,8 @@ export default class DeskList extends Vue {
 
   get getDeskBookList() {
     let data = this.deskBookRecord.filter(
-      (character: any) => character.state === '1',
+      character => character.status !== 2,
     );
-    //数组的template不支持解析，转一下
-    data.forEach((element) => {
-      element.desk = this.deskNumber[Number(element.station) - 1];
-      element.state = this.deskState[Number(element.occupy)];
-      element.occupytext = this.deskStateText[Number(element.occupy)];
-    });
     return data;
   }
 
@@ -106,7 +100,7 @@ export default class DeskList extends Vue {
     let responseValue;
     wx.showLoading({ title: '加载中~~~' })
     try {
-      responseValue = await getDeskList(this.user.usercard);
+      responseValue = await getDeskList(this.user.staffNum);
     } catch (err) {
       wx.hideLoading();
       wx.showModal({
@@ -138,7 +132,7 @@ export default class DeskList extends Vue {
           try {
             let responseValue = await updateDeskState(
               res.text,
-              this.user.usercard,
+              this.user.staffNum,
             );
             console.log(responseValue);
             let { status, data } = responseValue;

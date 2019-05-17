@@ -23,8 +23,8 @@ class App extends Vue {
   _discoveryStarted: boolean = false;
   // app hook
   onLaunch() {
-    let opt = this.$root.$mp.appOptions;
-    debug('onLaunch', opt);
+    // let opt = this.$root.$mp.appOptions;
+    // debug('onLaunch', opt);
   }
 
   onShow() {
@@ -37,7 +37,7 @@ class App extends Vue {
 
   mounted() {
     // vue hook
-    debug('mounted');
+    // debug('mounted');
     this.openBluetoothAdapter();
     this.timedTask();
   }

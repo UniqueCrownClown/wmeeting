@@ -45,12 +45,8 @@ interface DetailMeet {
   token?: string
 }
 
-// meeting end
-// workarea start
-// workarea end
-//print start
 declare interface IFileMessage {
-  id?: number;
+  id?: string;
   name: string;
   size: number;
   time: string;

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/logon/login/main",
     "pages/main/main",
+    "pages/logon/login/main",
     "pages/home/main",
     "pages/index/main",
     "pages/ble/main",
@@ -19,6 +19,7 @@
       "pages/workarea/adddesk/main",
       "pages/workarea/deskbook/main",
       "pages/workarea/selectdesk/main",
+      "pages/print/printScreen/main",
       "pages/print/print/main",
       "pages/print/printdetail/main"
     ]

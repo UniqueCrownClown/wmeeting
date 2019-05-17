@@ -32,4 +32,18 @@ export default class PrintList extends Vue {
     const xxx = getImgType(value, isDirectory) + '.png';
     return staticImage(xxx);
   }
+
+  private actions = [
+    {
+      name: '删除',
+      color: '#fff',
+      fontsize: '20',
+      width: 100,
+      background: '#ed3f14',
+    },
+  ];
+  @Emit()
+  private handleDelete(value: string) {
+    return value
+  }
 }

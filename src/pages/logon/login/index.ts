@@ -4,6 +4,7 @@ const meetModule = namespace('meeting');
 @Component
 export default class Login extends Vue {
   // A4407,123456
+  // A5673,xzja5673
   private username: string = '';
   private password: string = '';
   private iconEye: string = 'icon-close-eyes';
@@ -26,7 +27,6 @@ export default class Login extends Vue {
         staffNum: this.username,
         password: this.password,
       };
-
       const responseValue: any = await this.asyncsetUser(params);
       if (responseValue !== 'fail') {
         //成功登录，是否勾选了记住密码

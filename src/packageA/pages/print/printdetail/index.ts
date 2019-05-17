@@ -4,19 +4,19 @@ import { staticImage, delPrintFile } from '@/api/';
 import XHeader from '@/components/xheader/XHeader.vue';
 const QRCode = require('@/utils/weapp-qrcode.js');
 import rpx2px from '@/utils/rpx2px.js';
+export interface IQueryPrint {
+  id: string;
+  name: string;
+  size: string;
+  token: string;
+  time: string;
+}
 @Component({
   components: { XHeader },
 })
 export default class PrintDetail extends Vue {
-  private title: string = '打印详情';
-  private headerOption = {
-    lefttext: '返回',
-    lefticon: '',
-    righttext: '删除',
-    righticon: 'icon-del',
-  };
   private query: any;
-  private item: IFileMessage = { id: -1, name: '', size: 0, time: '', token: '' };
+  private item: IFileMessage = { id: 'xxx', name: '', size: 0, time: '', token: '' };
   onLoad(option: any) {
     this.query = option;
   }
@@ -38,12 +38,9 @@ export default class PrintDetail extends Vue {
     });
   }
   get getImgPath() {
-    return this.getImg(this.item.name)
+    return staticImage('list-folder.png')
   }
-  private getImg(value: string) {
-    const xx = getImgType(value, false) + '.png';
-    return staticImage(xx)
-  }
+
   private handleDel(id: string) {
     let _this = this;
     wx.showModal({
@@ -68,6 +65,7 @@ export default class PrintDetail extends Vue {
     })
   }
   private returnPrint() {
-    wx.redirectTo({ url: '../print/main' })
+    // wx.redirectTo({ url: '../print/main' })
+    wx.navigateBack();
   }
 }
