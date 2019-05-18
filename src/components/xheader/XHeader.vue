@@ -31,16 +31,19 @@
 @header-background-color: #1978fe;
 
 .xheader {
-  height: 120rpx;
+  height: 84rpx;
   background: @header-background-color;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 36rpx;
   color: #ffffff;
+  margin-top:140rpx;
   .left-option,
   .right-option {
     font-size: 32rpx;
+    height: 100%;
+    line-height: 84rpx;
     span {
       min-width: 20rpx;
       padding: 0 16rpx;

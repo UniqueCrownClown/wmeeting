@@ -58,8 +58,11 @@ export default class Register extends Vue {
         username: this.username,
         password: this.password,
       };
+      wx.showLoading({ title: '请求中~~~' });
       responseValue = await register(params);
+      wx.hideLoading();
     } catch (err) {
+      wx.hideLoading();
       wx.showModal({
         title: '提示',
         content: err,
@@ -73,10 +76,10 @@ export default class Register extends Vue {
         content: '服务器异常',
       });
     } else {
-      if (data.status === 'fail') {
+      if (data.status === 'fail' || data === 'fail') {
         wx.showModal({
           title: '提示',
-          content: data.msg,
+          content: '注册失败',
         });
       } else {
         wx.showModal({

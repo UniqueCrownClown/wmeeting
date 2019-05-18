@@ -22,8 +22,8 @@
   position: relative;
   img{
     object-fit:cover;
-    width: 100%;
-    height: 100%;
+    width: 750rpx;
+    height: 1215rpx;
   }
   .roomMap-dot-outer {
     width: 130rpx;

@@ -10,6 +10,7 @@ export default class Login extends Vue {
   private iconEye: string = 'icon-close-eyes';
   private showPassword: boolean = true;
   private isRemember: boolean = false;
+  private items = [{ name: 'isRemember', value: '记住密码', checked: false }];
   @meetModule.Action('asyncsetUser') asyncsetUser!: (
     params: LoginParams,
   ) => void;
@@ -19,18 +20,19 @@ export default class Login extends Vue {
       if (!new RegExp(/^A\d{4}$/).test(this.username)) {
         wx.showModal({
           title: '提示',
-          content: '账号有误，请重新检查~~~',
+          content: '账号有误,不符合/^Ad{4}$/',
           showCancel: false,
         });
+        return;
       }
       const params: LoginParams = {
         staffNum: this.username,
         password: this.password,
       };
       const responseValue: any = await this.asyncsetUser(params);
-      if (responseValue !== 'fail') {
+      if (responseValue.data.status === 'success') {
         //成功登录，是否勾选了记住密码
-        if (this.isRemember) {
+        if (this.items[0].checked) {
           wx.setStorage({
             key: 'login',
             data: JSON.stringify({
@@ -62,9 +64,15 @@ export default class Login extends Vue {
         } else {
           wx.redirectTo({ url: '../../main/main' });
         }
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '没有该账号密码记录',
+          showCancel: false,
+        });
       }
     } catch (err) {
-      console.log(err);
+      wx.showToast({ title: err });
     }
   }
   private toRegister() {
@@ -86,11 +94,18 @@ export default class Login extends Vue {
       success(res: any) {
         if (res.data !== undefined) {
           console.log(res.data);
-          _this.username = 'A4407';
-          _this.password = '123456';
-          _this.isRemember = true;
+          const rememberUser = JSON.parse(res.data);
+          _this.username = rememberUser.usercard;
+          _this.password = rememberUser.password;
+          _this.items = [
+            { name: 'isRemember', value: '记住密码', checked: true },
+          ];
         }
       },
     });
+  }
+  checkboxChange(e: any) {
+    const haha = this.items[0].checked;
+    this.items = [{ name: 'isRemember', value: '记住密码', checked: !haha }];
   }
 }

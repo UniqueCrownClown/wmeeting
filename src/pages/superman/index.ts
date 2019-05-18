@@ -21,8 +21,8 @@ export default class SuperMan extends Vue {
   @meetModule.Mutation('setuser') setuser!: (params: any) => void;
   private returnLogin() {
     // 路由置回登陆界面，清除vuex
-    let user = {
-      usercard: '',
+    const user:IUser = {
+      staffNum: '',
       username: '',
     };
     this.setuser(user);

@@ -42,7 +42,7 @@ export default class AddMeet extends Vue {
   private title: string = '会议室预约';
   private headerOption = {
     lefttext: '返回',
-    lefticon: '',
+    lefticon: 'icon-leftarrow',
     righttext: '确定',
     righticon: '',
   };

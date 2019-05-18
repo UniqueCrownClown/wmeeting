@@ -19,18 +19,22 @@ const meetModule = namespace('meeting');
   },
 })
 export default class AddDesk extends Vue {
-  @workModule.Mutation('setdeskBookDateCertain') setdeskBookDateCertain!: any;
-  @workModule.Mutation('setdeskBookDate') setdeskBookDate!:(payLoad:Array<DayObj>)=>void;
+  @workModule.Mutation('setdeskBookDateCertain') setdeskBookDateCertain!: (
+    payLoad: boolean,
+  ) => void;
+  @workModule.Mutation('setdeskBookDate') setdeskBookDate!: (
+    payLoad: Array<DayObj>,
+  ) => void;
   @workModule.Mutation('restoreDeskBookSeatData') restoreDeskBookSeatData!: any;
-  @workModule.State('deskBookDate') deskBookDate!: any;
-  @workModule.State('deskBookSeatData') deskBookSeatData!: Array<any>;
-  @workModule.State('deskBookDateCertain') deskBookDateCertain!: any;
-  @workModule.State('deskSeatCertain') deskSeatCertain!: any;
-  @meetModule.State('user') user!: any;
+  @workModule.State('deskBookDate') deskBookDate!: Array<DayObj>;
+  @workModule.State('deskBookSeatData') deskBookSeatData!: Array<BookSeatData>;
+  @workModule.State('deskBookDateCertain') deskBookDateCertain!: boolean;
+  @workModule.State('deskSeatCertain') deskSeatCertain!: boolean;
+  @meetModule.State('user') user!: IUser;
   private title: string = '新增工位预约';
   private headerOption = {
     lefttext: '返回',
-    lefticon: '',
+    lefticon: 'icon-leftarrow',
     righttext: '完成',
     righticon: '',
   };
@@ -129,11 +133,11 @@ export default class AddDesk extends Vue {
         return;
       }
       const params = {
-        staffNum: this.user.usercard,
+        staffNum: this.user.staffNum,
         stationNum: station,
         startDate: start,
         endDate: end,
-      }
+      };
       responseValue = await bookStation(params);
     } catch (err) {
       wx.showModal({
@@ -146,7 +150,7 @@ export default class AddDesk extends Vue {
     if (status !== 200) {
       wx.showModal({
         title: '提示',
-        content: '服务器异常'
+        content: '服务器异常',
       });
     } else {
       if (data.status === 'success') {

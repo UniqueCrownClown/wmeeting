@@ -13,7 +13,7 @@ const meetModule = namespace('meeting');
   },
 })
 export default class XMain extends Vue {
-  @meetModule.Mutation('setUser') setUser!: (params: IUser) => void;
+  @meetModule.Mutation('setuser') setUser!: (params: IUser) => void;
   private title: string = '首页';
   private headerOption = {
     lefttext: '',

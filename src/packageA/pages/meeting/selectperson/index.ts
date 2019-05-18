@@ -20,7 +20,7 @@ export default class SelectPerson extends Vue {
   get headerOption() {
     return {
       lefttext: '返回',
-      lefticon: '',
+      lefticon: 'icon-leftarrow',
       righttext: `确定(${this.pagebookPersonList.length})`,
       righticon: '',
     };
@@ -125,8 +125,4 @@ export default class SelectPerson extends Vue {
   get pagebookPersonList() {
     return this.bookPersonList;
   }
-
-  // get pageuser() {
-  //   return this.user;
-  // }
 }

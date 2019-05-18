@@ -10,17 +10,24 @@ const workModule = namespace('workarea');
   },
 })
 export default class SelectDesk extends Vue {
-  @workModule.State('deskSeatCertain') deskSeatCertain!: any;
-  @workModule.State('deskBookSeatData') deskBookSeatData!: any;
-  @workModule.State('deskBookDate') deskBookDate!: any;
-  @workModule.Mutation('setdeskBookSeatData') setdeskBookSeatData!: any;
-  @workModule.Mutation('setunableBookSeatData') setunableBookSeatData!: any;
-  @workModule.Mutation('restoreDeskBookSeatData') restoreDeskBookSeatData!: any;
-  @workModule.Mutation('setdeskSeatCertain') setdeskSeatCertain!: any;
+  @workModule.State('deskSeatCertain') deskSeatCertain!: boolean;
+  @workModule.State('deskBookSeatData') deskBookSeatData!: Array<BookSeatData>;
+  @workModule.State('deskBookDate') deskBookDate!: Array<DayObj>;
+  @workModule.Mutation('setdeskBookSeatData') setdeskBookSeatData!: (
+    payload: Array<BookSeatData>,
+  ) => void;
+  @workModule.Mutation('setunableBookSeatData') setunableBookSeatData!: (
+    payload: Array<string>,
+  ) => void;
+  @workModule.Mutation('restoreDeskBookSeatData')
+  restoreDeskBookSeatData!: () => void;
+  @workModule.Mutation('setdeskSeatCertain') setdeskSeatCertain!: (
+    payload: boolean,
+  ) => void;
   private title: string = '工位选择';
   private headerOption = {
     lefttext: '返回',
-    lefticon: '',
+    lefticon: 'icon-leftarrow',
     righttext: '确定',
     righticon: '',
   };
@@ -43,9 +50,9 @@ export default class SelectDesk extends Vue {
     let { status, data } = responseValue;
     if (status !== 200) {
       wx.showModal({
-  title: '提示',
- content: '请求异常'
-});
+        title: '提示',
+        content: '请求异常',
+      });
     } else {
       this.restoreDeskBookSeatData();
       this.setunableBookSeatData(data);

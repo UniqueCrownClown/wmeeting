@@ -24,11 +24,15 @@
              @click="eyeOpen"></i>
         </div>
         <div class="login-remember">
-          <div>
-            <input type="checkbox"
-                   v-model="isRemember">
-            <label>记住密码</label>
-          </div>
+          <checkbox-group @change="checkboxChange">
+            <label class="checkbox"
+                   v-for="item in items"
+                   :key="item.name">
+              <checkbox :value="item.name"
+                        :checked="item.checked" color='#3e79fb'/>
+              {{item.value}}
+            </label>
+          </checkbox-group>
           <div>忘记密码？</div>
         </div>
         <div class="login-button">
