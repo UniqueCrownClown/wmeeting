@@ -65,6 +65,7 @@ export default class XMain extends Vue {
   onReady() {
     wx.hideLoading();
   }
+
   /**ActionSheet部分 **/
   private handleOptions(value: string) {
     if (value === this.showMenu[0]) {

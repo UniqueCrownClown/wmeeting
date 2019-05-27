@@ -10,9 +10,11 @@
       <input type="text"
              placeholder="新建场景"
              v-model="screenName">
-      <div>
-        <button @click="newScreenClick">新建</button>
-        <button @click="cancelScreenClick">取消</button>
+      <div class="screen-btn-list">
+        <button class="screen-cancel-btn"
+                @click="cancelScreenClick">取消</button>
+        <button class="screen-create-btn"
+                @click="newScreenClick">新建</button>
       </div>
     </div>
     <SwiperList :items="fileItems"
@@ -43,21 +45,29 @@
     opacity: 0;
     transition: all 1s;
     input {
-      border: 1px solid #aaaaaa;
+      border-bottom: 1px solid #aaaaaa;
+      border-color: #366bfd;
       font-size: 18px;
-      border-radius: 5px;
+      color: #888888;
       width: 80%;
-      margin: 10rpx 10%;
+      margin: 20rpx 10%;
       text-align: center;
     }
-    div {
+    div.screen-btn-list {
       display: flex;
       justify-content: space-around;
-      padding: 10rpx;
+      padding: 20rpx 10rpx;
+      button {
+        border: none;
+      }
+      .screen-create-btn {
+        background-color: #366bfd;
+        color: #ffffff;
+      }
     }
   }
   .printShow {
-    height: 200rpx;
+    height: 240rpx;
     opacity: 1;
     padding: 10rpx;
   }

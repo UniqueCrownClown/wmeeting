@@ -1,16 +1,14 @@
 <template>
-  <div class="actionsheet" v-if="isShow" @click.stop="handleMask">
-    <transition name="slide-fade">
-      <ul>
-        <li
-          v-for="(item, index) in options"
+  <div class="actionsheet"
+       v-if="isShow"
+       @click.stop="handleMask">
+    <ul>
+      <li v-for="(item, index) in options"
           :key="index"
-          @click="handleOptions(item)"
-        >
-          {{ item }}
-        </li>
-      </ul>
-    </transition>
+          @click="handleOptions(item)">
+        {{ item }}
+      </li>
+    </ul>
   </div>
 </template>
 <script lang="ts" src="./index.ts">
@@ -22,8 +20,8 @@
   bottom: 0;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index:2;
-  transition: all .8s;
+  z-index: 2;
+  transition: all 0.8s;
   ul {
     list-style-type: none;
     position: fixed;

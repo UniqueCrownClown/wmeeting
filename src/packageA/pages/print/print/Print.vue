@@ -6,12 +6,14 @@
               @leftevent="returnMain"
               @rightevent="handleAdd" />
     <div class="print-swiper-tips"
-         v-show="isShowSwiperTip">
-      <div class="print-swiper-tips-text">下拉展示打印二维码</div>
+         v-if="isShowSwiperTip">
+      <div class="print-swiper-tips-text">
+        <span class="iconfont icon-tips"></span>
+        <span>下拉展示打印二维码</span>
+      </div>
       <div class="print-swiper-tips-nomore"
            @click="setShowSwiperTip">不再提示</div>
     </div>
-    <Button @click="showDetail">场景二维码</Button>
     <PrintList :items="fileItems"
                @handle-into="handleInto"
                @file-reupload="fileReupload"
@@ -39,20 +41,21 @@
   .print-swiper-tips {
     width: 100%;
     background-color: #dff2ff;
-    position: relative;
+    display: flex;
+    justify-content: center;
     div {
-      height: 40px;
-      line-height: 40px;
-      font-size: 24rpx;
+      height: 60rpx;
+      line-height: 60rpx;
     }
     .print-swiper-tips-text {
       color: #366bfd;
+      flex:1;
+      text-align: center;
+      font-size: 32rpx;
     }
     .print-swiper-tips-nomore {
       color: #888888;
-      position: absolute;
-      top: 0;
-      right: 0;
+      font-size: 28rpx;
     }
   }
   .print-empty-tips {
@@ -62,7 +65,7 @@
     width: 450rpx;
     height: 450rpx;
     position: absolute;
-    top: 120rpx;
+    top: 290rpx;
     right: 20rpx;
     border-radius: 10rpx;
     display: flex;

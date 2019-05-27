@@ -29,7 +29,7 @@ export default class Print extends Vue {
     righticon: 'icon-hao',
   };
   private isShowTip = false;
-  private isShowSwiperTip = false;
+  private isShowSwiperTip = true;
   private setShowSwiperTip() {
     this.isShowSwiperTip = false;
   }
@@ -172,6 +172,14 @@ export default class Print extends Vue {
 
   mounted() {
     this.queryData(this.sceneData.id);
+  }
+
+/**
+* 下滑刷新事件
+*/
+  public onPullDownRefresh() {
+    this.showDetail();
+    wx.stopPullDownRefresh();
   }
 
   private async queryData(sceneId: string = this.sceneData.id) {

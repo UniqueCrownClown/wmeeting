@@ -4,7 +4,6 @@ const meetModule = namespace('meeting');
 @Component
 export default class Login extends Vue {
   // A4407,123456
-  // A5673,xzja5673
   private username: string = '';
   private password: string = '';
   private iconEye: string = 'icon-close-eyes';

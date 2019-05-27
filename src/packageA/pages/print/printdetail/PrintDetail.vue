@@ -25,8 +25,12 @@
         </div>
       </div>
       <div class="icon-wraper">
-        <i class="iconfont icon-uparrow"
-           @click="returnPrint"></i>
+        <div class="icon-container"
+             @click="returnPrint">
+          <span class="iconfont icon-shenglve"></span>
+          <span class="iconfont icon-shenglve"></span>
+          <span class="iconfont icon-rightarrow"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -40,6 +44,7 @@
   background-image: linear-gradient(-10deg, #05327b 0%, #105ab6 100%),
     linear-gradient(#e9e9e9, #e9e9e9);
   background-blend-mode: normal, normal;
+  transition: height 2s;
   .print-detail-main {
     width: 686rpx;
     height: 947rpx;
@@ -113,11 +118,25 @@
     }
   }
   .icon-wraper {
+    margin-top: 120rpx;
     text-align: center;
-    i {
+    display: flex;
+    justify-content: center;
+    span {
       color: #fff;
-      font-size: 40px;
+      font-size: 40rpx;
     }
+    span.icon-shenglve {
+      animation: blink 1s infinite;
+    }
+  }
+}
+@keyframes blink {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>
