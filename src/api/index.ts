@@ -115,8 +115,8 @@ export const releaseDesk = (id: string) =>
 const pfly = new Fly();
 pfly.config.headers['Content-Type'] = 'application/json;charset=UTF-8';
 
-export const getPosition = (params: Array<ICoordinate>) =>
-  pfly.post(`${config.IP}:${config.PORT}/appointment/coordinate`, JSON.stringify(params));
+export const getPosition = (params: any) =>
+  pfly.post(`${config.IP}:${config.PORT}${config.prefix}/appointment/coordinate`, JSON.stringify(params));
 
 
 // 云打印

@@ -125,12 +125,12 @@ class App extends Vue {
   }
 
   // 开启定时服务
-  timedTask(timeout = 5000) {
+  timedTask(timeout = 2000) {
     // 每隔10秒钟请求一次位置
     setTimeout(() => {
       // 判断10秒内，是否满足3个蓝牙设备
       if (this.devices.length < 3) {
-        this.timedTask(5000);
+        this.timedTask();
         return;
       }
       // 计算10秒钟内，rssi最强的前三蓝牙设备
@@ -139,10 +139,13 @@ class App extends Vue {
       this.getXY(cdeviceList)
         .then((response) => {
           const { data } = response;
+          console.log(JSON.stringify(data));
           // 实现定位
-          this.positioning(data);
-          // 清除devices中的所有值
-          this.devices = [];
+          if (data !== 'fail') {
+            this.positioning(data);
+            // 清除devices中的所有值
+            this.devices = [];
+          }
           return this.$nextTick();
         })
         .then(() => {
@@ -172,14 +175,14 @@ class App extends Vue {
   private ccomputedStrongestSignalDeviceList() {
     let haha: Array<any> = [];
 
-    this.devicesCollection.forEach((lists:Array<any>) => {
+    this.devicesCollection.forEach((lists: Array<any>) => {
       let totalRssi = 0;
 
       lists.forEach(element => {
         totalRssi += element.RSSI;
       });
 
-      const averageRssi = (totalRssi/lists.length).toFixed(6);
+      const averageRssi = (totalRssi / lists.length).toFixed(6);
       haha.push({
         name: lists[0].name,
         mac: lists[0].deviceId,
@@ -195,23 +198,31 @@ class App extends Vue {
 
   // 上传前三最强信号蓝牙设备
   private getXY(deviceList) {
-    // console.log(deviceList);
-    return getPosition(deviceList);
+    //console.log(JSON.stringify(deviceList));
+    //封装多一层
+    const params = {
+      rssiList: deviceList,
+      factory: 'test',
+      model: 'test'
+    }
+    return getPosition(params);
   }
 
   // 实现定位
   private positioning(coordinate) {
-    if (!coordinate) return;
+    if (!coordinate || JSON.stringify(coordinate) === '{}') return;
     // 实现换算
-    const { x, y } = coordinate;
-    // const roomMapWidth = this.$refs['roomMapRef'].offsetWeight
+    let { x, y } = coordinate;
+    //不要负值
+    x = x < 0 ? 0 : x;
+    y = y < 0 ? 0 : y;
     // 坐标1代表的多少vw
-    const scale = 12.12;
+    const scale = 11;
     const leftOffset = x * scale;
     const topOffset = y * scale;
 
-    const left = 100 - leftOffset;
-    const top = 59.5 + topOffset;
+    const left = 90 - leftOffset;
+    const top = 70 + topOffset;
 
     this.setPosition({
       leftValue: left + 'vw',

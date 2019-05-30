@@ -26,8 +26,8 @@ const initalState: WorkAreaState = {
     }
   ], // 当前所有工位状态
   position: {
-    topValue: '59.5vw',
-    leftValue: '100vw'
+    topValue: '70vw',
+    leftValue: '90vw'
   }
 }
 
