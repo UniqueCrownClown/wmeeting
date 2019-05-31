@@ -1,9 +1,9 @@
-import { Component, Vue } from 'vue-property-decorator';
-import { namespace } from 'vuex-class';
-import { getMeeting, deleteMeet } from '@/api/';
+import { deleteMeet, getMeeting } from '@/api/';
 import Clock from '@/components/clock/Clock.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
-import { XXParms, deleteWrap } from '@/utils/consts';
+import { deleteWrap, XXParms } from '@/utils/consts';
+import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 const meetModule = namespace('meeting');
 @Component({
   components: {
@@ -13,9 +13,8 @@ const meetModule = namespace('meeting');
 })
 export default class Meet extends Vue {
   @meetModule.State('user') user!: IUser;
-  @meetModule.Mutation('setmeetingData') setmeetingData!: (data: any) => void;
-  @meetModule.Mutation('setshowData') setshowData!: (data: any) => void;
-  @meetModule.Getter('showData') showData!: (data: any) => void;
+  @meetModule.Mutation('setmeetingData') setmeetingData!: (data: Array<ResponseMeet>) => void;
+  @meetModule.Getter('showData') showData!: (index: number) => void;
   private headerOption = {
     lefttext: '首页',
     lefticon: 'icon-leftarrow',
@@ -39,7 +38,7 @@ export default class Meet extends Vue {
   private clockSize: string = '96';
   private roomMenu: string[] = ['会议室1', '会议室2', '会议室3'];
   private tabIndex: number = 0;
-  private handleTab(index) {
+  private handleTab(index: number) {
     this.tabIndex = index;
     this.headerTab = [
       { text: '未完成', isSelect: index === 0 ? true : false },

@@ -16,10 +16,10 @@ declare interface ResponseLoginValue {
   status: number;
   data: ResponseLogin;
 }
-declare interface ResponseLogin{
+declare interface ResponseLogin {
   data: IUser
   msg: string,
-  status:string
+  status: string
 }
 
 declare interface ResponseValue {
@@ -44,6 +44,9 @@ declare interface ResponseMeet {
   qrToken: string,
   meetingStatus: number,
   roomStatus: number
+}
+declare interface DetailMeetItem extends ResponseMeet {
+  day: string
 }
 
 declare interface SortMeetData {

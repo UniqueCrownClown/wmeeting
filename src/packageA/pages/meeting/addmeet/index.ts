@@ -1,9 +1,9 @@
+import { bookMeeting } from '@/api/';
+import ActionSheet from '@/components/actionsheet/ActionSheet.vue';
+import CellItem from '@/components/cellitem/CellItem.vue';
+import XHeader from '@/components/xheader/XHeader.vue';
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
-import { bookMeeting } from '@/api/';
-import CellItem from '@/components/cellitem/CellItem.vue';
-import ActionSheet from '@/components/actionsheet/ActionSheet.vue';
-import XHeader from '@/components/xheader/XHeader.vue';
 
 const meetModule = namespace('meeting');
 @Component({
@@ -182,6 +182,10 @@ export default class AddMeet extends Vue {
     this.isShow = true;
   }
   private handleOptions(value: string) {
+    if (value !== this.roomMenu[1]) {
+      wx.showToast({ title: '只支持2号' });
+      return;
+    }
     const a = this.roomMenu.indexOf(value) + 1;
     this.setbookLocation(a);
     this.cellRoom = {
@@ -194,18 +198,6 @@ export default class AddMeet extends Vue {
     this.isShow = value;
   }
   /**ActionSheet部分 **/
-  //computed部分
-  //计算属性的双向绑定该怎么写？
-  // get subject(): any {
-  //   return {
-  //     get() {
-  //       return this.bookTitle;
-  //     },
-  //     set(val: string) {
-  //       this.setbookTitle(val);
-  //     }
-  //   };
-  // }
   private handlebind(e: any) {
     this.setbookTitle(e.target.value);
   }

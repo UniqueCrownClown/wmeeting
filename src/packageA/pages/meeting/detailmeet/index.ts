@@ -1,11 +1,11 @@
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import { namespace } from 'vuex-class';
+import { lightControl, tvControl } from '@/api/';
 import Clock from '@/components/clock/Clock.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
-import { lightControl, tvControl } from '@/api/';
-import { currentIsBefore, currentIsAfter } from '@/utils/time.ts';
-const QRCode = require('@/utils/weapp-qrcode.js');
 import rpx2px from '@/utils/rpx2px.js';
+import { currentIsAfter, currentIsBefore } from '@/utils/time.ts';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+const QRCode = require('@/utils/weapp-qrcode.js');
 const meetModule = namespace('meeting');
 @Component({
   components: {
@@ -14,7 +14,7 @@ const meetModule = namespace('meeting');
   },
 })
 export default class DetailMeet extends Vue {
-  @meetModule.Getter('showData') meetingData!: any;
+  @meetModule.Getter('showData') meetingData!: (index: number) => SortMeetData;
   private title: string = '会议详情';
   headerOption = {
     lefttext: '返回',
@@ -27,14 +27,14 @@ export default class DetailMeet extends Vue {
   private lightState: boolean = true;
   private tvState: boolean = false;
   private query: any;
-  private detail = {};
+  private detail: DetailMeetItem;
   private isUseful = false;
   mounted() {
     // 300rpx 在6s上为 150px
     const qrcodeWidth = rpx2px(300);
     new QRCode('detailMeet', {
       // usingIn: this,
-      text: (this.detail as any).token,
+      text: this.detail.qrToken,
       width: qrcodeWidth,
       height: qrcodeWidth,
       colorDark: '#333333',
@@ -108,15 +108,9 @@ export default class DetailMeet extends Vue {
     this.detail = this.getDetail();
   }
 
-  getDetail() {
-    let detailData: any = {};
-    detailData.day = this.showData[this.timeIndex()].day;
-    Object.assign(
-      detailData,
-      this.showData[this.timeIndex()].data[this.dataIndex()],
-      // Number(this.query.cIndex)
-    );
-    return detailData;
+  getDetail(): any {
+    return [{ day: this.showData[this.timeIndex()].day },
+    ...this.showData[this.timeIndex()].data[this.dataIndex()]];
   }
 
   private timeIndex() {
