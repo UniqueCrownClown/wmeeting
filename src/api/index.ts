@@ -7,6 +7,27 @@ const instance = new Fly();
 instance.config.timeout = 5000;
 instance.config.headers['Content-Type'] =
   'application/x-www-form-urlencoded;charset=UTF-8';
+// 添加请求拦截器
+instance.interceptors.request.use(function (config) {
+  // 在发送请求之前做些什么
+  wx.showLoading({ title: '请稍候~~~', mask: true });
+  return config;
+}, function (error) {
+  // 对请求错误做些什么
+  wx.hideLoading();
+  return Promise.reject(error);
+});
+
+// 添加响应拦截器
+instance.interceptors.response.use(function (response) {
+  // 对响应数据做点什么
+  wx.hideLoading()
+  return response;
+}, function (error) {
+  // 对响应错误做点什么
+  wx.hideLoading();
+  return Promise.reject(error);
+});
 const getReqParams = (params: any) => {
   const wrapper = new ParamsWrapper(params);
   return wrapper.getValues()

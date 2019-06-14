@@ -185,9 +185,7 @@ export default class Print extends Vue {
   private async queryData(sceneId: string = this.sceneData.id) {
     //查数据给fileItems赋值
     try {
-      wx.showLoading({ title: '加载中~~~' });
       const responseValue: PrintFileResponse = await getPrintFile(sceneId);
-      wx.hideLoading();
       const { data, status } = responseValue;
       if (status === 200) {
         //清空列表
@@ -204,7 +202,6 @@ export default class Print extends Vue {
         });
       }
     } catch (e) {
-      wx.hideLoading();
       wx.showToast({ title: '服务器异常' });
     }
     if (this.waitingFiles.length !== 0) {

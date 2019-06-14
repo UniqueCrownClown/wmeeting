@@ -2,8 +2,8 @@ import Week from '@/utils/week.ts';
 import Time from '@/utils/time.ts';
 const initalState: MeetingState = {
   user: {
-    staffNum: 'A4407',
-    username: '蔡健雅',
+    staffNum: 'A5673',
+    username: '许卓杰',
   },
   filterData: [], // 孩子和meetingData格式一致，存放是否完成分类
   bookTitle: '',

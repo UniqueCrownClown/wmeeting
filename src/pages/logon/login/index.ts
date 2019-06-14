@@ -71,7 +71,7 @@ export default class Login extends Vue {
         });
       }
     } catch (err) {
-      wx.showToast({ title: err });
+      wx.showToast({ title: '异常异常~~' });
     }
   }
   private toRegister() {

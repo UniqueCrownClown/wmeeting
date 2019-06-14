@@ -98,18 +98,15 @@ export default class DeskList extends Vue {
   }
   async queryDataList() {
     let responseValue;
-    wx.showLoading({ title: '加载中~~~' })
     try {
       responseValue = await getDeskList(this.user.staffNum);
     } catch (err) {
-      wx.hideLoading();
       wx.showModal({
         title: '提示',
         content: err
       });;
       return;
     }
-    wx.hideLoading();
     // console.log(responseValue);
     let { status, data } = responseValue;
     if (status !== 200) {

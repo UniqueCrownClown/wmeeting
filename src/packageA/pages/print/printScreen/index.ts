@@ -50,11 +50,9 @@ export default class Print extends Vue {
 
   async queryData() {
     try {
-      wx.showLoading({ title: '加载中~~' });
       const response: PrintScreenResponse = await getPrintScreen(
         this.user.staffNum
       );
-      wx.hideLoading();
       const { data, status } = response;
       if (status === 200) {
         let tempFileItem: Array<SwiperListItem> = [];
@@ -69,7 +67,6 @@ export default class Print extends Vue {
         this.fileItems = tempFileItem;
       }
     } catch (e) {
-      wx.hideLoading();
       wx.showToast({ title: '服务器异常~~' })
     }
   }

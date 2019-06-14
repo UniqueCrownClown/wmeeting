@@ -1,5 +1,5 @@
 {
   "usingComponents": {
     "i-swipeout": "../../../../static/iview/swipeout/index"
-}
+  }
 }

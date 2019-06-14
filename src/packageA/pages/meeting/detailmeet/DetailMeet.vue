@@ -39,9 +39,14 @@
       </div>
       <div class="detail-meet-light">
         <div class="detail-meet-light-title">会议室顶灯</div>
-        <i-switch :value="lightState"
+        <switch :checked="lightState"
+                @change="handleLight"
+                color="#05327b"
+                :disabled="isUseful" />
+        <!-- <i-switch :value="lightState"
                   @change="handleLight"
-                  :disabled="isUseful"></i-switch>
+                  :disabled="isUseful">
+        </i-switch> -->
       </div>
       <div class="detail-meet-tv">
         <div class="detail-meet-tv-title">会议室TV</div>
@@ -67,9 +72,11 @@
   background-image: linear-gradient(-10deg, #05327b 0%, #105ab6 100%),
     linear-gradient(#e9e9e9, #e9e9e9);
   background-blend-mode: normal, normal;
+  display: flex;
+  flex-direction: column;
   .detail-meet-main {
     width: 100%;
-    height: calc(100% - 84rpx);
+    flex: 1;
     .detail-meet-content {
       width: 686rpx;
       height: 800rpx;

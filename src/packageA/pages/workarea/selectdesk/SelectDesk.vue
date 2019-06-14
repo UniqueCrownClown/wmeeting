@@ -29,7 +29,7 @@
   overflow: hidden;
   .selectDesk-main {
     width: 100%;
-    height: calc(100% - 84rpx);
+    height: calc(100% - 224rpx);
     background-color: #f2f2f2;
     .desk-image-wrap {
       position: relative;

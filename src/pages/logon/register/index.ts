@@ -58,11 +58,8 @@ export default class Register extends Vue {
         username: this.username,
         password: this.password,
       };
-      wx.showLoading({ title: '请求中~~~' });
       responseValue = await register(params);
-      wx.hideLoading();
     } catch (err) {
-      wx.hideLoading();
       wx.showModal({
         title: '提示',
         content: err,

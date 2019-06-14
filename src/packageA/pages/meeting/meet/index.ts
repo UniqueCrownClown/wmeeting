@@ -27,7 +27,7 @@ export default class Meet extends Vue {
   ];
   private actions = [
     {
-      name: '删除',
+      name: '',
       color: '#fff',
       fontsize: '32',
       width: 100,
@@ -80,17 +80,22 @@ export default class Meet extends Vue {
 
   public toMeetDetail(fIndex: any, cIndex: any) {
     //fIndex(时间序号) cIndex(时间里的数据序号)
-    wx.redirectTo({
-      url: `../detailmeet/main?tabIndex=${
-        this.tabIndex
-        }&fIndex=${fIndex}&cIndex=${cIndex}`,
-    });
+    const detail = JSON.stringify(this.getDetail(fIndex, cIndex));
+    wx.navigateTo({
+      url: `../detailmeet/main?detail=${detail}`
+    })
+  }
+
+  getDetail(timeIndex: number, dataIndex: number): any {
+    const showData = this.showData(this.tabIndex);
+    return {
+      ...{ day: showData[timeIndex].day },
+      ...showData[timeIndex].data[dataIndex]
+    };
   }
   private async queryMeetingData() {
     try {
-      wx.showLoading({ title: '加载中~~' })
       const responseValue: ResponseMeetValue = await getMeeting(this.user.staffNum);
-      wx.hideLoading();
       const { status, data } = responseValue;
       if (status !== 200) {
         wx.showModal({
@@ -101,7 +106,6 @@ export default class Meet extends Vue {
         this.setmeetingData(data);
       }
     } catch (e) {
-      wx.hideLoading();
       wx.showToast({ title: '服务器异常' });
     }
   }
