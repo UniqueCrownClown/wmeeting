@@ -53,7 +53,6 @@ export default class Print extends Vue {
       token: this.sceneData.token
     };
     const data = JSON.stringify(transform);
-    console.log(data);
     wx.navigateTo({
       url: `../printdetail/main?data=${
         data
@@ -61,7 +60,9 @@ export default class Print extends Vue {
     });
   }
   private returnMain() {
-    wx.navigateBack();
+    wx.redirectTo({
+      url: './../printScreen/main'
+    })
   }
   private handleAdd() {
     const _this = this;
@@ -81,7 +82,7 @@ export default class Print extends Vue {
           return;
         }
         _this.setWaitingFiles(haha);
-        console.log(tempFiles);
+        //console.log(tempFiles);
         //tempFiles是个数组
         //上传之前先展现
         _this.waitingFiles.forEach((element: any) => {
@@ -115,21 +116,23 @@ export default class Print extends Vue {
   }
   private fileUpload(tFile: IChooseItem) {
     const _this = this;
-    const exclaim = (str: string) => str.startsWith('wx') ? str : 'tmp_' + str;
+    const exclaim = (str: string) => str.startsWith('wx') ? str : str;
     const transform = (str: string) => str.substring(str.lastIndexOf('/') + 1);
     const test = compose(exclaim, transform);
     const ddddd = test(tFile.path);
     let hahaha = {};
     hahaha[ddddd] = tFile.name;
-    fileNames: JSON.stringify(hahaha)
+    const fileds = {
+      staffNum: _this.user.staffNum,
+      sceneId: _this.sceneData.id,
+      fileNames: JSON.stringify(hahaha)
+    };
+    //console.log(fileds);
     const xxx = wx.uploadFile({
       url: getUploadUrl,
       filePath: tFile.path,
       name: 'filelist',
-      formData: {
-        staffNum: _this.user.staffNum,
-        sceneId: _this.sceneData.id,
-      },
+      formData: fileds,
       success(res) {
         //从waitingFiles上移除该文件
         _this.setWaitingFiles(
@@ -174,9 +177,9 @@ export default class Print extends Vue {
     this.queryData(this.sceneData.id);
   }
 
-/**
-* 下滑刷新事件
-*/
+  /**
+  * 下滑刷新事件
+  */
   public onPullDownRefresh() {
     this.showDetail();
     wx.stopPullDownRefresh();

@@ -1,29 +1,35 @@
-import { Component, Vue } from 'vue-property-decorator';
-import { namespace } from 'vuex-class';
 import { getDeskState } from '@/api/';
-import Time from '@/utils/time.ts';
 import XHeader from '@/components/xheader/XHeader.vue';
-const workModule = namespace('workarea');
+import Time from '@/utils/time.ts';
+import { Component, Vue } from 'vue-property-decorator';
 @Component({
   components: {
     XHeader,
   },
 })
 export default class SelectDesk extends Vue {
-  @workModule.State('deskSeatCertain') deskSeatCertain!: boolean;
-  @workModule.State('deskBookSeatData') deskBookSeatData!: Array<BookSeatData>;
-  @workModule.State('deskBookDate') deskBookDate!: Array<DayObj>;
-  @workModule.Mutation('setdeskBookSeatData') setdeskBookSeatData!: (
-    payload: Array<BookSeatData>,
-  ) => void;
-  @workModule.Mutation('setunableBookSeatData') setunableBookSeatData!: (
-    payload: Array<string>,
-  ) => void;
-  @workModule.Mutation('restoreDeskBookSeatData')
-  restoreDeskBookSeatData!: () => void;
-  @workModule.Mutation('setdeskSeatCertain') setdeskSeatCertain!: (
-    payload: boolean,
-  ) => void;
+  private deskBookSeatData: Array<BookSeatData> = [
+    {
+      name: '1号',
+      isActive: false,
+      isAble: true
+    },
+    {
+      name: '2号',
+      isActive: false,
+      isAble: true
+    },
+    {
+      name: '3号',
+      isActive: false,
+      isAble: true
+    },
+    {
+      name: '4号',
+      isActive: false,
+      isAble: true
+    }
+  ]; // 当前所有工位状态
   private title: string = '工位选择';
   private headerOption = {
     lefttext: '返回',
@@ -31,6 +37,8 @@ export default class SelectDesk extends Vue {
     righttext: '确定',
     righticon: '',
   };
+  query: any;
+  deskBookDate: undefined | Array<DayObj>;
   async mounted() {
     if (this.deskBookDate === undefined || this.deskBookDate.length === 0) {
       wx.showModal({
@@ -54,7 +62,6 @@ export default class SelectDesk extends Vue {
         content: '请求异常',
       });
     } else {
-      this.restoreDeskBookSeatData();
       this.setunableBookSeatData(data);
     }
   }
@@ -70,10 +77,37 @@ export default class SelectDesk extends Vue {
     this.setdeskBookSeatData(dataList);
   }
   private handleComplate() {
-    this.setdeskSeatCertain(true);
-    wx.redirectTo({ url: '../adddesk/main' });
+    const data = this.getStationValue();
+    wx.redirectTo({ url: `../adddesk/main?data=${data}` });
   }
   private returnAddDesk() {
     wx.redirectTo({ url: '../adddesk/main' });
+  }
+
+  private setdeskBookSeatData(data: Array<BookSeatData>) {
+    this.deskBookSeatData = data;
+  }
+
+  private setunableBookSeatData(data: Array<string>) {
+    // 用index 来实现挂钩
+    data.forEach(element => {
+      this.deskBookSeatData[parseInt(element) - 1].isAble = false;
+    });
+  }
+
+  getStationValue() {
+    let selectOne = this.deskBookSeatData.find(
+      (character) => character.isActive === true,
+    );
+    if (selectOne === undefined || Object.keys(selectOne).length === 0) {
+      return '';
+    }
+    let index = this.deskBookSeatData.indexOf(selectOne) + 1;
+    return index.toString();
+  }
+  onShow() {
+    console.log(this.$root.$mp.query);
+    this.query = this.$root.$mp.query;
+    this.deskBookDate = JSON.parse(this.query.data);
   }
 }
