@@ -71,7 +71,7 @@ export default class Calendar extends Vue {
         month:d.getMonth()
       };
       this.days.push(dayobject); // 将日期放入data 中的days数组 供页面渲染使用
-      console.log(this.days);
+      // console.log(this.days);
     }
     // 其他周
     for (let i = 1; i <= 35 - this.currentWeek; i++) {

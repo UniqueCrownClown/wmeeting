@@ -79,6 +79,7 @@ export default class SelectDesk extends Vue {
   private handleComplate() {
     const data = this.getStationValue();
     wx.redirectTo({ url: `../adddesk/main?data=${data}` });
+    this.deskBookSeatData.forEach(element => element.isActive = false);
   }
   private returnAddDesk() {
     wx.redirectTo({ url: '../adddesk/main' });
@@ -108,6 +109,10 @@ export default class SelectDesk extends Vue {
   onShow() {
     console.log(this.$root.$mp.query);
     this.query = this.$root.$mp.query;
-    this.deskBookDate = JSON.parse(this.query.data);
+    const data = JSON.parse(this.query.data);
+    if (data) {
+      this.deskBookDate = data.data;
+    }
+
   }
 }

@@ -22,14 +22,16 @@
     color: #333333;
   }
   .cell-main {
-    width: 439rpx;
-    height: 33rpx;
+    width: 420rpx;
+    height: 30rpx;
+    padding-right:10rpx;
     font-family: PingFangSC-Regular;
     font-size: 32rpx;
     font-weight: normal;
     font-stretch: normal;
     letter-spacing: 0rpx;
     color: #333333;
+    text-align: right;
   }
 }
 </style>

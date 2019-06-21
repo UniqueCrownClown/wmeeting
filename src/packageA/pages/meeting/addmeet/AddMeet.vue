@@ -15,11 +15,9 @@
                :value="roomValue"
                @insertContent="insertContent" />
     <cell-item :cellData="cellTime"
-               :value="timeValue"
-               @insertContent="insertContent" />
+               :value="timeValue" />
     <cell-item :cellData="cellPerson"
-               :value="personValue"
-               @insertContent="insertContent" />
+               :value="personValue" />
     <action-sheet :options="roomMenu"
                   @handleOptions="handleOptions"
                   :isShow="isShow"

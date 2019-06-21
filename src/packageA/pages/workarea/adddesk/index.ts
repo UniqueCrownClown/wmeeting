@@ -30,32 +30,33 @@ export default class AddDesk extends Vue {
   private cellDesk: CellData = {
     title: '工位选择',
     content: '请选择',
-    link: '../selectdesk/main',
   };
   private showCalendar: boolean = false;
   private query: any;
-  private deskBookDate: DayObj[];
-  private insertContent() {
-    this.showCalendar = true;
-  }
+  private deskBookDate: DayObj[] = [];
   private setdeskBookCalendar(value: Array<DayObj>) {
     this.deskBookCalendar = value;
     this.setdeskBookDate(value);
-  }
-  handleSelectDesk() {
-    const data = JSON.stringify(this.deskBookDate);
-    wx.redirectTo({ url: `../selectdesk/main?data=${data}` });
   }
   handleSelectTime() {
     this.showCalendar = true;
     // 清除日历选中状态
     this.setdeskBookDate([]);
   }
+  handleSelectDesk() {
+    const haha = {
+      data: this.deskBookDate
+    }
+    const data = JSON.stringify(haha);
+    console.log(data);
+    wx.redirectTo({ url: `../selectdesk/main?data=${data}` });
+  }
+
   getStationValue() {
     if (this.query.data) {
       return this.query.data;
     }
-    return ''
+    return '请选择'
   }
   private certainTime() {
     // 这里需要校验一下选择时间是否合法
@@ -137,7 +138,7 @@ export default class AddDesk extends Vue {
           showCancel: false,
           success(res) {
             // 清空预定时间
-            wx.redirectTo({ url: `../deskbook/main` });
+            _this.backToDesk();
           },
         });
       } else {
@@ -152,9 +153,7 @@ export default class AddDesk extends Vue {
   backToDesk() {
     wx.redirectTo({ url: `../deskbook/main` });
     // 清除预定的记录
-  }
-  get deskValue() {
-    return this.getStationValue();
+    this.deskBookDate =[];
   }
   get timeValue() {
     if (this.deskBookDate.length === 2) {
@@ -162,7 +161,7 @@ export default class AddDesk extends Vue {
       let end = Time.getFormatDateString(this.deskBookDate[1].day, '.');
       return `${start}-${end}`;
     }
-    return '';
+    return '请选择';
   }
   // onLoad(option: any) {
   //   this.query = option;
@@ -170,6 +169,9 @@ export default class AddDesk extends Vue {
   onShow() {
     console.log(this.$root.$mp.query);
     this.query = this.$root.$mp.query;
+    if (Object.keys(this.query).length === 0) {
+      this.query.data = '请选择';
+    }
   }
   setdeskBookDate(data: Array<DayObj>) {
     this.deskBookDate = data;

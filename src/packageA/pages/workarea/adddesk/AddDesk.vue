@@ -5,14 +5,12 @@
       <cell-item
         :cellData="cellTime"
         :value="timeValue"
-        @insertContent="insertContent"
-        @click="handleSelectTime"
+        @insertContent="handleSelectTime"
       />
       <cell-item
         :cellData="cellDesk"
-        :value="deskValue"
-        @insertContent="insertContent"
-        @click="handleSelectDesk"
+        :value="query.data"
+        @insertContent="handleSelectDesk"
       />
     </div>
     <div class="adddesk-show-calendar" v-if="showCalendar" @click.stop="cancelTime">

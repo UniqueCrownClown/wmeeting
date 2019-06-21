@@ -36,7 +36,7 @@ export default class DeskList extends Vue {
     } catch (err) {
       wx.showModal({
         title: '提示',
-        content: err
+        content: '请求异常'
       });;
       return;
     }
@@ -44,7 +44,7 @@ export default class DeskList extends Vue {
     if (status !== 200) {
       wx.showModal({
         title: '提示',
-        content: '服务器异常'
+        content: '请求异常'
       });
     } else {
       let _this = this;
@@ -101,8 +101,8 @@ export default class DeskList extends Vue {
     } catch (err) {
       wx.showModal({
         title: '提示',
-        content: err
-      });;
+        content: '请求异常'
+      });
       return;
     }
     // console.log(responseValue);
@@ -137,7 +137,7 @@ export default class DeskList extends Vue {
             if (status !== 200) {
               wx.showModal({
                 title: '提示',
-                content: '服务器异常'
+                content: '请求异常'
               });
             } else {
               let _this = this;
@@ -156,7 +156,7 @@ export default class DeskList extends Vue {
             console.log('fetch error:' + err);
             wx.showModal({
               title: '提示',
-              content: err
+              content: '请求异常'
             });;
           }
         },
