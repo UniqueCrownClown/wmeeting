@@ -3,10 +3,9 @@
     "pages/logon/login/main",
     "pages/main/main",
     "pages/logon/register/main",
-    "pages/home/main",
     "pages/index/main",
-    "pages/ble/main",
-    "pages/logs/main"
+    "pages/other/main",
+    "pages/mine/main"
   ],
   "subPackages": [{
     "root": "packageA",

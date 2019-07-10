@@ -14,7 +14,7 @@ export default class SuperMan extends Vue {
   private title: string = '超级开门码';
   headerOption = {
     lefttext: '返回',
-    lefticon: '',
+    lefticon: 'icon-leftarrow',
     righttext: '',
     righticon: '',
   };

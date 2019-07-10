@@ -54,7 +54,8 @@ export default class AddDesk extends Vue {
 
   getStationValue() {
     if (this.query.data) {
-      return this.query.data;
+      //截去'号工位'
+      return this.query.data.substring(0,1);
     }
     return '请选择'
   }
@@ -144,7 +145,7 @@ export default class AddDesk extends Vue {
       } else {
         wx.showModal({
           title: '提示',
-          content: data.msg,
+          content: data && data.msg,
           showCancel: false,
         });
       }
@@ -153,7 +154,7 @@ export default class AddDesk extends Vue {
   backToDesk() {
     wx.redirectTo({ url: `../deskbook/main` });
     // 清除预定的记录
-    this.deskBookDate =[];
+    this.deskBookDate = [];
   }
   get timeValue() {
     if (this.deskBookDate.length === 2) {

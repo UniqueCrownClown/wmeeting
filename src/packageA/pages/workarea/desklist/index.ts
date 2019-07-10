@@ -122,14 +122,23 @@ export default class DeskList extends Vue {
   deskBookAdd() {
     wx.redirectTo({ url: '../adddesk/main' });
   }
-  async handleClick(id: string, occupy: string) {
-    if (occupy === '0') {
+  async handleClick(id: string, occupy: number) {
+    //console.log(occupy);
+    if (occupy === 0) {
       wx.scanCode({
         onlyFromCamera: true,
         success: async (res: any) => {
+          console.log(res);
+          if (id !== res.result) {
+            wx.showModal({
+              title: '提示',
+              content: '请用有效时期记录扫码~~~'
+            });
+            return;
+          }
           try {
             let responseValue = await updateDeskState(
-              res.text,
+              res.result,
               this.user.staffNum,
             );
             console.log(responseValue);

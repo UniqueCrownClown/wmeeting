@@ -78,6 +78,14 @@ export default class SelectDesk extends Vue {
   }
   private handleComplate() {
     const data = this.getStationValue();
+    if(data === ''){
+      wx.showModal({
+        title: '提示',
+        content: '请先选择工位~~~',
+        showCancel: false,
+      });
+      return;
+    }
     wx.redirectTo({ url: `../adddesk/main?data=${data}` });
     this.deskBookSeatData.forEach(element => element.isActive = false);
   }
@@ -104,7 +112,7 @@ export default class SelectDesk extends Vue {
       return '';
     }
     let index = this.deskBookSeatData.indexOf(selectOne) + 1;
-    return index.toString();
+    return index.toString()+'号工位';
   }
   onShow() {
     console.log(this.$root.$mp.query);

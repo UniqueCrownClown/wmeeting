@@ -25,6 +25,13 @@ export default class XMain extends Vue {
   handleChange(e: any) {
     //e.mp.detail.key
     this.current = e.mp.detail.key;
+    if(this.current !== 'homepage'){
+      if(this.current === 'mine'){
+        wx.navigateTo({url:'../mine/main'});
+        return;
+      }
+      wx.navigateTo({url:'../other/main'});
+    }
   }
   leftevent() {
     console.log('left');

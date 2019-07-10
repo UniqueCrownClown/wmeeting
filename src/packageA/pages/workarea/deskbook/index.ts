@@ -33,7 +33,7 @@ export default class DeskBook extends Vue {
   }
 
   private changeLocation(position: string) {
-    this.tabIndex = 0;
+    this.handleTab(0);
     this.currentPosition = Number(position);
   }
 
