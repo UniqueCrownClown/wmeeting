@@ -1,11 +1,12 @@
 import XHeader from '@/components/xheader/XHeader.vue';
+import XTabBar from '@/components/tabBar/XTabBar.vue';
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 const meetModule = namespace('meeting');
 @Component({
   components: {
-    XHeader,
-  },
+    XHeader,XTabBar
+  }
 })
 export default class Mine extends Vue {
   private token: string = '';
@@ -18,7 +19,6 @@ export default class Mine extends Vue {
   };
   @meetModule.State('user') user!: IUser;
   private returnLogin() {
-    // 路由置回登陆界面，清除vuex
     wx.navigateBack();
   }
 }

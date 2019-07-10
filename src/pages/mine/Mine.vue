@@ -11,6 +11,7 @@
         姓名:{{user.username}}
       </div>
     </div>
+    <!-- <XTabBar/> -->
   </div>
 </template>
 <script lang="ts" src="./index.ts">

@@ -3,7 +3,6 @@ const debug = require('debug')('log:Comp/Calendar');
 
 @Component
 export default class Calendar extends Vue {
-  private apple: boolean = false;
   @Prop() private deskBookDate!: Array<DayObj>;
   private days: Array<DayObj> = [];
   private currentDay: number = 1;

@@ -6,6 +6,14 @@ import print from './modules/print'
 Vue.use(Vuex as any);
 
 const store = new Vuex.Store({
+  state: {
+    currentTab: 'homePage'
+  },
+  mutations: {
+    setCurrentTab: (state: any, payLoad: string) => {
+      state.currentTab = payLoad;
+    }
+  },
   modules: {
     meeting,
     workarea,

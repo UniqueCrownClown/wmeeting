@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "i-checkbox-group": "../../iview/checkbox-group/index",
-    "i-checkbox": "../../iview/checkbox/index"
+    "i-checkbox-group": "../../../static/iview/checkbox-group/index",
+    "i-checkbox": "../../../static/iview/checkbox/index"
 }
 }
