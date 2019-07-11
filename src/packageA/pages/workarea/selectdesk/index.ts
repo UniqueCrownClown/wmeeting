@@ -39,7 +39,14 @@ export default class SelectDesk extends Vue {
   };
   query: any;
   deskBookDate: undefined | Array<DayObj>;
-  async mounted() {
+  mounted() {
+    this.initQuery();
+  }
+  async initQuery() {
+    this.query = this.$root.$mp.query;
+    const data2 = JSON.parse(this.query.data);
+    this.deskBookDate = data2 && data2.data;
+
     if (this.deskBookDate === undefined || this.deskBookDate.length === 0) {
       wx.showModal({
         title: '提示',
@@ -49,21 +56,25 @@ export default class SelectDesk extends Vue {
           wx.redirectTo({ url: '../adddesk/main' });
         },
       });
-      return;
-    }
-    let start = Time.getFormatDateString(this.deskBookDate[0].day, '/');
-    let end = Time.getFormatDateString(this.deskBookDate[1].day, '/');
-    let responseValue = await getDeskState(start, end);
-    console.log(responseValue);
-    let { status, data } = responseValue;
-    if (status !== 200) {
-      wx.showModal({
-        title: '提示',
-        content: '请求异常',
-      });
     } else {
-      this.setunableBookSeatData(data);
+      const haha = this.deskBookDate;
+      //month+1
+      const haha_month = [(haha[0].month as any) + 1, (haha[1].month as any) + 1]
+      let start = `${haha[0].year}/${haha_month[0]}/${haha[0].date}`;
+      let end = `${haha[1].year}/${haha_month[1]}/${haha[1].date}`;
+      let responseValue = await getDeskState(start, end);
+      console.log(responseValue);
+      let { status, data } = responseValue;
+      if (status !== 200) {
+        wx.showModal({
+          title: '提示',
+          content: '请求异常',
+        });
+      } else {
+        this.setunableBookSeatData(data);
+      }
     }
+
   }
   private handleSelect(index: number) {
     if (this.deskBookSeatData[index].isAble === false) {
@@ -78,7 +89,7 @@ export default class SelectDesk extends Vue {
   }
   private handleComplate() {
     const data = this.getStationValue();
-    if(data === ''){
+    if (data === '') {
       wx.showModal({
         title: '提示',
         content: '请先选择工位~~~',
@@ -112,15 +123,6 @@ export default class SelectDesk extends Vue {
       return '';
     }
     let index = this.deskBookSeatData.indexOf(selectOne) + 1;
-    return index.toString()+'号工位';
-  }
-  onShow() {
-    console.log(this.$root.$mp.query);
-    this.query = this.$root.$mp.query;
-    const data = JSON.parse(this.query.data);
-    if (data) {
-      this.deskBookDate = data.data;
-    }
-
+    return index.toString() + '号工位';
   }
 }

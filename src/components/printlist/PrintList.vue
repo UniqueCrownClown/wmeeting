@@ -1,7 +1,7 @@
 <template>
   <ul class="print-list">
     <li v-for="(item, index) in items"
-        :key="index">
+        :key="item.unique">
       <i-swipeout :actions="actions"
                   @change="handleDelete(item.id)">
         <div slot="content"
@@ -18,28 +18,28 @@
             </div>
           </div>
         </div>
-        <div v-if="!item.isUploaded"
-             class="print-upload-mask">
-          <div class="upload-percent"
-               v-if="item.percent">
-            <div class="upload-outcircle">
-              <div class="upload-incircle"></div>
-            </div>
-            <span>{{ item.percent }}</span>
-          </div>
-          <div class="upload-fail"
-               v-else>
-            <i class="iconfont icon-am-error"></i>
-            <span>上传失败</span>
-            <button class="reupload-btn"
-                    @click="fileReupload(item.name)">
-              重新上传
-            </button>
-          </div>
-          <i class="iconfont icon-del"
-             @click="fileUploadCancel(item.name)"></i>
-        </div>
       </i-swipeout>
+      <div v-if="!item.isUploaded"
+           class="print-upload-mask">
+        <div class="upload-percent"
+             v-if="item.percent">
+          <div class="upload-outcircle">
+            <div class="upload-incircle"></div>
+          </div>
+          <span>{{ item.percent }}</span>
+        </div>
+        <div class="upload-fail"
+             v-else>
+          <i class="iconfont icon-am-error"></i>
+          <span>上传失败</span>
+          <button class="reupload-btn"
+                  @click="fileReupload(item.name)">
+            重新上传
+          </button>
+        </div>
+        <i class="iconfont icon-del"
+           @click="fileUploadCancel(item.name)"></i>
+      </div>
     </li>
   </ul>
 </template>
@@ -59,7 +59,7 @@ ul.print-list {
       display: flex;
       align-items: center;
       div.filetype {
-        padding: 24rpx 40rpx;
+        padding: 20rpx 32rpx;
 
         img {
           width: 62rpx;

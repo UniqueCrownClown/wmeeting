@@ -46,9 +46,10 @@ interface DetailMeet {
 }
 
 declare interface IFileMessage {
+  unique:string;//刷新的唯一键值= name+percent
   id?: string;
   name: string;
-  size: number;
+  size: number | string;
   time: string;
   token?: string;
   isUploaded?: boolean;

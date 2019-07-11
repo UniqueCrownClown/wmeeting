@@ -1,9 +1,9 @@
 import { Component, Vue } from 'vue-property-decorator';
 import VerticalBox from '@/components/verticalbox/VerticalBox.vue';
 import XHeader from '@/components/xheader/XHeader.vue';
-import ActionSheet from "@/components/actionsheet/ActionSheet.vue"
+import ActionSheet from "@/components/actionsheet/ActionSheet.vue";
 import { namespace } from 'vuex-class';
-import { staticImage } from '@/api'
+import { staticImage } from '@/api';
 const meetModule = namespace('meeting');
 @Component({
   components: {
@@ -13,6 +13,7 @@ const meetModule = namespace('meeting');
   },
 })
 export default class XMain extends Vue {
+  @meetModule.State('user') user!: IUser;
   @meetModule.Mutation('setuser') setUser!: (params: IUser) => void;
   private title: string = '首页';
   private headerOption = {
@@ -25,13 +26,6 @@ export default class XMain extends Vue {
   handleChange(e: any) {
     //e.mp.detail.key
     this.current = e.mp.detail.key;
-    if(this.current !== 'homepage'){
-      if(this.current === 'mine'){
-        wx.navigateTo({url:'../mine/main'});
-        return;
-      }
-      wx.navigateTo({url:'../other/main'});
-    }
   }
   leftevent() {
     console.log('left');
@@ -89,4 +83,13 @@ export default class XMain extends Vue {
     this.isShow = value;
   }
   /**ActionSheet部分 **/
+  get showHomePage() {
+    return this.current === 'homepage'
+  }
+  get showMine() {
+    return this.current === 'mine'
+  }
+  get showOther() {
+    return this.current !== 'homepage' && this.current !== 'mine'
+  }
 }

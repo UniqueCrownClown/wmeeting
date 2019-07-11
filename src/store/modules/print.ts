@@ -1,11 +1,11 @@
 import { SwiperListItem } from "@/components/swiperList";
 
-const state = {
+const state:PrintStates = {
   waitingFiles: [],
   currentSceneData: {}
 };
 const mutations = {
-  setWaitingFiles: (state: any, data: any) => {
+  setWaitingFiles: (state: any, data: Array<IWaitFile>) => {
     state.waitingFiles = data;
   },
   setCurrentSceneData: (state: any, data: SwiperListItem) => {

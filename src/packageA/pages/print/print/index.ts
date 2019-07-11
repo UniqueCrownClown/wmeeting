@@ -17,9 +17,9 @@ const printModule = namespace('print');
 export default class Print extends Vue {
   @meetModule.State('user') user!: IUser;
   @printModule.State('currentSceneData') currentSceneData!: SwiperListItem;
-  @printModule.State('waitingFiles') waitingFiles!: Array<any>;
+  @printModule.State('waitingFiles') waitingFiles!: Array<IWaitFile>;
   @printModule.Mutation('setWaitingFiles') setWaitingFiles!: (
-    payload: Array<any>
+    payload: Array<IWaitFile>
   ) => void;
   private uploadTask: any = null;
   private headerOption = {
@@ -44,13 +44,14 @@ export default class Print extends Vue {
     return this.currentSceneData;
   }
   private showDetail() {
+    const sceneData = this.sceneData;
     //查询,然后传递
     const transform: any = {
-      id: this.sceneData.id,
-      time: this.sceneData.time,
-      name: this.sceneData.name,
-      size: this.sceneData.fileCount,
-      token: this.sceneData.token
+      id: sceneData.id,
+      time: sceneData.time,
+      name: sceneData.name,
+      size: sceneData.fileCount,
+      token: sceneData.token
     };
     const data = JSON.stringify(transform);
     wx.navigateTo({
@@ -75,6 +76,7 @@ export default class Print extends Vue {
       type: 'all',
       async success(res: any) {
         const { tempFiles } = res;
+        console.log(tempFiles);
         //过滤掉不是能打印的文件格式的文件
         const type = ['list-word', 'list-ppt', 'list-pdf', 'list-txt', 'list-photo', 'list-xlsx'];
         const haha = tempFiles.filter((element: any) => type.includes(getImgType(element.name, false)));
@@ -87,6 +89,7 @@ export default class Print extends Vue {
         //上传之前先展现
         _this.waitingFiles.forEach((element: any) => {
           _this.fileItems.push({
+            unique: element.name + '0',
             name: element.name,
             time: 'size',
             size: element.size,
@@ -97,6 +100,7 @@ export default class Print extends Vue {
         for (let element of tempFiles) {
           _this.uploadTask = await _this.fileUpload(element)
         }
+        //确认是否waitFile栈为空??不是的话有文件下载失败
 
         // this.uploadTask = wx.uploadFile({
         //   url: getUploadUrl,
@@ -139,6 +143,9 @@ export default class Print extends Vue {
           _this.waitingFiles.filter(element => element !== tFile)
         );
         _this.queryData(_this.sceneData.id);
+      },
+      fail() {
+        wx.showToast({ title: '上传失败~~~' })
       }
     });
     xxx.onProgressUpdate((res) => {
@@ -152,16 +159,34 @@ export default class Print extends Vue {
         element => element.name === tFile.name
       );
       sha.percent = res.progress;
+      sha.unique = sha.name + res.progress;
       Vue.set(this.fileItems, index, sha);
     });
     return xxx;
   }
-  private fileReupload() {
+  private fileReupload(fileName: string) {
     //重新开始下载文件
+    //从waitFiles里面取文件下载
+    const tempFile = this.waitingFiles.find(element => element.name === fileName);
+    this.fileUpload(tempFile as any);
   }
 
-  private fileUploadCancel() {
-    this.uploadTask.abort() // 取消上传任务
+  private fileUploadCancel(name: string) {
+    let own = this;
+    wx.showModal({
+      title: '提示',
+      content: `取消文件${name}的上传??`,
+      success: (res) => {
+        if (res.confirm) {
+          // 取消上传任务
+          this.uploadTask.abort();
+          const haha = this.waitingFiles.filter(element => element.name !== name);
+          this.setWaitingFiles(haha);
+          const index = this.fileItems.findIndex(element => element.name != name);
+          this.fileItems.splice(index, 1);
+        }
+      },
+    })
   }
 
 
@@ -195,6 +220,7 @@ export default class Print extends Vue {
         this.fileItems = [];
         data.forEach(element => {
           this.fileItems.push({
+            unique: element.fileName + '100',
             id: element.id,
             name: element.fileName,
             time: element.uploadTime,
@@ -210,6 +236,7 @@ export default class Print extends Vue {
     if (this.waitingFiles.length !== 0) {
       this.waitingFiles.forEach((element: any) => {
         this.fileItems.push({
+          unique: element.name + '0',
           name: element.name,
           time: 'size',
           size: element.size,
@@ -230,7 +257,10 @@ export default class Print extends Vue {
       value: value,
       queryFn: this.queryData
     };
-    deleteWrap(params);
+    const haha = deleteWrap(params);
+    if (haha === 'fail') {
+      wx.showToast({ title: '删除失败' })
+    }
   }
 
 }

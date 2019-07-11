@@ -57,4 +57,15 @@ interface IPosition {
 interface WorkAreaState {
   position: IPosition
 }
+interface IWaitFile {
+  name: string,
+  size: number,
+  path: string,
+  time: number,
+  type: string
+}
+interface PrintStates {
+  waitingFiles: Array<IWaitFile>,
+  currentSceneData: any
+}
 

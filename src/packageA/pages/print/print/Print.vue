@@ -38,6 +38,7 @@
   background-color: #e9e9e9;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   .print-swiper-tips {
     width: 100%;
     background-color: #dff2ff;
@@ -49,7 +50,7 @@
     }
     .print-swiper-tips-text {
       color: #366bfd;
-      flex:1;
+      flex: 1;
       text-align: center;
       font-size: 32rpx;
     }
@@ -96,6 +97,9 @@
         float: right;
       }
     }
+  }
+  .print-swiper-list {
+    height: calc(100%-224rpx);
   }
 }
 </style>

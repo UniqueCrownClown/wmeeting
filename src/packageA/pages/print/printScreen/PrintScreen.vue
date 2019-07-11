@@ -39,19 +39,27 @@
   background-color: #e9e9e9;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   .print-create-screen {
     background-color: #f5f5f5;
     height: 0;
     opacity: 0;
     transition: all 1s;
     input {
-      border-bottom: 1px solid #aaaaaa;
-      border-color: #366bfd;
+      background-color: #ffffff;
+      border: none;
+      border-radius: 8rpx;
+      outline: none;
+      font-family: PingFangSC-Regular;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 3rpx;
+      color: #a6a6a6;
       font-size: 18px;
-      color: #888888;
       width: 80%;
       margin: 20rpx 10%;
       text-align: center;
+      height: 64rpx;
     }
     div.screen-btn-list {
       display: flex;
@@ -109,6 +117,9 @@
         float: right;
       }
     }
+  }
+  .print-swiper-list {
+    height: calc(100%-244rpx);
   }
 }
 </style>

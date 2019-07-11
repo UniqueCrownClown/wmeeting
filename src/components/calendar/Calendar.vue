@@ -138,7 +138,7 @@
       color: #000;
     }
     &.isSelect {
-      background-color: #00aeff;
+      background-color: #1978fe;
       span {
         color: #ffffff;
       }

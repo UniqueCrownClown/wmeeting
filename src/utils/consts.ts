@@ -51,26 +51,30 @@ export const compose = (...fns: Array<IComposeFn>) => {
 }
 
 const deleteQuery = async (xxparms: XXParms) => {
-  const responseValue = await xxparms.delFn(xxparms.value);
-  const { status, data } = responseValue;
-  if (status !== 200) {
-    wx.showModal({
-      title: '提示',
-      content: '服务器异常'
-    });
-  } else {
-    if (data === 'success' || data.status === 'success') {
-      return xxparms.queryFn();
+  try {
+    const responseValue = await xxparms.delFn(xxparms.value);
+    const { status, data } = responseValue;
+    if (status !== 200) {
+      wx.showModal({
+        title: '提示',
+        content: '服务器异常'
+      });
+    } else {
+      if (data === 'success' || data.status === 'success') {
+        return xxparms.queryFn();
+      }
     }
+  } catch{
+    return 'fail'
   }
-  return false
+  return 'fail'
 }
 export declare interface XXParms {
   value: string,
   delFn: (value: string) => any,
   queryFn: (queryParm?: string) => any
 }
-export const deleteWrap = (xxparms: XXParms): void => {
+export const deleteWrap = (xxparms: XXParms): string => {
   wx.showModal({
     title: '删除提示',
     content: '残忍删除该记录？',
@@ -79,5 +83,9 @@ export const deleteWrap = (xxparms: XXParms): void => {
         return deleteQuery(xxparms)
       }
     },
+    fail() {
+      console.log('弹窗失败');
+    }
   });
+  return 'fail'
 }

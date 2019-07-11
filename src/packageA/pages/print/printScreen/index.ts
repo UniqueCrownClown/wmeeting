@@ -39,7 +39,7 @@ export default class Print extends Vue {
   handleInto(value: string) {
     const xxx: any = this.fileItems.find(element => element.id === value);
     this.setCurrentSceneData(xxx);
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../print/main'
     });
   }
